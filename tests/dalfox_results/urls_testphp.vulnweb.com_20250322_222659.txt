@@ -1,0 +1,4 @@
+http://testphp.vulnweb.com/search.php?test=query
+http://testphp.vulnweb.com/redir.php?r=http://example.com
+http://testphp.vulnweb.com/showimage.php?file=
+http://testphp.vulnweb.com/artists.php?artist=1

