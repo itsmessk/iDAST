@@ -1,35 +1,22 @@
 import os
+from dotenv import load_dotenv
 
-# Simple function to load environment variables from .env file
-def load_env_from_file():
-    """Load environment variables from .env file if it exists"""
-    try:
-        if os.path.exists('.env'):
-            with open('.env', 'r') as f:
-                for line in f:
-                    line = line.strip()
-                    if line and not line.startswith('#'):
-                        key, value = line.split('=', 1)
-                        os.environ[key.strip()] = value.strip()
-    except Exception as e:
-        print(f"Warning: Could not load .env file: {e}")
+# Load environment variables from .env file
+load_dotenv()
 
-# Try to load environment variables from .env file
-load_env_from_file()
-
-class Config:
-    """Configuration settings for the application."""
+class BaseConfig:
+    """Base configuration settings for the application."""
     
     # MongoDB Configuration
-    MONGO_URI = os.getenv('MONGO_URI', 'mongodb+srv://infoziantappwrite:infoziant%4002@cluster0.kt0ru.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
-    MONGO_DB_NAME = os.getenv('MONGO_DB_NAME', 'test')
+    MONGO_URI = os.getenv('MONGO_URI', 'mongodb://localhost:27017')
+    MONGO_DB_NAME = os.getenv('MONGO_DB_NAME', 'secpro')
     MONGO_SCAN_COLLECTION = os.getenv('MONGO_SCAN_COLLECTION', 'scan')
     MONGO_USER_COLLECTION = os.getenv('MONGO_USER_COLLECTION', 'users')
     
     # API Configuration
-    API_PORT = int(os.getenv('API_PORT', 5000))
+    API_PORT = int(os.getenv('PORT', 3000))
     API_HOST = os.getenv('API_HOST', '0.0.0.0')
-    DEBUG_MODE = os.getenv('DEBUG_MODE', 'False').lower() == 'true'
+    DEBUG_MODE = False
     
     # Scanning Configuration
     SCAN_TIMEOUT = int(os.getenv('SCAN_TIMEOUT', 300))  # Default timeout in seconds
@@ -39,28 +26,68 @@ class Config:
     # Logging Configuration
     LOG_LEVEL = os.getenv('LOG_LEVEL', 'INFO')
     LOG_FORMAT = os.getenv('LOG_FORMAT', '%(asctime)s - %(levelname)s - %(name)s - %(message)s')
-    LOG_FILE = os.getenv('LOG_FILE', 'security_api.log')
+    LOG_FILE = os.getenv('LOG_FILE', 'logs/security_api.log')
     
     # Scanner-specific Configuration
     SQLMAP_ARGS = os.getenv('SQLMAP_ARGS', '--batch --random-agent')
     DALFOX_ARGS = os.getenv('DALFOX_ARGS', '--silence --skip-bav')
     
     # Security Configuration
-    ENABLE_AUTH = os.getenv('ENABLE_AUTH', 'True').lower() == 'true'
+    ENABLE_AUTH = True
+    SECRET_KEY = os.getenv('SECRET_KEY', os.urandom(24).hex())
     
     # Performance Configuration
-    REQUEST_TIMEOUT = int(os.getenv('REQUEST_TIMEOUT', 10))
-    MAX_CONNECTIONS = int(os.getenv('MAX_CONNECTIONS', 100))
-    NUM_WORKERS = int(os.getenv('NUM_WORKERS', 4))
+    WORKER_PROCESSES = int(os.getenv('WORKER_PROCESSES', 4))
+    WORKER_THREADS = int(os.getenv('WORKER_THREADS', 2))
+    REQUEST_TIMEOUT = int(os.getenv('REQUEST_TIMEOUT', 120))
     
-    # Feature Flags
-    ENABLE_NMAP = os.getenv('ENABLE_NMAP', 'True').lower() == 'true'
-    ENABLE_SUBDOMAIN_SCAN = os.getenv('ENABLE_SUBDOMAIN_SCAN', 'True').lower() == 'true'
-    ENABLE_VULNERABILITY_SCAN = os.getenv('ENABLE_VULNERABILITY_SCAN', 'True').lower() == 'true'
-    
-    # Timezone Configuration
-    SERVER_TIMEZONE = os.getenv('SERVER_TIMEZONE', 'US/Pacific')
-    OUTPUT_TIMEZONE = os.getenv('OUTPUT_TIMEZONE', 'Asia/Kolkata')
+    # Rate Limiting
+    RATE_LIMIT_ENABLED = True
+    RATE_LIMIT_PER_MINUTE = int(os.getenv('RATE_LIMIT_PER_MINUTE', 60))
 
-# Create configuration instance
-config = Config()
+
+class DevelopmentConfig(BaseConfig):
+    """Development configuration settings."""
+    DEBUG_MODE = True
+    ENABLE_AUTH = os.getenv('ENABLE_AUTH', 'True').lower() == 'true'
+    RATE_LIMIT_ENABLED = False
+
+
+class TestingConfig(BaseConfig):
+    """Testing configuration settings."""
+    DEBUG_MODE = True
+    MONGO_DB_NAME = 'secpro_test'
+    RESULTS_DIR = 'tests/scan_results'
+    LOG_FILE = 'tests/logs/security_api.log'
+    ENABLE_AUTH = False
+    RATE_LIMIT_ENABLED = False
+
+
+class ProductionConfig(BaseConfig):
+    """Production configuration settings."""
+    # Ensure all security features are enabled
+    DEBUG_MODE = False
+    ENABLE_AUTH = True
+    
+    # More conservative resource usage
+    MAX_CONCURRENT_SCANS = int(os.getenv('MAX_CONCURRENT_SCANS', 5))
+    
+    # Stricter rate limiting
+    RATE_LIMIT_ENABLED = True
+    RATE_LIMIT_PER_MINUTE = int(os.getenv('RATE_LIMIT_PER_MINUTE', 30))
+    
+    # Ensure secret key is set
+    def __init__(self):
+        if os.getenv('SECRET_KEY') is None:
+            raise ValueError("SECRET_KEY environment variable must be set in production")
+
+
+# Determine which configuration to use based on environment
+env = os.getenv('FLASK_ENV', 'production').lower()
+
+if env == 'development':
+    config = DevelopmentConfig()
+elif env == 'testing':
+    config = TestingConfig()
+else:
+    config = ProductionConfig()

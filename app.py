@@ -119,21 +119,16 @@ class VulnerabilityScanner:
             # Process SQL injection results
             sql_vulnerabilities = []
             if not isinstance(sql_results, Exception) and sql_results:
-                for url, result in sql_results.items():
-                    if result.get("vulnerable", False):
-                        sql_vulnerabilities.append({
-                            "url": url,
-                            "injection_point": result.get("injection_point", ""),
-                            "payload": result.get("payload", ""),
-                            "database_type": result.get("database_type", ""),
-                            "detection_time": format_timestamp(),
-                            "severity": "high",
-                            "recommendations": [
-                                "Use parameterized queries or prepared statements",
-                                "Implement input validation",
-                                "Apply principle of least privilege for database users"
-                            ]
-                        })
+                for vuln in sql_results:
+                    sql_vulnerabilities.append({
+                        "url": vuln.get('url', ''),
+                        "injection_point": vuln.get('parameter', ''),
+                        "payload": vuln.get('payload', ''),
+                        "database_type": vuln.get('details', {}).get('dbms', ''),
+                        "detection_time": vuln.get('detection_time', format_timestamp()),
+                        "severity": vuln.get('severity', 'high'),
+                        "recommendations": vuln.get('recommendations', [])
+                    })
                 vulnerability_results["scan_summary"]["completed_scans"].append("sql_injection")
             else:
                 if isinstance(sql_results, Exception):
@@ -145,6 +140,31 @@ class VulnerabilityScanner:
             
             # Process Dalfox results
             if not isinstance(dalfox_results, Exception) and dalfox_results:
+                # Process XSS vulnerabilities
+                xss_vulns = []
+                for vuln in dalfox_results:
+                    if vuln.get('type') == 'XSS':
+                        xss_vulns.append({
+                            "url": vuln.get('url', ''),
+                            "parameter": vuln.get('parameter', ''),
+                            "payload": vuln.get('payload', ''),
+                            "proof": vuln.get('proof', ''),
+                            "detection_time": vuln.get('detection_time', format_timestamp()),
+                            "severity": vuln.get('severity', 'high'),
+                            "recommendations": vuln.get('recommendations', [])
+                        })
+                
+                if xss_vulns:
+                    vulnerability_results["data"]["xss"] = {
+                        "status": "Vulnerable",
+                        "severity": "high",
+                        "details": {
+                            "vulnerable_urls": xss_vulns,
+                            "count": len(xss_vulns)
+                        }
+                    }
+                    vulnerability_results["vulnerable"] = True
+                
                 vulnerability_results["scan_summary"]["completed_scans"].append("xss")
                 vulnerability_results["scan_summary"]["completed_scans"].append("open_redirect")
             else:
@@ -158,17 +178,16 @@ class VulnerabilityScanner:
             # Process CSRF results
             csrf_vulnerabilities = []
             if not isinstance(csrf_results, Exception) and csrf_results:
-                for form_url, form_results in csrf_results.items():
-                    if form_results.get("is_vulnerable", False):
-                        csrf_vulnerabilities.append({
-                            "url": form_url,
-                            "form_action": form_results.get("action", ""),
-                            "form_method": form_results.get("method", ""),
-                            "missing_protections": form_results.get("missing_protections", []),
-                            "detection_time": format_timestamp(),
-                            "severity": form_results.get("risk_level", "medium"),
-                            "recommendations": form_results.get("recommendations", [])
-                        })
+                for vuln in csrf_results:
+                    csrf_vulnerabilities.append({
+                        "url": vuln.get('url', ''),
+                        "form_action": vuln.get('parameter', ''),
+                        "form_method": vuln.get('proof', {}).get('form_method', ''),
+                        "missing_protections": vuln.get('proof', {}).get('missing_protections', []),
+                        "detection_time": vuln.get('detection_time', format_timestamp()),
+                        "severity": vuln.get('severity', 'medium'),
+                        "recommendations": vuln.get('recommendations', [])
+                    })
                 vulnerability_results["scan_summary"]["completed_scans"].append("csrf")
             else:
                 if isinstance(csrf_results, Exception):
@@ -181,17 +200,16 @@ class VulnerabilityScanner:
             # Process SSRF results
             ssrf_vulnerabilities = []
             if not isinstance(ssrf_results, Exception) and ssrf_results:
-                for endpoint in ssrf_results:
-                    if endpoint.get("is_vulnerable", False):
-                        ssrf_vulnerabilities.append({
-                            "url": endpoint.get("url", ""),
-                            "parameter": endpoint.get("parameter", ""),
-                            "original_value": endpoint.get("original_value", ""),
-                            "test_results": endpoint.get("test_results", []),
-                            "detection_time": format_timestamp(),
-                            "severity": endpoint.get("risk_level", "high"),
-                            "recommendations": endpoint.get("recommendations", [])
-                        })
+                for vuln in ssrf_results:
+                    ssrf_vulnerabilities.append({
+                        "url": vuln.get('url', ''),
+                        "parameter": vuln.get('parameter', ''),
+                        "original_value": vuln.get('proof', {}).get('original_value', ''),
+                        "test_results": vuln.get('proof', {}).get('test_results', []),
+                        "detection_time": vuln.get('detection_time', format_timestamp()),
+                        "severity": vuln.get('severity', 'high'),
+                        "recommendations": vuln.get('recommendations', [])
+                    })
                 vulnerability_results["scan_summary"]["completed_scans"].append("ssrf")
             else:
                 if isinstance(ssrf_results, Exception):
@@ -312,9 +330,7 @@ class VulnerabilityScanner:
         """
         try:
             logger.info(f"Starting Dalfox scan on {len(urls)} URLs")
-            # Extract domain from the first URL for Dalfox scanner
-            domain = extract_domain_from_url(urls[0]) if urls else "unknown_domain"
-            return await self.dalfox_scanner.scan_urls(urls, domain)
+            return await self.dalfox_scanner.scan_urls(urls)
         except Exception as e:
             logger.error(f"Error in Dalfox scan: {e}")
             raise
@@ -331,7 +347,9 @@ class VulnerabilityScanner:
         """
         try:
             logger.info(f"Starting CSRF scan on {domain}")
-            return await self.csrf_scanner.scan(domain)
+            # Convert domain to a list of URLs for the updated scanner
+            urls = [ensure_url_has_protocol(domain)]
+            return await self.csrf_scanner.scan_urls(urls, domain)
         except Exception as e:
             logger.error(f"Error in CSRF scan: {e}")
             raise

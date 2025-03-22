@@ -932,3 +932,1046 @@ Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar1.pan
 Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=www.panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
 
 2025-03-22 21:58:42,641 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:04:04,090 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 23:04:04,222 - INFO - security_api.database - Connecting to MongoDB...
+2025-03-22 23:04:08,947 - INFO - security_api.database - Successfully connected to MongoDB
+2025-03-22 23:04:10,046 - INFO - security_api.app - VulnerabilityScanner initialized
+2025-03-22 23:04:10,049 - security_api.app - INFO - Starting Security Scanner API...
+2025-03-22 23:04:10,049 - INFO - security_api.app - Starting Security Scanner API...
+2025-03-22 23:04:11,144 - INFO - werkzeug - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:3000
+ * Running on http://192.168.1.8:3000
+2025-03-22 23:04:11,145 - INFO - werkzeug - [33mPress CTRL+C to quit[0m
+2025-03-22 23:04:24,945 - security_api.app - INFO - Starting full scan for panimalar.ac.in (User: 67ac3eb60023dce04ca7, Target: 67c05007dedd28b1489cbd0d)
+2025-03-22 23:04:24,945 - INFO - security_api.app - Starting full scan for panimalar.ac.in (User: 67ac3eb60023dce04ca7, Target: 67c05007dedd28b1489cbd0d)
+2025-03-22 23:04:25,202 - security_api.app - INFO - Target ID 67c05007dedd28b1489cbd0d already exists, will update results
+2025-03-22 23:04:25,202 - INFO - security_api.app - Target ID 67c05007dedd28b1489cbd0d already exists, will update results
+2025-03-22 23:04:25,205 - INFO - security_api.subdomain_scanner - Finding subdomains for panimalar.ac.in using subfinder and assetfinder...
+2025-03-22 23:04:25,206 - INFO - security_api.subdomain_scanner - Running command: subfinder -d panimalar.ac.in
+2025-03-22 23:04:25,238 - INFO - security_api.subdomain_scanner - Running command: assetfinder --subs-only panimalar.ac.in
+2025-03-22 23:04:56,759 - WARNING - security_api.subdomain_scanner - Command stderr: 
+               __    _____           __         
+   _______  __/ /_  / __(_)___  ____/ /__  _____
+  / ___/ / / / __ \/ /_/ / __ \/ __  / _ \/ ___/
+ (__  ) /_/ / /_/ / __/ / / / / /_/ /  __/ /    
+/____/\__,_/_.___/_/ /_/_/ /_/\__,_/\___/_/
+
+		projectdiscovery.io
+
+[[34mINF[0m] Current subfinder version v2.6.6 ([91moutdated[0m)
+[[34mINF[0m] Loading provider config from C:\Users\ssund\AppData\Roaming\subfinder\provider-config.yaml
+[[34mINF[0m] Enumerating subdomains for panimalar.ac.in
+[[34mINF[0m] Found 30 subdomains for panimalar.ac.in in 30 seconds 12 milliseconds
+
+2025-03-22 23:04:56,762 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 30 lines
+2025-03-22 23:05:26,520 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 65 lines
+2025-03-22 23:05:26,521 - INFO - security_api.subdomain_scanner - Found 30 unique subdomains
+2025-03-22 23:05:26,521 - security_api.app - INFO - Found 30 subdomains for panimalar.ac.in
+2025-03-22 23:05:26,521 - INFO - security_api.app - Found 30 subdomains for panimalar.ac.in
+2025-03-22 23:05:26,522 - INFO - security_api.subdomain_scanner - Checking HTTP status for 30 subdomains...
+2025-03-22 23:05:27,895 - INFO - httpx - HTTP Request: GET http://panimalar.ac.in "HTTP/1.1 302 Found"
+2025-03-22 23:05:27,912 - INFO - httpx - HTTP Request: GET http://coe.panimalar.ac.in "HTTP/1.1 301 Moved Permanently"
+2025-03-22 23:05:27,981 - INFO - httpx - HTTP Request: GET https://coe.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:05:28,065 - INFO - httpx - HTTP Request: GET http://www.coe.panimalar.ac.in "HTTP/1.1 301 Moved Permanently"
+2025-03-22 23:05:28,075 - INFO - httpx - HTTP Request: GET http://www.panimalar.ac.in "HTTP/1.1 302 Found"
+2025-03-22 23:05:28,148 - INFO - httpx - HTTP Request: GET http://webmail.coe.panimalar.ac.in "HTTP/1.1 301 Moved"
+2025-03-22 23:05:28,151 - INFO - httpx - HTTP Request: GET https://panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:05:28,264 - INFO - httpx - HTTP Request: GET http://mail.coe.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:05:28,268 - INFO - httpx - HTTP Request: GET http://cpcontacts.panimalar.ac.in "HTTP/1.1 302 Moved"
+2025-03-22 23:05:28,272 - INFO - httpx - HTTP Request: GET https://cpcontacts.panimalar.ac.in "HTTP/1.1 401 Unauthorized"
+2025-03-22 23:05:28,294 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:05:28,333 - INFO - httpx - HTTP Request: GET http://panimalar.panimalar.ac.in "HTTP/1.1 302 Found"
+2025-03-22 23:05:28,388 - INFO - httpx - HTTP Request: GET http://webmail.panimalar.ac.in "HTTP/1.1 301 Moved"
+2025-03-22 23:05:28,405 - INFO - httpx - HTTP Request: GET http://cpanel.coe.panimalar.ac.in "HTTP/1.1 301 Moved"
+2025-03-22 23:05:28,454 - INFO - httpx - HTTP Request: GET http://cpcalendars.panimalar.ac.in "HTTP/1.1 302 Moved"
+2025-03-22 23:05:28,455 - INFO - httpx - HTTP Request: GET https://panimalar.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:05:28,531 - INFO - httpx - HTTP Request: GET https://webmail.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:05:28,532 - INFO - httpx - HTTP Request: GET http://mail.alumni.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:05:28,546 - INFO - httpx - HTTP Request: GET https://coe.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:05:28,565 - INFO - httpx - HTTP Request: GET https://coe.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:05:28,611 - INFO - httpx - HTTP Request: GET https://cpcalendars.panimalar.ac.in "HTTP/1.1 401 Unauthorized"
+2025-03-22 23:05:28,667 - INFO - httpx - HTTP Request: GET http://www.panimalar.panimalar.ac.in "HTTP/1.1 302 Found"
+2025-03-22 23:05:28,777 - INFO - httpx - HTTP Request: GET https://mail.alumni.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:05:28,789 - INFO - httpx - HTTP Request: GET http://mail.panimalar.ac.in "HTTP/1.1 302 Found"
+2025-03-22 23:05:28,827 - INFO - httpx - HTTP Request: GET https://www.panimalar.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:05:28,835 - INFO - httpx - HTTP Request: GET http://webdisk.panimalar.ac.in "HTTP/1.1 302 Moved"
+2025-03-22 23:05:28,857 - INFO - httpx - HTTP Request: GET https://webdisk.panimalar.ac.in "HTTP/1.1 401 Unauthorized"
+2025-03-22 23:05:28,879 - INFO - httpx - HTTP Request: GET http://panimalar1.panimalar.ac.in "HTTP/1.1 302 Found"
+2025-03-22 23:05:28,953 - INFO - httpx - HTTP Request: GET https://mail.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:05:28,957 - INFO - httpx - HTTP Request: GET http://alumni.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:05:28,983 - INFO - httpx - HTTP Request: GET http://cpanel.panimalar.ac.in "HTTP/1.1 301 Moved"
+2025-03-22 23:05:28,995 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in/panimalar.edu.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:05:29,014 - INFO - httpx - HTTP Request: GET http://www.panimalar1.panimalar.ac.in "HTTP/1.1 302 Found"
+2025-03-22 23:05:29,019 - INFO - httpx - HTTP Request: GET http://www.alumni.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:05:29,062 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:05:29,108 - INFO - httpx - HTTP Request: GET https://alumni.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:05:29,123 - INFO - httpx - HTTP Request: GET http://cpanel.alumni.panimalar.ac.in "HTTP/1.1 301 Moved"
+2025-03-22 23:05:29,196 - INFO - httpx - HTTP Request: GET https://cpcontacts.panimalar.ac.in/ "HTTP/1.1 401 Unauthorized"
+2025-03-22 23:05:29,205 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:05:29,213 - INFO - httpx - HTTP Request: GET https://www.alumni.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:05:29,229 - INFO - httpx - HTTP Request: GET https://panimalar1.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:05:29,239 - INFO - httpx - HTTP Request: GET https://webmail.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:05:29,271 - INFO - httpx - HTTP Request: GET https://cpcalendars.panimalar.ac.in/ "HTTP/1.1 401 Unauthorized"
+2025-03-22 23:05:29,316 - INFO - httpx - HTTP Request: GET https://www.panimalar1.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:05:29,346 - INFO - httpx - HTTP Request: GET https://cpanel.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:05:29,365 - INFO - httpx - HTTP Request: GET https://cpanel.alumni.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:05:29,769 - INFO - httpx - HTTP Request: GET https://cpanel.alumni.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:05:30,013 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in/panimalar.edu.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:05:30,076 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:05:31,040 - INFO - httpx - HTTP Request: GET https://webdisk.panimalar.ac.in/ "HTTP/1.1 401 Unauthorized"
+2025-03-22 23:05:31,065 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in/panimalar.res.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:05:31,119 - INFO - httpx - HTTP Request: GET https://cpanel.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:05:32,058 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in/panimalar.res.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:05:32,060 - INFO - security_api.subdomain_scanner - Found 30 active subdomains
+2025-03-22 23:05:32,061 - security_api.app - INFO - Validated 30 active subdomains
+2025-03-22 23:05:32,061 - INFO - security_api.app - Validated 30 active subdomains
+2025-03-22 23:05:32,067 - INFO - security_api.subdomain_scanner - Fetching URLs from Wayback and Paramspider for 30 subdomains...
+2025-03-22 23:05:32,068 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.panimalar.ac.in
+2025-03-22 23:05:32,084 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.panimalar.ac.in
+2025-03-22 23:05:32,098 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.coe.panimalar.ac.in
+2025-03-22 23:05:32,113 - INFO - security_api.subdomain_scanner - Running command: waybackurls panimalar.ac.in
+2025-03-22 23:05:32,129 - INFO - security_api.subdomain_scanner - Running command: waybackurls panimalar.ac.in
+2025-03-22 23:05:32,149 - INFO - security_api.subdomain_scanner - Running command: waybackurls coe.panimalar.ac.in
+2025-03-22 23:05:32,163 - INFO - security_api.subdomain_scanner - Running command: waybackurls coe.panimalar.ac.in
+2025-03-22 23:05:32,182 - INFO - security_api.subdomain_scanner - Running command: waybackurls panimalar.panimalar.ac.in
+2025-03-22 23:05:32,208 - INFO - security_api.subdomain_scanner - Running command: waybackurls panimalar.panimalar.ac.in
+2025-03-22 23:05:32,244 - INFO - security_api.subdomain_scanner - Running command: waybackurls webmail.panimalar.ac.in
+2025-03-22 23:05:32,295 - INFO - security_api.subdomain_scanner - Running command: waybackurls webmail.panimalar.ac.in
+2025-03-22 23:05:32,340 - INFO - security_api.subdomain_scanner - Running command: waybackurls mail.alumni.panimalar.ac.in
+2025-03-22 23:05:32,384 - INFO - security_api.subdomain_scanner - Running command: waybackurls mail.alumni.panimalar.ac.in
+2025-03-22 23:05:32,424 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.panimalar.panimalar.ac.in
+2025-03-22 23:05:32,482 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.panimalar.panimalar.ac.in
+2025-03-22 23:05:32,520 - INFO - security_api.subdomain_scanner - Running command: waybackurls mail.coe.panimalar.ac.in
+2025-03-22 23:05:32,572 - INFO - security_api.subdomain_scanner - Running command: waybackurls mail.panimalar.ac.in
+2025-03-22 23:05:32,600 - INFO - security_api.subdomain_scanner - Running command: waybackurls mail.panimalar.ac.in
+2025-03-22 23:05:32,642 - INFO - security_api.subdomain_scanner - Running command: waybackurls alumni.panimalar.ac.in
+2025-03-22 23:05:32,686 - INFO - security_api.subdomain_scanner - Running command: waybackurls alumni.panimalar.ac.in
+2025-03-22 23:05:32,725 - INFO - security_api.subdomain_scanner - Running command: waybackurls panimalar1.panimalar.ac.in
+2025-03-22 23:05:32,751 - INFO - security_api.subdomain_scanner - Running command: waybackurls panimalar1.panimalar.ac.in
+2025-03-22 23:05:32,769 - INFO - security_api.subdomain_scanner - Running command: waybackurls cpanel.panimalar.ac.in
+2025-03-22 23:05:32,795 - INFO - security_api.subdomain_scanner - Running command: waybackurls cpanel.panimalar.ac.in
+2025-03-22 23:05:32,835 - INFO - security_api.subdomain_scanner - Running command: waybackurls cpanel.alumni.panimalar.ac.in
+2025-03-22 23:05:32,874 - INFO - security_api.subdomain_scanner - Running command: waybackurls cpanel.alumni.panimalar.ac.in
+2025-03-22 23:05:32,888 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.alumni.panimalar.ac.in
+2025-03-22 23:05:32,916 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.alumni.panimalar.ac.in
+2025-03-22 23:05:32,949 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.panimalar1.panimalar.ac.in
+2025-03-22 23:05:32,970 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.panimalar1.panimalar.ac.in
+2025-03-22 23:05:33,288 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 14 lines
+2025-03-22 23:05:33,523 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 23:05:33,538 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 23:05:33,587 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 14 lines
+2025-03-22 23:05:33,609 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 23:05:33,705 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 23:05:33,805 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 21 lines
+2025-03-22 23:05:33,828 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 25 lines
+2025-03-22 23:05:34,275 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 23:05:34,614 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 148 lines
+2025-03-22 23:05:34,790 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 23:05:35,561 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 5557 lines
+2025-03-22 23:05:35,661 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 514 lines
+2025-03-22 23:05:35,719 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 5557 lines
+2025-03-22 23:05:36,698 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 5539 lines
+2025-03-22 23:05:36,945 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 23:05:38,089 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 5539 lines
+2025-03-22 23:05:39,276 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 25 lines
+2025-03-22 23:05:41,954 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 514 lines
+2025-03-22 23:05:45,966 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 514 lines
+2025-03-22 23:05:46,354 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:05:46,445 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 23:05:46,505 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:05:47,826 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:05:47,935 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:05:47,975 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:05:48,023 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:05:50,528 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:05:53,697 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:05:53,808 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:05:53,809 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.panimalar.ac.in
+2025-03-22 23:05:53,833 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.panimalar.ac.in
+2025-03-22 23:05:53,854 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.coe.panimalar.ac.in
+2025-03-22 23:05:53,871 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain panimalar.ac.in
+2025-03-22 23:05:53,894 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain panimalar.ac.in
+2025-03-22 23:05:53,914 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain coe.panimalar.ac.in
+2025-03-22 23:05:53,931 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain coe.panimalar.ac.in
+2025-03-22 23:05:53,946 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain panimalar.panimalar.ac.in
+2025-03-22 23:05:53,961 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain panimalar.panimalar.ac.in
+2025-03-22 23:05:53,978 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain webmail.panimalar.ac.in
+2025-03-22 23:05:53,995 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain webmail.panimalar.ac.in
+2025-03-22 23:05:54,010 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain mail.alumni.panimalar.ac.in
+2025-03-22 23:05:54,035 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain mail.alumni.panimalar.ac.in
+2025-03-22 23:05:54,065 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.panimalar.panimalar.ac.in
+2025-03-22 23:05:54,090 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.panimalar.panimalar.ac.in
+2025-03-22 23:05:54,129 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain mail.coe.panimalar.ac.in
+2025-03-22 23:05:54,191 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain mail.panimalar.ac.in
+2025-03-22 23:05:54,215 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain mail.panimalar.ac.in
+2025-03-22 23:05:54,229 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain alumni.panimalar.ac.in
+2025-03-22 23:05:54,246 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain alumni.panimalar.ac.in
+2025-03-22 23:05:54,266 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain panimalar1.panimalar.ac.in
+2025-03-22 23:05:54,316 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain panimalar1.panimalar.ac.in
+2025-03-22 23:05:54,338 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain cpanel.panimalar.ac.in
+2025-03-22 23:05:54,385 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain cpanel.panimalar.ac.in
+2025-03-22 23:05:54,485 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain cpanel.alumni.panimalar.ac.in
+2025-03-22 23:05:54,509 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain cpanel.alumni.panimalar.ac.in
+2025-03-22 23:05:54,534 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.alumni.panimalar.ac.in
+2025-03-22 23:05:54,599 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.alumni.panimalar.ac.in
+2025-03-22 23:05:54,616 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.panimalar1.panimalar.ac.in
+2025-03-22 23:05:54,683 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.panimalar1.panimalar.ac.in
+2025-03-22 23:05:59,203 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mpanimalar.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mpanimalar.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mpanimalar.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\panimalar.panimalar.ac.in.txt[0m
+
+2025-03-22 23:05:59,203 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:05:59,204 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwebmail.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m14[0m URLs for [36mwebmail.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mwebmail.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m13[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\webmail.panimalar.ac.in.txt[0m
+
+2025-03-22 23:05:59,205 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:05:59,205 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwebmail.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m14[0m URLs for [36mwebmail.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mwebmail.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m13[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\webmail.panimalar.ac.in.txt[0m
+
+2025-03-22 23:05:59,207 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:05:59,241 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mmail.alumni.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mmail.alumni.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mmail.alumni.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\mail.alumni.panimalar.ac.in.txt[0m
+
+2025-03-22 23:05:59,242 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:05:59,288 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.panimalar.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mwww.panimalar.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mwww.panimalar.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\www.panimalar.panimalar.ac.in.txt[0m
+
+2025-03-22 23:05:59,290 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:05:59,313 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mpanimalar.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mpanimalar.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mpanimalar.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\panimalar.panimalar.ac.in.txt[0m
+
+2025-03-22 23:05:59,315 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:05:59,415 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mcpanel.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mcpanel.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mcpanel.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\cpanel.panimalar.ac.in.txt[0m
+
+2025-03-22 23:05:59,416 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:05:59,459 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mpanimalar1.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mpanimalar1.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mpanimalar1.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\panimalar1.panimalar.ac.in.txt[0m
+
+2025-03-22 23:05:59,461 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:05:59,465 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mmail.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m25[0m URLs for [36mmail.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mmail.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m22[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\mail.panimalar.ac.in.txt[0m
+
+2025-03-22 23:05:59,466 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:05:59,509 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.coe.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m361[0m URLs for [36mwww.coe.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mwww.coe.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m93[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\www.coe.panimalar.ac.in.txt[0m
+
+2025-03-22 23:05:59,510 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:05:59,856 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mcoe.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m361[0m URLs for [36mcoe.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mcoe.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m93[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\coe.panimalar.ac.in.txt[0m
+
+2025-03-22 23:05:59,857 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:06:00,694 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.panimalar.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mwww.panimalar.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mwww.panimalar.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\www.panimalar.panimalar.ac.in.txt[0m
+
+2025-03-22 23:06:00,696 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:06:00,980 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mpanimalar.ac.in[0m
+[33m[INFO][0m Found [32m4959[0m URLs for [36mpanimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mpanimalar.ac.in[0m
+[33m[INFO][0m Found [32m1050[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\panimalar.ac.in.txt[0m
+
+2025-03-22 23:06:00,981 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:06:01,254 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mpanimalar.ac.in[0m
+[33m[INFO][0m Found [32m4959[0m URLs for [36mpanimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mpanimalar.ac.in[0m
+[33m[INFO][0m Found [32m1050[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\panimalar.ac.in.txt[0m
+
+2025-03-22 23:06:01,255 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:06:01,570 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m4959[0m URLs for [36mwww.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mwww.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1050[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\www.panimalar.ac.in.txt[0m
+
+2025-03-22 23:06:01,571 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:06:01,866 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m4959[0m URLs for [36mwww.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mwww.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1050[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\www.panimalar.ac.in.txt[0m
+
+2025-03-22 23:06:01,867 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:06:02,064 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mcoe.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m361[0m URLs for [36mcoe.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mcoe.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m93[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\coe.panimalar.ac.in.txt[0m
+
+2025-03-22 23:06:02,065 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:06:02,512 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mpanimalar1.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mpanimalar1.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mpanimalar1.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\panimalar1.panimalar.ac.in.txt[0m
+
+2025-03-22 23:06:02,513 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:06:02,729 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mmail.coe.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m148[0m URLs for [36mmail.coe.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mmail.coe.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m39[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\mail.coe.panimalar.ac.in.txt[0m
+
+2025-03-22 23:06:02,730 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:06:06,187 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mmail.alumni.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mmail.alumni.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mmail.alumni.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\mail.alumni.panimalar.ac.in.txt[0m
+
+2025-03-22 23:06:06,188 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:06:32,132 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mcpanel.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=cpanel.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=cpanel.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Traceback (most recent call last):
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connectionpool.py", line 491, in _make_request
+    raise new_e
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connectionpool.py", line 467, in _make_request
+    self._validate_conn(conn)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connectionpool.py", line 1099, in _validate_conn
+    conn.connect()
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connection.py", line 616, in connect
+    self.sock = sock = self._new_conn()
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x0000018cb1703c10>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\adapters.py", line 486, in send
+    resp = conn.urlopen(
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\util\retry.py", line 515, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=cpanel.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x0000018cb1703c10>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\paramspider\client.py", line 56, in fetch_url_content
+    response = requests.get(url, proxies=proxy,headers=headers)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\api.py", line 73, in get
+    return request("get", url, params=params, **kwargs)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\adapters.py", line 519, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=cpanel.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x0000018cb1703c10>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\msys64\mingw64\bin\paramspider-script.py", line 33, in <module>
+    sys.exit(load_entry_point('paramspider==0.1.0', 'console_scripts', 'paramspider')())
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\paramspider\main.py", line 161, in main
+    fetch_and_clean_urls(domain, extensions, args.stream, args.proxy, args.placeholder)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\paramspider\main.py", line 95, in fetch_and_clean_urls
+    response = client.fetch_url_content(wayback_uri,proxy)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\paramspider\client.py", line 61, in fetch_url_content
+    time.sleep(5)
+KeyboardInterrupt
+
+2025-03-22 23:06:32,138 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:06:32,141 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36malumni.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Traceback (most recent call last):
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connectionpool.py", line 491, in _make_request
+    raise new_e
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connectionpool.py", line 467, in _make_request
+    self._validate_conn(conn)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connectionpool.py", line 1099, in _validate_conn
+    conn.connect()
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connection.py", line 616, in connect
+    self.sock = sock = self._new_conn()
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x0000020e29183c40>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\adapters.py", line 486, in send
+    resp = conn.urlopen(
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\util\retry.py", line 515, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x0000020e29183c40>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\paramspider\client.py", line 56, in fetch_url_content
+    response = requests.get(url, proxies=proxy,headers=headers)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\api.py", line 73, in get
+    return request("get", url, params=params, **kwargs)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\adapters.py", line 519, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x0000020e29183c40>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\msys64\mingw64\bin\paramspider-script.py", line 33, in <module>
+    sys.exit(load_entry_point('paramspider==0.1.0', 'console_scripts', 'paramspider')())
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\paramspider\main.py", line 161, in main
+    fetch_and_clean_urls(domain, extensions, args.stream, args.proxy, args.placeholder)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\paramspider\main.py", line 95, in fetch_and_clean_urls
+    response = client.fetch_url_content(wayback_uri,proxy)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\paramspider\client.py", line 61, in fetch_url_content
+    time.sleep(5)
+KeyboardInterrupt
+
+2025-03-22 23:06:32,147 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:06:32,147 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.alumni.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Traceback (most recent call last):
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connectionpool.py", line 491, in _make_request
+    raise new_e
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connectionpool.py", line 467, in _make_request
+    self._validate_conn(conn)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connectionpool.py", line 1099, in _validate_conn
+    conn.connect()
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connection.py", line 616, in connect
+    self.sock = sock = self._new_conn()
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x0000024ad6c73c40>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\adapters.py", line 486, in send
+    resp = conn.urlopen(
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\util\retry.py", line 515, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=www.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x0000024ad6c73c40>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\paramspider\client.py", line 56, in fetch_url_content
+    response = requests.get(url, proxies=proxy,headers=headers)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\api.py", line 73, in get
+    return request("get", url, params=params, **kwargs)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\adapters.py", line 519, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=www.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x0000024ad6c73c40>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\msys64\mingw64\bin\paramspider-script.py", line 33, in <module>
+    sys.exit(load_entry_point('paramspider==0.1.0', 'console_scripts', 'paramspider')())
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\paramspider\main.py", line 161, in main
+    fetch_and_clean_urls(domain, extensions, args.stream, args.proxy, args.placeholder)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\paramspider\main.py", line 95, in fetch_and_clean_urls
+    response = client.fetch_url_content(wayback_uri,proxy)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\paramspider\client.py", line 61, in fetch_url_content
+    time.sleep(5)
+KeyboardInterrupt
+
+2025-03-22 23:06:32,154 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:06:32,155 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.panimalar1.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Traceback (most recent call last):
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connectionpool.py", line 491, in _make_request
+    raise new_e
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connectionpool.py", line 467, in _make_request
+    self._validate_conn(conn)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connectionpool.py", line 1099, in _validate_conn
+    conn.connect()
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connection.py", line 616, in connect
+    self.sock = sock = self._new_conn()
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x00000225ecd43ca0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\adapters.py", line 486, in send
+    resp = conn.urlopen(
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\urllib3\util\retry.py", line 515, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=www.panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x00000225ecd43ca0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\paramspider\client.py", line 56, in fetch_url_content
+    response = requests.get(url, proxies=proxy,headers=headers)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\api.py", line 73, in get
+    return request("get", url, params=params, **kwargs)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\requests\adapters.py", line 519, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=www.panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x00000225ecd43ca0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\msys64\mingw64\bin\paramspider-script.py", line 33, in <module>
+    sys.exit(load_entry_point('paramspider==0.1.0', 'console_scripts', 'paramspider')())
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\paramspider\main.py", line 161, in main
+    fetch_and_clean_urls(domain, extensions, args.stream, args.proxy, args.placeholder)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\paramspider\main.py", line 95, in fetch_and_clean_urls
+    response = client.fetch_url_content(wayback_uri,proxy)
+  File "C:\msys64\mingw64\lib\python3.10\site-packages\paramspider\client.py", line 61, in fetch_url_content
+    time.sleep(5)
+KeyboardInterrupt
+
+2025-03-22 23:06:32,162 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:06:32,230 - security_api.app - INFO - Received shutdown signal. Cleaning up...
+2025-03-22 23:06:32,230 - INFO - security_api.app - Received shutdown signal. Cleaning up...
+2025-03-22 23:06:32,264 - security_api.app - INFO - Cleanup complete. Shutting down.
+2025-03-22 23:06:32,265 - security_api.app - ERROR - Fatal error: I/O operation on closed file.
+2025-03-22 23:07:45,744 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 23:07:45,829 - INFO - security_api.database - Connecting to MongoDB...
+2025-03-22 23:07:50,590 - INFO - security_api.database - Successfully connected to MongoDB
+2025-03-22 23:07:51,620 - INFO - security_api.app - VulnerabilityScanner initialized
+2025-03-22 23:07:51,623 - security_api.app - INFO - Starting Security Scanner API...
+2025-03-22 23:07:51,623 - INFO - security_api.app - Starting Security Scanner API...
+2025-03-22 23:07:52,714 - INFO - werkzeug - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:3000
+ * Running on http://192.168.1.8:3000
+2025-03-22 23:07:52,715 - INFO - werkzeug - [33mPress CTRL+C to quit[0m
+2025-03-22 23:07:58,908 - security_api.app - INFO - Starting full scan for panimalar.ac.in (User: 67ac3eb60023dce04ca7, Target: 67c05007dedd28b1489cbd0d)
+2025-03-22 23:07:58,908 - INFO - security_api.app - Starting full scan for panimalar.ac.in (User: 67ac3eb60023dce04ca7, Target: 67c05007dedd28b1489cbd0d)
+2025-03-22 23:07:59,292 - security_api.app - INFO - Target ID 67c05007dedd28b1489cbd0d already exists, will update results
+2025-03-22 23:07:59,292 - INFO - security_api.app - Target ID 67c05007dedd28b1489cbd0d already exists, will update results
+2025-03-22 23:07:59,293 - INFO - security_api.subdomain_scanner - Finding subdomains for panimalar.ac.in using subfinder and assetfinder...
+2025-03-22 23:07:59,294 - INFO - security_api.subdomain_scanner - Running command: subfinder -d panimalar.ac.in
+2025-03-22 23:07:59,310 - INFO - security_api.subdomain_scanner - Running command: assetfinder --subs-only panimalar.ac.in
+2025-03-22 23:08:02,275 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 78 lines
+2025-03-22 23:08:03,333 - WARNING - security_api.subdomain_scanner - Command stderr: 
+               __    _____           __         
+   _______  __/ /_  / __(_)___  ____/ /__  _____
+  / ___/ / / / __ \/ /_/ / __ \/ __  / _ \/ ___/
+ (__  ) /_/ / /_/ / __/ / / / / /_/ /  __/ /    
+/____/\__,_/_.___/_/ /_/_/ /_/\__,_/\___/_/
+
+		projectdiscovery.io
+
+[[34mINF[0m] Current subfinder version v2.6.6 ([91moutdated[0m)
+[[34mINF[0m] Loading provider config from C:\Users\ssund\AppData\Roaming\subfinder\provider-config.yaml
+[[34mINF[0m] Enumerating subdomains for panimalar.ac.in
+[[34mINF[0m] Found 30 subdomains for panimalar.ac.in in 3 seconds 56 milliseconds
+
+2025-03-22 23:08:03,335 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 30 lines
+2025-03-22 23:08:03,336 - INFO - security_api.subdomain_scanner - Found 30 unique subdomains
+2025-03-22 23:08:03,336 - security_api.app - INFO - Found 30 subdomains for panimalar.ac.in
+2025-03-22 23:08:03,336 - INFO - security_api.app - Found 30 subdomains for panimalar.ac.in
+2025-03-22 23:08:03,337 - INFO - security_api.subdomain_scanner - Checking HTTP status for 30 subdomains...
+2025-03-22 23:08:04,347 - INFO - httpx - HTTP Request: GET http://webmail.coe.panimalar.ac.in "HTTP/1.1 301 Moved"
+2025-03-22 23:08:04,570 - INFO - httpx - HTTP Request: GET http://panimalar.ac.in "HTTP/1.1 302 Found"
+2025-03-22 23:08:04,571 - INFO - httpx - HTTP Request: GET http://coe.panimalar.ac.in "HTTP/1.1 301 Moved Permanently"
+2025-03-22 23:08:04,572 - INFO - httpx - HTTP Request: GET http://mail.panimalar.ac.in "HTTP/1.1 302 Found"
+2025-03-22 23:08:04,633 - INFO - httpx - HTTP Request: GET https://coe.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:08:04,680 - INFO - httpx - HTTP Request: GET http://cpanel.coe.panimalar.ac.in "HTTP/1.1 301 Moved"
+2025-03-22 23:08:04,696 - INFO - httpx - HTTP Request: GET http://www.panimalar1.panimalar.ac.in "HTTP/1.1 302 Found"
+2025-03-22 23:08:04,782 - INFO - httpx - HTTP Request: GET https://mail.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:08:04,807 - INFO - httpx - HTTP Request: GET https://panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:08:04,886 - INFO - httpx - HTTP Request: GET https://www.panimalar1.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:08:04,904 - INFO - httpx - HTTP Request: GET http://cpanel.alumni.panimalar.ac.in "HTTP/1.1 301 Moved"
+2025-03-22 23:08:04,943 - INFO - httpx - HTTP Request: GET http://panimalar.panimalar.ac.in "HTTP/1.1 302 Found"
+2025-03-22 23:08:05,003 - INFO - httpx - HTTP Request: GET http://alumni.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:08:05,045 - INFO - httpx - HTTP Request: GET https://coe.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:08:05,055 - INFO - httpx - HTTP Request: GET http://www.coe.panimalar.ac.in "HTTP/1.1 301 Moved Permanently"
+2025-03-22 23:08:05,066 - INFO - httpx - HTTP Request: GET http://www.panimalar.ac.in "HTTP/1.1 302 Found"
+2025-03-22 23:08:05,087 - INFO - httpx - HTTP Request: GET http://mail.alumni.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:08:05,091 - INFO - httpx - HTTP Request: GET http://cpcalendars.panimalar.ac.in "HTTP/1.1 302 Moved"
+2025-03-22 23:08:05,099 - INFO - httpx - HTTP Request: GET http://www.panimalar.panimalar.ac.in "HTTP/1.1 302 Found"
+2025-03-22 23:08:05,113 - INFO - httpx - HTTP Request: GET https://panimalar.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:08:05,126 - INFO - httpx - HTTP Request: GET https://cpanel.alumni.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:08:05,146 - INFO - httpx - HTTP Request: GET http://webdisk.panimalar.ac.in "HTTP/1.1 302 Moved"
+2025-03-22 23:08:05,150 - INFO - httpx - HTTP Request: GET http://mail.coe.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:08:05,230 - INFO - httpx - HTTP Request: GET https://alumni.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:08:05,240 - INFO - httpx - HTTP Request: GET https://www.panimalar.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:08:05,247 - INFO - httpx - HTTP Request: GET https://cpcalendars.panimalar.ac.in "HTTP/1.1 401 Unauthorized"
+2025-03-22 23:08:05,258 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:08:05,294 - INFO - httpx - HTTP Request: GET http://cpcontacts.panimalar.ac.in "HTTP/1.1 302 Moved"
+2025-03-22 23:08:05,296 - INFO - httpx - HTTP Request: GET https://mail.alumni.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:08:05,345 - INFO - httpx - HTTP Request: GET https://coe.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:08:05,348 - INFO - httpx - HTTP Request: GET https://cpcontacts.panimalar.ac.in "HTTP/1.1 401 Unauthorized"
+2025-03-22 23:08:05,369 - INFO - httpx - HTTP Request: GET http://www.alumni.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:08:05,408 - INFO - httpx - HTTP Request: GET http://webmail.panimalar.ac.in "HTTP/1.1 301 Moved"
+2025-03-22 23:08:05,419 - INFO - httpx - HTTP Request: GET http://cpanel.panimalar.ac.in "HTTP/1.1 301 Moved"
+2025-03-22 23:08:05,425 - INFO - httpx - HTTP Request: GET https://webdisk.panimalar.ac.in "HTTP/1.1 401 Unauthorized"
+2025-03-22 23:08:05,428 - INFO - httpx - HTTP Request: GET http://panimalar1.panimalar.ac.in "HTTP/1.1 302 Found"
+2025-03-22 23:08:05,468 - INFO - httpx - HTTP Request: GET https://cpanel.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:08:05,560 - INFO - httpx - HTTP Request: GET https://cpanel.alumni.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:08:05,563 - INFO - httpx - HTTP Request: GET https://www.alumni.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:08:05,572 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:08:05,650 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in/panimalar.res.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:08:05,704 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in/panimalar.edu.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:08:05,715 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:08:05,793 - INFO - httpx - HTTP Request: GET https://webmail.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:08:06,093 - INFO - httpx - HTTP Request: GET https://panimalar1.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 23:08:06,269 - INFO - httpx - HTTP Request: GET https://cpcalendars.panimalar.ac.in/ "HTTP/1.1 401 Unauthorized"
+2025-03-22 23:08:06,306 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:08:07,278 - INFO - httpx - HTTP Request: GET https://cpcontacts.panimalar.ac.in/ "HTTP/1.1 401 Unauthorized"
+2025-03-22 23:08:07,281 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in/panimalar.edu.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:08:07,284 - INFO - httpx - HTTP Request: GET https://webdisk.panimalar.ac.in/ "HTTP/1.1 401 Unauthorized"
+2025-03-22 23:08:08,314 - INFO - httpx - HTTP Request: GET https://webmail.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:08:08,326 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in/panimalar.res.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:08:08,389 - INFO - httpx - HTTP Request: GET https://cpanel.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 23:08:08,569 - INFO - security_api.subdomain_scanner - Found 30 active subdomains
+2025-03-22 23:08:08,570 - security_api.app - INFO - Validated 30 active subdomains
+2025-03-22 23:08:08,570 - INFO - security_api.app - Validated 30 active subdomains
+2025-03-22 23:08:08,571 - INFO - security_api.subdomain_scanner - Fetching URLs from Wayback and Paramspider for 30 subdomains...
+2025-03-22 23:08:08,572 - INFO - security_api.subdomain_scanner - Running command: waybackurls mail.panimalar.ac.in
+2025-03-22 23:08:08,582 - INFO - security_api.subdomain_scanner - Running command: waybackurls mail.panimalar.ac.in
+2025-03-22 23:08:08,594 - INFO - security_api.subdomain_scanner - Running command: waybackurls panimalar.ac.in
+2025-03-22 23:08:08,606 - INFO - security_api.subdomain_scanner - Running command: waybackurls panimalar.ac.in
+2025-03-22 23:08:08,626 - INFO - security_api.subdomain_scanner - Running command: waybackurls cpanel.alumni.panimalar.ac.in
+2025-03-22 23:08:08,658 - INFO - security_api.subdomain_scanner - Running command: waybackurls cpanel.alumni.panimalar.ac.in
+2025-03-22 23:08:08,675 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.panimalar1.panimalar.ac.in
+2025-03-22 23:08:08,693 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.panimalar1.panimalar.ac.in
+2025-03-22 23:08:08,714 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.panimalar.panimalar.ac.in
+2025-03-22 23:08:08,753 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.panimalar.panimalar.ac.in
+2025-03-22 23:08:08,786 - INFO - security_api.subdomain_scanner - Running command: waybackurls coe.panimalar.ac.in
+2025-03-22 23:08:08,804 - INFO - security_api.subdomain_scanner - Running command: waybackurls coe.panimalar.ac.in
+2025-03-22 23:08:08,845 - INFO - security_api.subdomain_scanner - Running command: waybackurls panimalar.panimalar.ac.in
+2025-03-22 23:08:08,883 - INFO - security_api.subdomain_scanner - Running command: waybackurls panimalar.panimalar.ac.in
+2025-03-22 23:08:08,926 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.panimalar.ac.in
+2025-03-22 23:08:08,989 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.panimalar.ac.in
+2025-03-22 23:08:09,029 - INFO - security_api.subdomain_scanner - Running command: waybackurls alumni.panimalar.ac.in
+2025-03-22 23:08:09,087 - INFO - security_api.subdomain_scanner - Running command: waybackurls alumni.panimalar.ac.in
+2025-03-22 23:08:09,139 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.coe.panimalar.ac.in
+2025-03-22 23:08:09,166 - INFO - security_api.subdomain_scanner - Running command: waybackurls mail.alumni.panimalar.ac.in
+2025-03-22 23:08:09,222 - INFO - security_api.subdomain_scanner - Running command: waybackurls mail.alumni.panimalar.ac.in
+2025-03-22 23:08:09,326 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.alumni.panimalar.ac.in
+2025-03-22 23:08:09,381 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.alumni.panimalar.ac.in
+2025-03-22 23:08:09,429 - INFO - security_api.subdomain_scanner - Running command: waybackurls cpanel.panimalar.ac.in
+2025-03-22 23:08:09,527 - INFO - security_api.subdomain_scanner - Running command: waybackurls cpanel.panimalar.ac.in
+2025-03-22 23:08:09,568 - INFO - security_api.subdomain_scanner - Running command: waybackurls panimalar1.panimalar.ac.in
+2025-03-22 23:08:09,614 - INFO - security_api.subdomain_scanner - Running command: waybackurls panimalar1.panimalar.ac.in
+2025-03-22 23:08:09,695 - INFO - security_api.subdomain_scanner - Running command: waybackurls webmail.panimalar.ac.in
+2025-03-22 23:08:09,729 - INFO - security_api.subdomain_scanner - Running command: waybackurls webmail.panimalar.ac.in
+2025-03-22 23:08:09,789 - INFO - security_api.subdomain_scanner - Running command: waybackurls mail.coe.panimalar.ac.in
+2025-03-22 23:08:22,311 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:22,342 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:22,805 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:22,990 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:23,410 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:23,442 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:23,707 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:23,708 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 23:08:23,759 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:23,904 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:24,161 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:24,306 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 23:08:24,355 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:24,463 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:24,824 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 23:08:24,824 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:24,947 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:24,952 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:24,963 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:24,986 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:24,995 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:27,318 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:29,500 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 23:08:29,501 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:29,547 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:29,823 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:29,854 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:29,978 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:30,149 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:30,737 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 23:08:30,738 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain mail.panimalar.ac.in
+2025-03-22 23:08:30,750 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain mail.panimalar.ac.in
+2025-03-22 23:08:30,761 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain panimalar.ac.in
+2025-03-22 23:08:30,779 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain panimalar.ac.in
+2025-03-22 23:08:30,796 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain cpanel.alumni.panimalar.ac.in
+2025-03-22 23:08:30,808 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain cpanel.alumni.panimalar.ac.in
+2025-03-22 23:08:30,822 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.panimalar1.panimalar.ac.in
+2025-03-22 23:08:30,837 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.panimalar1.panimalar.ac.in
+2025-03-22 23:08:30,849 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.panimalar.panimalar.ac.in
+2025-03-22 23:08:30,868 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.panimalar.panimalar.ac.in
+2025-03-22 23:08:30,883 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain coe.panimalar.ac.in
+2025-03-22 23:08:30,898 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain coe.panimalar.ac.in
+2025-03-22 23:08:30,916 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain panimalar.panimalar.ac.in
+2025-03-22 23:08:30,938 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain panimalar.panimalar.ac.in
+2025-03-22 23:08:30,954 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.panimalar.ac.in
+2025-03-22 23:08:30,976 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.panimalar.ac.in
+2025-03-22 23:08:31,015 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain alumni.panimalar.ac.in
+2025-03-22 23:08:31,087 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain alumni.panimalar.ac.in
+2025-03-22 23:08:31,102 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.coe.panimalar.ac.in
+2025-03-22 23:08:31,146 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain mail.alumni.panimalar.ac.in
+2025-03-22 23:08:31,179 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain mail.alumni.panimalar.ac.in
+2025-03-22 23:08:31,224 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.alumni.panimalar.ac.in
+2025-03-22 23:08:31,248 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.alumni.panimalar.ac.in
+2025-03-22 23:08:31,264 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain cpanel.panimalar.ac.in
+2025-03-22 23:08:31,362 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain cpanel.panimalar.ac.in
+2025-03-22 23:08:31,461 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain panimalar1.panimalar.ac.in
+2025-03-22 23:08:31,521 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain panimalar1.panimalar.ac.in
+2025-03-22 23:08:31,682 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain webmail.panimalar.ac.in
+2025-03-22 23:08:31,730 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain webmail.panimalar.ac.in
+2025-03-22 23:08:31,748 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain mail.coe.panimalar.ac.in
+2025-03-22 23:09:07,388 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.alumni.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+[33m[INFO][0m Found [32m19[0m URLs for [36mwww.alumni.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mwww.alumni.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m18[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\www.alumni.panimalar.ac.in.txt[0m
+
+2025-03-22 23:09:07,390 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:08,321 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mcpanel.alumni.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=cpanel.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+[33m[INFO][0m Found [32m1[0m URLs for [36mcpanel.alumni.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mcpanel.alumni.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\cpanel.alumni.panimalar.ac.in.txt[0m
+
+2025-03-22 23:09:08,322 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:10,648 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mpanimalar1.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+[33m[INFO][0m Found [32m1[0m URLs for [36mpanimalar1.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mpanimalar1.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\panimalar1.panimalar.ac.in.txt[0m
+
+2025-03-22 23:09:10,649 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:10,763 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.panimalar1.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+[33m[INFO][0m Found [32m1[0m URLs for [36mwww.panimalar1.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mwww.panimalar1.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\www.panimalar1.panimalar.ac.in.txt[0m
+
+2025-03-22 23:09:10,764 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:15,354 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwebmail.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=webmail.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=webmail.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+[33m[INFO][0m Found [32m14[0m URLs for [36mwebmail.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mwebmail.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m13[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\webmail.panimalar.ac.in.txt[0m
+
+2025-03-22 23:09:15,355 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:17,329 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.panimalar.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+[33m[INFO][0m Found [32m1[0m URLs for [36mwww.panimalar.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mwww.panimalar.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\www.panimalar.panimalar.ac.in.txt[0m
+
+2025-03-22 23:09:17,331 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:20,504 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mpanimalar.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=panimalar.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=panimalar.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+[33m[INFO][0m Found [32m1[0m URLs for [36mpanimalar.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mpanimalar.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\panimalar.panimalar.ac.in.txt[0m
+
+2025-03-22 23:09:20,506 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:20,555 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mcpanel.alumni.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=cpanel.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=cpanel.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+[33m[INFO][0m Found [32m1[0m URLs for [36mcpanel.alumni.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mcpanel.alumni.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\cpanel.alumni.panimalar.ac.in.txt[0m
+
+2025-03-22 23:09:20,556 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:21,759 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36malumni.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+[33m[INFO][0m Found [32m19[0m URLs for [36malumni.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36malumni.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m18[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\alumni.panimalar.ac.in.txt[0m
+
+2025-03-22 23:09:21,761 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:24,784 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mmail.alumni.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=mail.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=mail.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+[33m[INFO][0m Found [32m1[0m URLs for [36mmail.alumni.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mmail.alumni.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\mail.alumni.panimalar.ac.in.txt[0m
+
+2025-03-22 23:09:24,785 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:27,278 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mmail.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=mail.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=mail.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+[33m[INFO][0m Found [32m25[0m URLs for [36mmail.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mmail.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m22[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\mail.panimalar.ac.in.txt[0m
+
+2025-03-22 23:09:27,280 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:31,002 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=www.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 23:09:31,004 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:32,747 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mmail.coe.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=mail.coe.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=mail.coe.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=mail.coe.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=mail.coe.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 23:09:32,748 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:33,636 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mcpanel.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=cpanel.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=cpanel.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=cpanel.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=cpanel.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 23:09:33,638 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:36,121 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.coe.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.coe.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.coe.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.coe.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=www.coe.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 23:09:36,123 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:36,336 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mcoe.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=coe.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=coe.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=coe.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=coe.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 23:09:36,338 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:36,397 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mpanimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 23:09:36,398 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:37,197 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mcoe.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=coe.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=coe.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=coe.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=coe.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 23:09:37,199 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:37,387 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mcpanel.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=cpanel.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=cpanel.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=cpanel.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=cpanel.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 23:09:37,389 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:38,305 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.alumni.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=www.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 23:09:38,306 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:42,037 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mmail.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=mail.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=mail.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=mail.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=mail.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 23:09:42,038 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:42,679 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36malumni.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 23:09:42,680 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:42,783 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mpanimalar1.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 23:09:42,785 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:42,802 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mpanimalar.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=panimalar.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=panimalar.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=panimalar.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=panimalar.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 23:09:42,804 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:43,541 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mpanimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 23:09:43,542 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:43,945 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=www.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 23:09:43,946 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:46,517 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mmail.alumni.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=mail.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=mail.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=mail.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=mail.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 23:09:46,519 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 23:09:49,465 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.panimalar.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=www.panimalar.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 23:09:49,466 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
