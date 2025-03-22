@@ -1,5 +1,0 @@
-#!D:\development\secALL\v\scripts\python.exe
-from proxy_db.cli import main
-
-if __name__ == "__main__":
-    main()
