@@ -11,18 +11,7 @@ ENV PYTHONUNBUFFERED=1 \
     PORT=3000
 
 WORKDIR /app
-COPY . /app
-
-# Create a non-root user for security
-RUN groupadd -r secpro && useradd -r -g secpro -s /sbin/nologin -d /app secpro
-
-# Set up virtual environment
-RUN python3 -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
-
-# Install Python dependencies first (for better layer caching)
-RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
-    pip install --no-cache-dir -r requirements.txt
+COPY requirements.txt /app/
 
 # Install system dependencies in a single layer to reduce image size
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -43,6 +32,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     fonts-liberation \
     && rm -rf /var/lib/apt/lists/*
 
+# Install Python dependencies first (for better layer caching)
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the application
+COPY . /app/
+
 # Install Chrome
 RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     apt-get update && \
@@ -51,16 +47,16 @@ RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd6
     rm -rf /var/lib/apt/lists/*
 
 # Install Node.js and npm
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get update && \
     apt-get install -y --no-install-recommends nodejs && \
     npm install -g retire && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Go and Go tools
-RUN wget -q https://go.dev/dl/go1.21.0.linux-amd64.tar.gz && \
-    tar -C /usr/local -xzf go1.21.0.linux-amd64.tar.gz && \
-    rm go1.21.0.linux-amd64.tar.gz && \
+RUN wget -q https://go.dev/dl/go1.19.0.linux-amd64.tar.gz && \
+    tar -C /usr/local -xzf go1.19.0.linux-amd64.tar.gz && \
+    rm go1.19.0.linux-amd64.tar.gz && \
     go install -v github.com/tomnomnom/assetfinder@latest && \
     go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest && \
     go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest && \
@@ -83,6 +79,9 @@ RUN git clone https://github.com/devanshbatham/ParamSpider /opt/paramspider && \
 
 # Install SQLMap
 RUN pip install --no-cache-dir sqlmap
+
+# Create a non-root user for security
+RUN groupadd -r secpro && useradd -r -g secpro -s /sbin/nologin -d /app secpro
 
 # Create necessary directories with proper permissions
 RUN mkdir -p /app/logs /app/results /app/tests/scan_results && \
