@@ -1,75 +1,103 @@
-# Use a specific version of Python for better reproducibility
-FROM python:3.9-slim-bullseye
+FROM python:3.9
 
-# Set environment variables
-ENV PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1 \
-    PATH="$PATH:/root/go/bin:/usr/local/go/bin:/usr/bin" \
-    DEBIAN_FRONTEND=noninteractive \
-    LANG=C.UTF-8 \
-    LC_ALL=C.UTF-8 \
-    PORT=3000
+ENV PYTHONUNBUFFERED=1
+ENV PATH="$PATH:/root/go/bin:/usr/local/go/bin:/usr/bin"
 
 WORKDIR /app
-COPY requirements.txt /app/
+COPY . /app
 
-# Install system dependencies in a single layer to reduce image size
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    apt-transport-https \
-    nmap \
-    curl \
-    wget \
-    git \
-    unzip \
-    build-essential \
-    gnupg \
-    chromium-driver \
-    libnss3 \
-    libxss1 \
-    libappindicator1 \
-    libgconf-2-4 \
-    libpango1.0-0 \
-    fonts-liberation \
-    && rm -rf /var/lib/apt/lists/*
+# Test
+RUN echo "Step -1: Testing Dockerfile."
+RUN echo "Testing pip" && pip --version
+RUN echo "Testing python" && python --version
+RUN echo "List Files" && ls -la
+RUN echo "Testing pip random package" && pip install random2 
+RUN echo "Testing pip requests package" && pip install requests
 
-# Install Python dependencies first (for better layer caching)
-RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
-    pip install --no-cache-dir -r requirements.txt
+# Step 0: Set up virtual environment
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
 
-# Copy the rest of the application
-COPY . /app/
+# Step 1: Install setuptools (to avoid errors with setup.py)
+RUN echo "Step 1: Installing setuptools." && pip install --upgrade pip setuptools
 
-# Install Chrome
-RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends ./google-chrome-stable_current_amd64.deb && \
-    rm google-chrome-stable_current_amd64.deb && \
-    rm -rf /var/lib/apt/lists/*
+# Step 2: Install Python dependencies
+RUN echo "Step 2.1: Installing Python dependencies." && pip install -v -r ./requirements.txt
 
-# Install Node.js and npm
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends nodejs && \
-    npm install -g retire && \
-    rm -rf /var/lib/apt/lists/*
-
-# Install Go and Go tools
-RUN wget -q https://go.dev/dl/go1.19.0.linux-amd64.tar.gz && \
-    tar -C /usr/local -xzf go1.19.0.linux-amd64.tar.gz && \
-    rm go1.19.0.linux-amd64.tar.gz && \
-    go install -v github.com/tomnomnom/assetfinder@latest && \
-    go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest && \
-    go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest && \
-    go install github.com/tomnomnom/waybackurls@latest && \
-    go install github.com/hahwul/dalfox/v2@latest
-
-# Install security tools from GitHub
-RUN git clone https://github.com/devanshbatham/ParamSpider /opt/paramspider && \
+# Step 17: Install Paramspider from GitHub
+RUN echo "Step 2.2: Installing Paramspider from GitHub." && \
+    git clone https://github.com/devanshbatham/ParamSpider /opt/paramspider && \
     cd /opt/paramspider && \
-    pip install --no-cache-dir . && \
+    set PYTHONUTF8=1 && \
+    pip install .
+
+
+RUN echo "Step 2.3: Installing SQLMap and XSRFProbe." && \
+    pip install sqlmap && \
     git clone https://github.com/0xInfection/XSRFProbe.git /opt/xsrfprobe && \
     cd /opt/xsrfprobe && \
-    pip install --no-cache-dir . && \
+    pip install .
+
+# Step 3: Update package lists
+RUN echo "Step 3: Updating package lists." && apt-get update && apt-get install -y --no-install-recommends apt-transport-https
+RUN echo "Step 3.1: Installing nmap." && apt-get install -y nmap
+
+# Step 4: Install curl
+RUN echo "Step 4: Installing curl." && apt-get install -y --no-install-recommends curl
+
+# Step 5: Install wget
+RUN echo "Step 5: Installing wget." && apt-get install -y --no-install-recommends wget
+
+# Step 6: Install git
+RUN echo "Step 6: Installing git." && apt-get install -y --no-install-recommends git
+
+# Step 7: Install unzip
+RUN echo "Step 7: Installing unzip." && apt-get install -y --no-install-recommends unzip
+
+# Step 8: Install build-essential
+RUN echo "Step 8: Installing build-essential." && apt-get install -y --no-install-recommends build-essential
+
+# Step 9: Install gnupg
+RUN echo "Step 9: Installing gnupg." && apt-get install -y --no-install-recommends gnupg
+
+# Step 10: Install Chromium Driver
+RUN echo "Step 10: Installing Chromium Driver." && apt-get install -y --no-install-recommends chromium-driver
+
+# Step 11: Install Chrome via direct download
+RUN echo "Step 11: Installing Chrome." && wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+    apt-get install -y ./google-chrome-stable_current_amd64.deb && \
+    rm google-chrome-stable_current_amd64.deb
+
+# Step 12: Install additional Chrome libraries
+RUN echo "Step 12: Installing Chrome dependencies." && apt-get install -f -y --no-install-recommends \
+    libnss3 libxss1 libappindicator1 libgconf-2-4 libpango1.0-0 fonts-liberation
+
+# Step 13: Clean up
+RUN echo "Step 13: Cleaning up apt cache." && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Step 14: Install Node.js and npm
+RUN echo "Step 14: Installing Node.js and npm." && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs
+
+# Step 15: Install Go
+RUN echo "Step 15: Installing Go." && wget https://go.dev/dl/go1.21.0.linux-amd64.tar.gz && \
+    tar -C /usr/local -xzf go1.21.0.linux-amd64.tar.gz && \
+    rm go1.21.0.linux-amd64.tar.gz
+
+# Step 16: Install Go tools
+RUN echo "Step 16.1: Installing assetfinder." && go install github.com/tomnomnom/assetfinder@latest
+RUN echo "Step 16.2: Installing subfinder." && go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+RUN echo "Step 16.3: Installing httpx." && go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
+RUN echo "Step 16.4: Installing waybackurls." && go install github.com/tomnomnom/waybackurls@latest
+RUN echo "Step 16.5: Installing dalfox." && go install github.com/hahwul/dalfox/v2@latest
+
+
+# Step 17: Install Node.js tool
+RUN echo "Step 17: Installing retire." && npm install -g retire
+
+
+# Step 11: Install SSRFuzz
+RUN echo "Step 18: Installing SSRFuzz." && \
     git clone https://github.com/ryandamour/ssrfuzz.git /opt/ssrfuzz && \
     cd /opt/ssrfuzz && \
     go mod init ssrfuzz && \
@@ -77,25 +105,9 @@ RUN git clone https://github.com/devanshbatham/ParamSpider /opt/paramspider && \
     go build && \
     mv ssrfuzz /usr/local/bin/ssrfuzz
 
-# Install SQLMap
-RUN pip install --no-cache-dir sqlmap
+# Step 12: Verify SSRFuzz installation
+RUN echo "Step 19: Testing SSRFuzz installation." && ssrfuzz -h || echo "SSRFuzz installation failed"
 
-# Create a non-root user for security
-RUN groupadd -r secpro && useradd -r -g secpro -s /sbin/nologin -d /app secpro
-
-# Create necessary directories with proper permissions
-RUN mkdir -p /app/logs /app/results /app/tests/scan_results && \
-    chown -R secpro:secpro /app
-
-# Switch to non-root user
-USER secpro
-
-# Expose port - use PORT env variable
-EXPOSE ${PORT}
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:${PORT}/health || exit 1
-
-# Start the application with gunicorn for production
-CMD gunicorn --bind 0.0.0.0:${PORT} --workers 4 --threads 2 --timeout 120 "app:app"
+# Finally
+EXPOSE 3000
+CMD echo "Step 20: Starting Flask app." && python app.py
