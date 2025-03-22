@@ -7,7 +7,8 @@ ENV PYTHONUNBUFFERED=1 \
     PATH="$PATH:/root/go/bin:/usr/local/go/bin:/usr/bin" \
     DEBIAN_FRONTEND=noninteractive \
     LANG=C.UTF-8 \
-    LC_ALL=C.UTF-8
+    LC_ALL=C.UTF-8 \
+    PORT=3000
 
 WORKDIR /app
 COPY . /app
@@ -84,18 +85,18 @@ RUN git clone https://github.com/devanshbatham/ParamSpider /opt/paramspider && \
 RUN pip install --no-cache-dir sqlmap
 
 # Create necessary directories with proper permissions
-RUN mkdir -p /app/logs /app/results && \
+RUN mkdir -p /app/logs /app/results /app/tests/scan_results && \
     chown -R secpro:secpro /app
 
 # Switch to non-root user
 USER secpro
 
-# Expose port
-EXPOSE 3000
+# Expose port - use PORT env variable
+EXPOSE ${PORT}
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:3000/health || exit 1
+    CMD curl -f http://localhost:${PORT}/health || exit 1
 
-# Start the application
-CMD ["python", "app.py"]
+# Start the application with gunicorn for production
+CMD gunicorn --bind 0.0.0.0:${PORT} --workers 4 --threads 2 --timeout 120 "app:app"
