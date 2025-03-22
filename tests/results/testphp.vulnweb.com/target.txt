@@ -1,0 +1,1 @@
+http://testphp.vulnweb.com/product.php?pic=1 (GET)  # D:\development\SecPro\v\scripts\sqlmap -u http://testphp.vulnweb.com/product.php?pic=1 --batch --random-agent --output-dir results --answers Y --timeout 10

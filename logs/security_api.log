@@ -1,0 +1,934 @@
+2025-03-22 20:49:30,272 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 20:49:30,724 - INFO - security_api.database - Connecting to MongoDB...
+2025-03-22 20:49:36,653 - INFO - security_api.database - Successfully connected to MongoDB
+2025-03-22 20:49:39,125 - INFO - security_api.app - VulnerabilityScanner initialized
+2025-03-22 20:49:39,129 - INFO - security_api.app - Starting Security API on 0.0.0.0:5000
+2025-03-22 20:49:39,129 - INFO - security_api.app - Debug mode: False
+2025-03-22 20:49:40,562 - INFO - werkzeug - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.8:5000
+2025-03-22 20:49:40,568 - INFO - werkzeug - [33mPress CTRL+C to quit[0m
+2025-03-22 20:50:13,967 - INFO - werkzeug - 127.0.0.1 - - [22/Mar/2025 20:50:13] "[33mGET / HTTP/1.1[0m" 404 -
+2025-03-22 20:50:14,080 - INFO - werkzeug - 127.0.0.1 - - [22/Mar/2025 20:50:14] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-22 20:50:23,830 - INFO - werkzeug - 192.168.1.8 - - [22/Mar/2025 20:50:23] "[33mGET / HTTP/1.1[0m" 404 -
+2025-03-22 20:50:23,911 - INFO - werkzeug - 192.168.1.8 - - [22/Mar/2025 20:50:23] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-22 20:51:37,130 - INFO - werkzeug - 127.0.0.1 - - [22/Mar/2025 20:51:37] "GET /health HTTP/1.1" 200 -
+2025-03-22 20:53:45,864 - INFO - security_api.app - Starting full scan for infoziant.com (User: 67641689002fb236c2d0, Target: 6768fa3f21a281eb7cc96e51)
+2025-03-22 20:53:45,894 - WARNING - security_api.app - Unauthorized scan attempt by user 67641689002fb236c2d0
+2025-03-22 20:53:45,897 - INFO - werkzeug - 127.0.0.1 - - [22/Mar/2025 20:53:45] "[31m[1mPOST /scan HTTP/1.1[0m" 403 -
+2025-03-22 20:59:44,808 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 20:59:44,969 - INFO - security_api.database - Connecting to MongoDB...
+2025-03-22 20:59:49,768 - INFO - security_api.database - Successfully connected to MongoDB
+2025-03-22 20:59:50,196 - INFO - security_api.app - VulnerabilityScanner initialized
+2025-03-22 20:59:50,198 - INFO - security_api.app - Starting Security API on 0.0.0.0:5000
+2025-03-22 20:59:50,199 - INFO - security_api.app - Debug mode: False
+2025-03-22 20:59:51,092 - INFO - werkzeug - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.8:5000
+2025-03-22 20:59:51,103 - INFO - werkzeug - [33mPress CTRL+C to quit[0m
+2025-03-22 21:00:30,347 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 21:00:30,507 - INFO - security_api.database - Connecting to MongoDB...
+2025-03-22 21:00:36,331 - INFO - security_api.database - Successfully connected to MongoDB
+2025-03-22 21:00:36,700 - INFO - security_api.app - VulnerabilityScanner initialized
+2025-03-22 21:00:36,702 - INFO - security_api.app - Starting Security API on 0.0.0.0:5000
+2025-03-22 21:00:36,703 - INFO - security_api.app - Debug mode: False
+2025-03-22 21:00:37,936 - INFO - werkzeug - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.8:5000
+2025-03-22 21:00:37,937 - INFO - werkzeug - [33mPress CTRL+C to quit[0m
+2025-03-22 21:00:43,353 - INFO - security_api.app - Starting full scan for infoziant.com (User: 67641689002fb236c2d0, Target: 6768fa3f21a281eb7cc96e51)
+2025-03-22 21:00:43,386 - WARNING - security_api.app - Unauthorized scan attempt by user 67641689002fb236c2d0
+2025-03-22 21:00:43,388 - INFO - werkzeug - 127.0.0.1 - - [22/Mar/2025 21:00:43] "[31m[1mPOST /scan HTTP/1.1[0m" 403 -
+2025-03-22 21:03:50,840 - INFO - security_api.app - Starting full scan for infoziant.com (User: 67ac3eb60023dce04ca7, Target: 67c05007dedd28b1489cbd0d)
+2025-03-22 21:03:50,925 - INFO - security_api.app - Target ID 67c05007dedd28b1489cbd0d already exists, will update results
+2025-03-22 21:03:50,926 - INFO - security_api.subdomain_scanner - Finding subdomains for infoziant.com using subfinder and assetfinder...
+2025-03-22 21:03:50,926 - INFO - security_api.subdomain_scanner - Running command: subfinder -d infoziant.com
+2025-03-22 21:03:51,025 - INFO - security_api.subdomain_scanner - Running command: assetfinder --subs-only infoziant.com
+2025-03-22 21:03:53,366 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 22 lines
+2025-03-22 21:04:22,357 - WARNING - security_api.subdomain_scanner - Command stderr: 
+               __    _____           __         
+   _______  __/ /_  / __(_)___  ____/ /__  _____
+  / ___/ / / / __ \/ /_/ / __ \/ __  / _ \/ ___/
+ (__  ) /_/ / /_/ / __/ / / / / /_/ /  __/ /    
+/____/\__,_/_.___/_/ /_/_/ /_/\__,_/\___/_/
+
+		projectdiscovery.io
+
+[[34mINF[0m] Current subfinder version v2.6.6 ([91moutdated[0m)
+[[34mINF[0m] Loading provider config from C:\Users\ssund\AppData\Roaming\subfinder\provider-config.yaml
+[[34mINF[0m] Enumerating subdomains for infoziant.com
+[[34mINF[0m] Found 16 subdomains for infoziant.com in 30 seconds 13 milliseconds
+
+2025-03-22 21:04:22,360 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 16 lines
+2025-03-22 21:04:22,360 - INFO - security_api.subdomain_scanner - Found 16 unique subdomains
+2025-03-22 21:04:22,360 - INFO - security_api.app - Found 16 subdomains for infoziant.com
+2025-03-22 21:04:22,362 - INFO - security_api.subdomain_scanner - Checking HTTP status for 16 subdomains...
+2025-03-22 21:04:23,481 - INFO - httpx - HTTP Request: GET http://infoziant.com "HTTP/1.1 301 Moved Permanently"
+2025-03-22 21:04:23,595 - INFO - httpx - HTTP Request: GET https://web.infoziant.com "HTTP/1.1 403 Forbidden"
+2025-03-22 21:04:23,604 - INFO - httpx - HTTP Request: GET http://web.infoziant.com "HTTP/1.1 403 Forbidden"
+2025-03-22 21:04:23,759 - INFO - httpx - HTTP Request: GET http://ns1.infoziant.com "HTTP/1.1 403 Forbidden"
+2025-03-22 21:04:23,765 - INFO - httpx - HTTP Request: GET http://test.infoziant.com "HTTP/1.1 301 Moved Permanently"
+2025-03-22 21:04:23,780 - INFO - httpx - HTTP Request: GET https://test.infoziant.com "HTTP/1.1 403 Forbidden"
+2025-03-22 21:04:24,155 - INFO - httpx - HTTP Request: GET http://template.infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:04:24,295 - INFO - httpx - HTTP Request: GET https://smimiddleeast.infoziant.com "HTTP/1.1 403 Forbidden"
+2025-03-22 21:04:24,309 - INFO - httpx - HTTP Request: GET http://www.infoziant.com "HTTP/1.1 301 Moved Permanently"
+2025-03-22 21:04:24,787 - INFO - httpx - HTTP Request: GET http://smimiddleeast.infoziant.com "HTTP/1.1 403 Forbidden"
+2025-03-22 21:04:24,895 - INFO - httpx - HTTP Request: GET https://mail.infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:04:24,915 - INFO - httpx - HTTP Request: GET http://enbott.infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:04:25,170 - INFO - httpx - HTTP Request: GET https://smi.infoziant.com "HTTP/1.1 403 Forbidden"
+2025-03-22 21:04:25,249 - INFO - httpx - HTTP Request: GET https://infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:04:25,251 - INFO - httpx - HTTP Request: GET https://backup.infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:04:25,265 - INFO - httpx - HTTP Request: GET http://smi.infoziant.com "HTTP/1.1 301 Moved Permanently"
+2025-03-22 21:04:25,273 - INFO - httpx - HTTP Request: GET http://mail.infoziant.com "HTTP/1.1 301 Moved Permanently"
+2025-03-22 21:04:25,295 - INFO - httpx - HTTP Request: GET https://test.infoziant.com/ "HTTP/1.1 403 Forbidden"
+2025-03-22 21:04:25,298 - INFO - httpx - HTTP Request: GET https://smime.infoziant.com "HTTP/1.1 403 Forbidden"
+2025-03-22 21:04:25,309 - INFO - httpx - HTTP Request: GET http://ns2.infoziant.com "HTTP/1.1 403 Forbidden"
+2025-03-22 21:04:25,332 - INFO - httpx - HTTP Request: GET https://enbott.infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:04:25,334 - INFO - httpx - HTTP Request: GET https://smi.infoziant.com/ "HTTP/1.1 403 Forbidden"
+2025-03-22 21:04:25,336 - INFO - httpx - HTTP Request: GET https://demo.infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:04:25,338 - INFO - httpx - HTTP Request: GET http://backup.infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:04:25,351 - INFO - httpx - HTTP Request: GET http://demo.infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:04:25,434 - INFO - httpx - HTTP Request: GET https://infoziant.com/___webuzo_subdomain_webmail/ "HTTP/1.1 200 OK"
+2025-03-22 21:04:25,435 - INFO - httpx - HTTP Request: GET http://smime.infoziant.com "HTTP/1.1 403 Forbidden"
+2025-03-22 21:04:25,695 - INFO - httpx - HTTP Request: GET https://infoziant.com/ "HTTP/1.1 200 OK"
+2025-03-22 21:04:26,002 - INFO - httpx - HTTP Request: GET https://template.infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:04:26,187 - INFO - httpx - HTTP Request: GET https://www.infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:04:27,042 - INFO - httpx - HTTP Request: GET https://infoziant.com/ "HTTP/1.1 200 OK"
+2025-03-22 21:04:27,043 - INFO - security_api.subdomain_scanner - Found 14 active subdomains
+2025-03-22 21:04:27,044 - INFO - security_api.app - Validated 14 active subdomains
+2025-03-22 21:04:27,044 - INFO - security_api.subdomain_scanner - Fetching URLs from Wayback and Paramspider for 14 subdomains...
+2025-03-22 21:04:27,046 - INFO - security_api.subdomain_scanner - Running command: waybackurls enbott.infoziant.com
+2025-03-22 21:04:27,105 - INFO - security_api.subdomain_scanner - Running command: waybackurls enbott.infoziant.com
+2025-03-22 21:04:27,119 - INFO - security_api.subdomain_scanner - Running command: waybackurls demo.infoziant.com
+2025-03-22 21:04:27,137 - INFO - security_api.subdomain_scanner - Running command: waybackurls demo.infoziant.com
+2025-03-22 21:04:27,168 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.infoziant.com
+2025-03-22 21:04:27,194 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.infoziant.com
+2025-03-22 21:04:27,238 - INFO - security_api.subdomain_scanner - Running command: waybackurls infoziant.com
+2025-03-22 21:04:27,257 - INFO - security_api.subdomain_scanner - Running command: waybackurls infoziant.com
+2025-03-22 21:04:27,279 - INFO - security_api.subdomain_scanner - Running command: waybackurls template.infoziant.com
+2025-03-22 21:04:27,315 - INFO - security_api.subdomain_scanner - Running command: waybackurls template.infoziant.com
+2025-03-22 21:04:27,350 - INFO - security_api.subdomain_scanner - Running command: waybackurls backup.infoziant.com
+2025-03-22 21:04:27,374 - INFO - security_api.subdomain_scanner - Running command: waybackurls backup.infoziant.com
+2025-03-22 21:04:27,412 - INFO - security_api.subdomain_scanner - Running command: waybackurls mail.infoziant.com
+2025-03-22 21:04:27,441 - INFO - security_api.subdomain_scanner - Running command: waybackurls mail.infoziant.com
+2025-03-22 21:04:28,285 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 21:04:28,314 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 21:04:28,472 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 21:04:28,646 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 21:04:29,133 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 21:04:29,685 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1128 lines
+2025-03-22 21:04:30,486 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 21:04:32,862 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1128 lines
+2025-03-22 21:04:35,475 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1128 lines
+2025-03-22 21:04:36,605 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 21:04:58,910 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 2 lines
+2025-03-22 21:05:08,210 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 21:05:12,785 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 2 lines
+2025-03-22 21:05:14,104 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1128 lines
+2025-03-22 21:05:14,106 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain enbott.infoziant.com
+2025-03-22 21:05:14,117 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain enbott.infoziant.com
+2025-03-22 21:05:14,128 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain demo.infoziant.com
+2025-03-22 21:05:14,140 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain demo.infoziant.com
+2025-03-22 21:05:14,154 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.infoziant.com
+2025-03-22 21:05:14,170 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.infoziant.com
+2025-03-22 21:05:14,187 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain infoziant.com
+2025-03-22 21:05:14,205 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain infoziant.com
+2025-03-22 21:05:14,225 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain template.infoziant.com
+2025-03-22 21:05:14,252 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain template.infoziant.com
+2025-03-22 21:05:14,274 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain backup.infoziant.com
+2025-03-22 21:05:14,332 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain backup.infoziant.com
+2025-03-22 21:05:14,358 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain mail.infoziant.com
+2025-03-22 21:05:14,387 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain mail.infoziant.com
+2025-03-22 21:05:18,590 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mbackup.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mbackup.infoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36mbackup.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\backup.infoziant.com.txt[0m
+
+2025-03-22 21:05:18,592 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:05:18,800 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mdemo.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mdemo.infoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36mdemo.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\demo.infoziant.com.txt[0m
+
+2025-03-22 21:05:18,802 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:05:19,051 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36menbott.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36menbott.infoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36menbott.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\enbott.infoziant.com.txt[0m
+
+2025-03-22 21:05:19,053 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:05:19,064 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mtemplate.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mtemplate.infoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36mtemplate.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\template.infoziant.com.txt[0m
+
+2025-03-22 21:05:19,066 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:05:19,301 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mdemo.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mdemo.infoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36mdemo.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\demo.infoziant.com.txt[0m
+
+2025-03-22 21:05:19,302 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:05:19,688 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36menbott.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36menbott.infoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36menbott.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\enbott.infoziant.com.txt[0m
+
+2025-03-22 21:05:19,689 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:05:20,130 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mmail.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mmail.infoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36mmail.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\mail.infoziant.com.txt[0m
+
+2025-03-22 21:05:20,131 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:05:20,311 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mtemplate.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mtemplate.infoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36mtemplate.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\template.infoziant.com.txt[0m
+
+2025-03-22 21:05:20,312 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:05:21,240 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.infoziant.com[0m
+[33m[INFO][0m Found [32m1113[0m URLs for [36mwww.infoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36mwww.infoziant.com[0m
+[33m[INFO][0m Found [32m213[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\www.infoziant.com.txt[0m
+
+2025-03-22 21:05:21,241 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:05:22,354 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.infoziant.com[0m
+[33m[INFO][0m Found [32m1113[0m URLs for [36mwww.infoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36mwww.infoziant.com[0m
+[33m[INFO][0m Found [32m213[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\www.infoziant.com.txt[0m
+
+2025-03-22 21:05:22,356 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:05:31,107 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mmail.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mmail.infoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36mmail.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\mail.infoziant.com.txt[0m
+
+2025-03-22 21:05:31,109 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:05:31,171 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36minfoziant.com[0m
+[33m[INFO][0m Found [32m1113[0m URLs for [36minfoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36minfoziant.com[0m
+[33m[INFO][0m Found [32m213[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\infoziant.com.txt[0m
+
+2025-03-22 21:05:31,172 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:05:49,263 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mbackup.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mbackup.infoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36mbackup.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\backup.infoziant.com.txt[0m
+
+2025-03-22 21:05:49,265 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:05:52,671 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36minfoziant.com[0m
+[33m[INFO][0m Found [32m1113[0m URLs for [36minfoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36minfoziant.com[0m
+[33m[INFO][0m Found [32m213[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\infoziant.com.txt[0m
+
+2025-03-22 21:05:52,672 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:05:52,674 - INFO - security_api.subdomain_scanner - Consolidated Paramspider results for 7 subdomains
+2025-03-22 21:05:52,675 - INFO - security_api.subdomain_scanner - Fetched URLs for 7 subdomains from Wayback
+2025-03-22 21:05:52,675 - INFO - security_api.subdomain_scanner - Fetched URLs for 7 subdomains from Paramspider
+2025-03-22 21:05:52,676 - INFO - security_api.app - Collected URLs from 7 subdomains (Wayback) and 7 subdomains (Paramspider)
+2025-03-22 21:05:52,676 - INFO - security_api.website_health - Checking website health for http://infoziant.com
+2025-03-22 21:05:53,324 - INFO - httpx - HTTP Request: GET http://infoziant.com "HTTP/1.1 301 Moved Permanently"
+2025-03-22 21:05:53,392 - INFO - httpx - HTTP Request: GET http://infoziant.com "HTTP/1.1 301 Moved Permanently"
+2025-03-22 21:05:53,415 - INFO - httpx - HTTP Request: GET http://infoziant.com "HTTP/1.1 301 Moved Permanently"
+2025-03-22 21:05:55,379 - WARNING - security_api.utils - DNS resolution failed for infoziant.com (AAAA): The DNS response does not contain an answer to the question: infoziant.com. IN AAAA
+2025-03-22 21:05:55,618 - INFO - security_api.website_health - Website health check completed for http://infoziant.com: Healthy
+2025-03-22 21:05:55,619 - INFO - security_api.app - Completed health check for infoziant.com: Healthy
+2025-03-22 21:05:55,620 - INFO - security_api.http_security - Checking HTTP security headers for https://infoziant.com
+2025-03-22 21:05:56,152 - INFO - security_api.http_security - Checking client access policies for https://infoziant.com
+2025-03-22 21:05:56,687 - INFO - security_api.http_security - Checking security.txt for https://infoziant.com
+2025-03-22 21:05:57,217 - INFO - security_api.http_security - Checking robots.txt for https://infoziant.com
+2025-03-22 21:05:57,748 - INFO - security_api.dns_email_security - Checking email security for infoziant.com
+2025-03-22 21:05:57,748 - INFO - security_api.http_security - Checking CSP for https://infoziant.com
+2025-03-22 21:05:58,284 - INFO - security_api.http_security - Checking cookies for https://infoziant.com
+2025-03-22 21:06:00,659 - INFO - security_api.http_security - Cookie check completed for https://infoziant.com: No Cookies
+2025-03-22 21:06:00,662 - INFO - security_api.http_security - Checking clickjacking vulnerability for http://infoziant.com
+2025-03-22 21:06:01,260 - INFO - security_api.website_health - Checking website accessibility for http://infoziant.com
+2025-03-22 21:06:01,261 - INFO - security_api.dns_email_security - Checking SPF record for infoziant.com
+2025-03-22 21:06:03,340 - INFO - security_api.dns_email_security - SPF check completed for infoziant.com: Secure
+2025-03-22 21:06:03,341 - INFO - security_api.dns_email_security - Checking DMARC record for infoziant.com
+2025-03-22 21:06:05,404 - INFO - security_api.dns_email_security - DMARC check completed for infoziant.com: Potentially Vulnerable
+2025-03-22 21:06:05,407 - INFO - security_api.dns_email_security - Email security check completed for infoziant.com: Potentially Vulnerable
+2025-03-22 21:06:05,439 - INFO - httpx - HTTP Request: GET http://infoziant.com "HTTP/1.1 301 Moved Permanently"
+2025-03-22 21:06:05,443 - INFO - security_api.http_security - Clickjacking check completed for http://infoziant.com: Vulnerable
+2025-03-22 21:06:06,018 - INFO - httpx - HTTP Request: GET https://infoziant.com/robots.txt "HTTP/1.1 200 OK"
+2025-03-22 21:06:06,020 - INFO - security_api.http_security - Robots.txt check completed for https://infoziant.com: Secure
+2025-03-22 21:06:06,096 - INFO - httpx - HTTP Request: GET https://infoziant.com/crossdomain.xml "HTTP/1.1 200 OK"
+2025-03-22 21:06:07,165 - INFO - httpx - HTTP Request: GET https://infoziant.com/.well-known/security.txt "HTTP/1.1 200 OK"
+2025-03-22 21:06:07,167 - INFO - security_api.http_security - Security.txt check completed for https://infoziant.com: Present
+2025-03-22 21:06:07,308 - INFO - httpx - HTTP Request: GET https://infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:06:07,310 - INFO - security_api.http_security - CSP check completed for https://infoziant.com: Missing
+2025-03-22 21:06:07,717 - INFO - httpx - HTTP Request: GET https://infoziant.com/clientaccesspolicy.xml "HTTP/1.1 200 OK"
+2025-03-22 21:06:07,719 - INFO - security_api.http_security - Client access policy check completed for https://infoziant.com: Potentially Vulnerable
+2025-03-22 21:06:07,968 - INFO - security_api.website_health - Website accessibility check completed for http://infoziant.com: Fair
+2025-03-22 21:06:08,075 - INFO - httpx - HTTP Request: GET https://infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:06:08,077 - INFO - security_api.http_security - HTTP header check completed for https://infoziant.com: Vulnerable
+2025-03-22 21:06:08,078 - INFO - security_api.app - Completed security checks for infoziant.com
+2025-03-22 21:06:08,078 - INFO - security_api.app - Starting vulnerability scan for infoziant.com
+2025-03-22 21:06:08,079 - INFO - security_api.app - Collected 1138 unique URLs for scanning
+2025-03-22 21:06:08,079 - INFO - security_api.app - Starting SQLMap scan on 1138 URLs
+2025-03-22 21:06:08,079 - ERROR - security_api.app - Error in SQLMap scan: 'SQLMapScanner' object has no attribute 'scan_urls'
+2025-03-22 21:06:08,080 - INFO - security_api.app - Starting Dalfox scan on 1138 URLs
+2025-03-22 21:06:08,080 - ERROR - security_api.app - Error in Dalfox scan: DalfoxScanner.scan_urls() missing 1 required positional argument: 'domain'
+2025-03-22 21:06:08,081 - INFO - security_api.app - Starting CSRF scan on infoziant.com
+2025-03-22 21:06:08,082 - ERROR - security_api.app - Error in CSRF scan: 'CSRFScanner' object has no attribute 'scan'
+2025-03-22 21:06:08,082 - INFO - security_api.app - Starting SSRF scan on 1138 URLs
+2025-03-22 21:06:08,083 - ERROR - security_api.app - Error in SSRF scan: 'SSRFScanner' object has no attribute 'scan_urls'
+2025-03-22 21:06:08,083 - ERROR - security_api.app - SQLMap scan failed: 'SQLMapScanner' object has no attribute 'scan_urls'
+2025-03-22 21:06:08,083 - ERROR - security_api.app - Dalfox scan failed: DalfoxScanner.scan_urls() missing 1 required positional argument: 'domain'
+2025-03-22 21:06:08,083 - ERROR - security_api.app - CSRF scan failed: 'CSRFScanner' object has no attribute 'scan'
+2025-03-22 21:06:08,085 - ERROR - security_api.app - SSRF scan failed: 'SSRFScanner' object has no attribute 'scan_urls'
+2025-03-22 21:06:08,085 - INFO - security_api.app - Vulnerability scan completed for infoziant.com in 0.01 seconds
+2025-03-22 21:06:08,085 - INFO - security_api.app - Completed vulnerability scan for infoziant.com: Not Vulnerable
+2025-03-22 21:06:08,259 - INFO - security_api.app - Updated scan results for target 67c05007dedd28b1489cbd0d
+2025-03-22 21:06:08,259 - INFO - security_api.app - Scan completed for infoziant.com
+2025-03-22 21:06:08,263 - INFO - werkzeug - 127.0.0.1 - - [22/Mar/2025 21:06:08] "POST /scan HTTP/1.1" 200 -
+2025-03-22 21:52:51,243 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 21:52:51,424 - INFO - security_api.database - Connecting to MongoDB...
+2025-03-22 21:52:56,282 - INFO - security_api.database - Successfully connected to MongoDB
+2025-03-22 21:52:56,787 - INFO - security_api.app - VulnerabilityScanner initialized
+2025-03-22 21:52:56,789 - INFO - security_api.app - Starting Security API on 0.0.0.0:5000
+2025-03-22 21:52:56,790 - INFO - security_api.app - Debug mode: False
+2025-03-22 21:52:57,865 - INFO - werkzeug - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.8:5000
+2025-03-22 21:52:57,866 - INFO - werkzeug - [33mPress CTRL+C to quit[0m
+2025-03-22 21:53:25,603 - INFO - security_api.app - Starting full scan for infoziant.com (User: 67ac3eb60023dce04ca7, Target: 67c05007dedd28b1489cbd0d)
+2025-03-22 21:53:25,853 - INFO - security_api.app - Target ID 67c05007dedd28b1489cbd0d already exists, will update results
+2025-03-22 21:53:25,854 - INFO - security_api.subdomain_scanner - Finding subdomains for infoziant.com using subfinder and assetfinder...
+2025-03-22 21:53:25,855 - INFO - security_api.subdomain_scanner - Running command: subfinder -d infoziant.com
+2025-03-22 21:53:25,889 - INFO - security_api.subdomain_scanner - Running command: assetfinder --subs-only infoziant.com
+2025-03-22 21:53:28,474 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 22 lines
+2025-03-22 21:53:30,117 - WARNING - security_api.subdomain_scanner - Command stderr: 
+               __    _____           __         
+   _______  __/ /_  / __(_)___  ____/ /__  _____
+  / ___/ / / / __ \/ /_/ / __ \/ __  / _ \/ ___/
+ (__  ) /_/ / /_/ / __/ / / / / /_/ /  __/ /    
+/____/\__,_/_.___/_/ /_/_/ /_/\__,_/\___/_/
+
+		projectdiscovery.io
+
+[[34mINF[0m] Current subfinder version v2.6.6 ([91moutdated[0m)
+[[34mINF[0m] Loading provider config from C:\Users\ssund\AppData\Roaming\subfinder\provider-config.yaml
+[[34mINF[0m] Enumerating subdomains for infoziant.com
+[[34mINF[0m] Found 16 subdomains for infoziant.com in 3 seconds 158 milliseconds
+
+2025-03-22 21:53:30,120 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 16 lines
+2025-03-22 21:53:30,120 - INFO - security_api.subdomain_scanner - Found 16 unique subdomains
+2025-03-22 21:53:30,121 - INFO - security_api.app - Found 16 subdomains for infoziant.com
+2025-03-22 21:53:30,121 - INFO - security_api.subdomain_scanner - Checking HTTP status for 16 subdomains...
+2025-03-22 21:53:31,094 - INFO - httpx - HTTP Request: GET http://smi.infoziant.com "HTTP/1.1 301 Moved Permanently"
+2025-03-22 21:53:31,154 - INFO - httpx - HTTP Request: GET https://smimiddleeast.infoziant.com "HTTP/1.1 403 Forbidden"
+2025-03-22 21:53:31,161 - INFO - httpx - HTTP Request: GET https://smi.infoziant.com "HTTP/1.1 403 Forbidden"
+2025-03-22 21:53:31,178 - INFO - httpx - HTTP Request: GET http://smimiddleeast.infoziant.com "HTTP/1.1 403 Forbidden"
+2025-03-22 21:53:31,246 - INFO - httpx - HTTP Request: GET http://mail.infoziant.com "HTTP/1.1 301 Moved Permanently"
+2025-03-22 21:53:31,248 - INFO - httpx - HTTP Request: GET http://web.infoziant.com "HTTP/1.1 403 Forbidden"
+2025-03-22 21:53:31,266 - INFO - httpx - HTTP Request: GET https://web.infoziant.com "HTTP/1.1 403 Forbidden"
+2025-03-22 21:53:31,333 - INFO - httpx - HTTP Request: GET https://smime.infoziant.com "HTTP/1.1 403 Forbidden"
+2025-03-22 21:53:31,340 - INFO - httpx - HTTP Request: GET http://smime.infoziant.com "HTTP/1.1 403 Forbidden"
+2025-03-22 21:53:31,371 - INFO - httpx - HTTP Request: GET https://mail.infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:53:31,381 - INFO - httpx - HTTP Request: GET https://smi.infoziant.com/ "HTTP/1.1 403 Forbidden"
+2025-03-22 21:53:31,404 - INFO - httpx - HTTP Request: GET http://test.infoziant.com "HTTP/1.1 301 Moved Permanently"
+2025-03-22 21:53:31,423 - INFO - httpx - HTTP Request: GET https://test.infoziant.com "HTTP/1.1 403 Forbidden"
+2025-03-22 21:53:31,429 - INFO - httpx - HTTP Request: GET http://www.infoziant.com "HTTP/1.1 301 Moved Permanently"
+2025-03-22 21:53:31,437 - INFO - httpx - HTTP Request: GET http://infoziant.com "HTTP/1.1 301 Moved Permanently"
+2025-03-22 21:53:31,462 - INFO - httpx - HTTP Request: GET http://ns2.infoziant.com "HTTP/1.1 403 Forbidden"
+2025-03-22 21:53:31,465 - INFO - httpx - HTTP Request: GET http://demo.infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:53:31,468 - INFO - httpx - HTTP Request: GET http://ns1.infoziant.com "HTTP/1.1 403 Forbidden"
+2025-03-22 21:53:31,486 - INFO - httpx - HTTP Request: GET http://backup.infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:53:31,605 - INFO - httpx - HTTP Request: GET https://test.infoziant.com/ "HTTP/1.1 403 Forbidden"
+2025-03-22 21:53:31,658 - INFO - httpx - HTTP Request: GET https://infoziant.com/___webuzo_subdomain_webmail/ "HTTP/1.1 200 OK"
+2025-03-22 21:53:31,985 - INFO - httpx - HTTP Request: GET http://template.infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:53:32,277 - INFO - httpx - HTTP Request: GET https://template.infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:53:32,278 - INFO - httpx - HTTP Request: GET https://demo.infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:53:32,640 - INFO - httpx - HTTP Request: GET https://backup.infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:53:33,043 - INFO - httpx - HTTP Request: GET https://enbott.infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:53:33,084 - INFO - httpx - HTTP Request: GET http://enbott.infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:53:33,685 - INFO - httpx - HTTP Request: GET https://infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:53:34,242 - INFO - httpx - HTTP Request: GET https://www.infoziant.com "HTTP/1.1 200 OK"
+2025-03-22 21:53:34,382 - INFO - httpx - HTTP Request: GET https://infoziant.com/ "HTTP/1.1 200 OK"
+2025-03-22 21:53:35,701 - INFO - httpx - HTTP Request: GET https://infoziant.com/ "HTTP/1.1 200 OK"
+2025-03-22 21:53:35,702 - INFO - security_api.subdomain_scanner - Found 14 active subdomains
+2025-03-22 21:53:35,703 - INFO - security_api.app - Validated 14 active subdomains
+2025-03-22 21:53:35,704 - INFO - security_api.subdomain_scanner - Fetching URLs from Wayback and Paramspider for 14 subdomains...
+2025-03-22 21:53:35,704 - INFO - security_api.subdomain_scanner - Running command: waybackurls template.infoziant.com
+2025-03-22 21:53:35,720 - INFO - security_api.subdomain_scanner - Running command: waybackurls template.infoziant.com
+2025-03-22 21:53:35,734 - INFO - security_api.subdomain_scanner - Running command: waybackurls mail.infoziant.com
+2025-03-22 21:53:35,749 - INFO - security_api.subdomain_scanner - Running command: waybackurls mail.infoziant.com
+2025-03-22 21:53:35,766 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.infoziant.com
+2025-03-22 21:53:35,785 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.infoziant.com
+2025-03-22 21:53:35,803 - INFO - security_api.subdomain_scanner - Running command: waybackurls backup.infoziant.com
+2025-03-22 21:53:35,834 - INFO - security_api.subdomain_scanner - Running command: waybackurls backup.infoziant.com
+2025-03-22 21:53:35,858 - INFO - security_api.subdomain_scanner - Running command: waybackurls enbott.infoziant.com
+2025-03-22 21:53:35,887 - INFO - security_api.subdomain_scanner - Running command: waybackurls enbott.infoziant.com
+2025-03-22 21:53:35,917 - INFO - security_api.subdomain_scanner - Running command: waybackurls infoziant.com
+2025-03-22 21:53:35,960 - INFO - security_api.subdomain_scanner - Running command: waybackurls infoziant.com
+2025-03-22 21:53:35,986 - INFO - security_api.subdomain_scanner - Running command: waybackurls demo.infoziant.com
+2025-03-22 21:53:36,026 - INFO - security_api.subdomain_scanner - Running command: waybackurls demo.infoziant.com
+2025-03-22 21:53:37,417 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 21:53:37,702 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 21:53:37,703 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 21:53:37,768 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 21:53:37,811 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 21:53:38,586 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 21:53:38,709 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1128 lines
+2025-03-22 21:53:39,128 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1128 lines
+2025-03-22 21:53:40,027 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1128 lines
+2025-03-22 21:53:42,098 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 21:53:43,294 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 21:53:43,835 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1128 lines
+2025-03-22 21:53:45,011 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 2 lines
+2025-03-22 21:53:45,017 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 2 lines
+2025-03-22 21:53:45,018 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain template.infoziant.com
+2025-03-22 21:53:45,033 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain template.infoziant.com
+2025-03-22 21:53:45,044 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain mail.infoziant.com
+2025-03-22 21:53:45,057 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain mail.infoziant.com
+2025-03-22 21:53:45,073 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.infoziant.com
+2025-03-22 21:53:45,088 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.infoziant.com
+2025-03-22 21:53:45,102 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain backup.infoziant.com
+2025-03-22 21:53:45,122 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain backup.infoziant.com
+2025-03-22 21:53:45,137 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain enbott.infoziant.com
+2025-03-22 21:53:45,153 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain enbott.infoziant.com
+2025-03-22 21:53:45,181 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain infoziant.com
+2025-03-22 21:53:45,203 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain infoziant.com
+2025-03-22 21:53:45,235 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain demo.infoziant.com
+2025-03-22 21:53:45,253 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain demo.infoziant.com
+2025-03-22 21:53:48,614 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mdemo.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mdemo.infoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36mdemo.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\demo.infoziant.com.txt[0m
+
+2025-03-22 21:53:48,615 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:53:48,616 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mtemplate.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mtemplate.infoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36mtemplate.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\template.infoziant.com.txt[0m
+
+2025-03-22 21:53:48,617 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:53:48,673 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mmail.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mmail.infoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36mmail.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\mail.infoziant.com.txt[0m
+
+2025-03-22 21:53:48,676 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:53:48,753 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mbackup.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mbackup.infoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36mbackup.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\backup.infoziant.com.txt[0m
+
+2025-03-22 21:53:48,754 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:53:49,165 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mmail.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mmail.infoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36mmail.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\mail.infoziant.com.txt[0m
+
+2025-03-22 21:53:49,166 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:53:49,372 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mtemplate.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mtemplate.infoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36mtemplate.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\template.infoziant.com.txt[0m
+
+2025-03-22 21:53:49,373 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:53:49,398 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36minfoziant.com[0m
+[33m[INFO][0m Found [32m1113[0m URLs for [36minfoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36minfoziant.com[0m
+[33m[INFO][0m Found [32m213[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\infoziant.com.txt[0m
+
+2025-03-22 21:53:49,399 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:53:49,878 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.infoziant.com[0m
+[33m[INFO][0m Found [32m1113[0m URLs for [36mwww.infoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36mwww.infoziant.com[0m
+[33m[INFO][0m Found [32m213[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\www.infoziant.com.txt[0m
+
+2025-03-22 21:53:49,879 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:53:52,374 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mbackup.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mbackup.infoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36mbackup.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\backup.infoziant.com.txt[0m
+
+2025-03-22 21:53:52,376 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:53:54,839 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.infoziant.com[0m
+[33m[INFO][0m Found [32m1113[0m URLs for [36mwww.infoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36mwww.infoziant.com[0m
+[33m[INFO][0m Found [32m213[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\www.infoziant.com.txt[0m
+
+2025-03-22 21:53:54,840 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:53:54,865 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36menbott.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36menbott.infoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36menbott.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\enbott.infoziant.com.txt[0m
+
+2025-03-22 21:53:54,866 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:54:00,664 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36menbott.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36menbott.infoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36menbott.infoziant.com[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\enbott.infoziant.com.txt[0m
+
+2025-03-22 21:54:00,664 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:54:05,094 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36minfoziant.com[0m
+[33m[INFO][0m Found [32m1113[0m URLs for [36minfoziant.com[0m
+[33m[INFO][0m Cleaning URLs for [36minfoziant.com[0m
+[33m[INFO][0m Found [32m213[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\infoziant.com.txt[0m
+
+2025-03-22 21:54:05,095 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:56:27,604 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 21:56:27,765 - INFO - security_api.database - Connecting to MongoDB...
+2025-03-22 21:56:32,658 - INFO - security_api.database - Successfully connected to MongoDB
+2025-03-22 21:56:33,049 - INFO - security_api.app - VulnerabilityScanner initialized
+2025-03-22 21:56:33,051 - INFO - security_api.app - Starting Security API on 0.0.0.0:5000
+2025-03-22 21:56:33,051 - INFO - security_api.app - Debug mode: False
+2025-03-22 21:56:33,960 - INFO - werkzeug - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.8:5000
+2025-03-22 21:56:33,961 - INFO - werkzeug - [33mPress CTRL+C to quit[0m
+2025-03-22 21:56:59,042 - INFO - security_api.app - Starting full scan for panimalar.ac.in (User: 67ac3eb60023dce04ca7, Target: 67c05007dedd28b1489cbd0d)
+2025-03-22 21:56:59,286 - INFO - security_api.app - Target ID 67c05007dedd28b1489cbd0d already exists, will update results
+2025-03-22 21:56:59,287 - INFO - security_api.subdomain_scanner - Finding subdomains for panimalar.ac.in using subfinder and assetfinder...
+2025-03-22 21:56:59,289 - INFO - security_api.subdomain_scanner - Running command: subfinder -d panimalar.ac.in
+2025-03-22 21:56:59,305 - INFO - security_api.subdomain_scanner - Running command: assetfinder --subs-only panimalar.ac.in
+2025-03-22 21:57:02,344 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 78 lines
+2025-03-22 21:57:02,633 - WARNING - security_api.subdomain_scanner - Command stderr: 
+               __    _____           __         
+   _______  __/ /_  / __(_)___  ____/ /__  _____
+  / ___/ / / / __ \/ /_/ / __ \/ __  / _ \/ ___/
+ (__  ) /_/ / /_/ / __/ / / / / /_/ /  __/ /    
+/____/\__,_/_.___/_/ /_/_/ /_/\__,_/\___/_/
+
+		projectdiscovery.io
+
+[[34mINF[0m] Current subfinder version v2.6.6 ([91moutdated[0m)
+[[34mINF[0m] Loading provider config from C:\Users\ssund\AppData\Roaming\subfinder\provider-config.yaml
+[[34mINF[0m] Enumerating subdomains for panimalar.ac.in
+[[34mINF[0m] Found 30 subdomains for panimalar.ac.in in 2 seconds 401 milliseconds
+
+2025-03-22 21:57:02,635 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 30 lines
+2025-03-22 21:57:02,635 - INFO - security_api.subdomain_scanner - Found 30 unique subdomains
+2025-03-22 21:57:02,636 - INFO - security_api.app - Found 30 subdomains for panimalar.ac.in
+2025-03-22 21:57:02,636 - INFO - security_api.subdomain_scanner - Checking HTTP status for 30 subdomains...
+2025-03-22 21:57:03,652 - INFO - httpx - HTTP Request: GET http://coe.panimalar.ac.in "HTTP/1.1 301 Moved Permanently"
+2025-03-22 21:57:03,719 - INFO - httpx - HTTP Request: GET https://coe.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 21:57:03,773 - INFO - httpx - HTTP Request: GET http://webmail.coe.panimalar.ac.in "HTTP/1.1 301 Moved"
+2025-03-22 21:57:03,823 - INFO - httpx - HTTP Request: GET http://panimalar.ac.in "HTTP/1.1 302 Found"
+2025-03-22 21:57:03,859 - INFO - httpx - HTTP Request: GET http://webmail.panimalar.ac.in "HTTP/1.1 301 Moved"
+2025-03-22 21:57:04,065 - INFO - httpx - HTTP Request: GET https://panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 21:57:04,073 - INFO - httpx - HTTP Request: GET http://www.panimalar.ac.in "HTTP/1.1 302 Found"
+2025-03-22 21:57:04,078 - INFO - httpx - HTTP Request: GET http://alumni.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 21:57:04,094 - INFO - httpx - HTTP Request: GET https://webmail.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 21:57:04,149 - INFO - httpx - HTTP Request: GET http://panimalar.panimalar.ac.in "HTTP/1.1 302 Found"
+2025-03-22 21:57:04,252 - INFO - httpx - HTTP Request: GET https://alumni.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 21:57:04,265 - INFO - httpx - HTTP Request: GET http://mail.alumni.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 21:57:04,311 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 21:57:04,341 - INFO - httpx - HTTP Request: GET http://mail.panimalar.ac.in "HTTP/1.1 302 Found"
+2025-03-22 21:57:04,386 - INFO - httpx - HTTP Request: GET http://mail.coe.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 21:57:04,416 - INFO - httpx - HTTP Request: GET http://cpanel.coe.panimalar.ac.in "HTTP/1.1 301 Moved"
+2025-03-22 21:57:04,425 - INFO - httpx - HTTP Request: GET http://www.panimalar1.panimalar.ac.in "HTTP/1.1 302 Found"
+2025-03-22 21:57:04,436 - INFO - httpx - HTTP Request: GET https://coe.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 21:57:04,447 - INFO - httpx - HTTP Request: GET https://panimalar.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 21:57:04,474 - INFO - httpx - HTTP Request: GET https://mail.alumni.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 21:57:04,529 - INFO - httpx - HTTP Request: GET https://mail.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 21:57:04,567 - INFO - httpx - HTTP Request: GET http://www.coe.panimalar.ac.in "HTTP/1.1 301 Moved Permanently"
+2025-03-22 21:57:04,588 - INFO - httpx - HTTP Request: GET http://cpanel.alumni.panimalar.ac.in "HTTP/1.1 301 Moved"
+2025-03-22 21:57:04,623 - INFO - httpx - HTTP Request: GET http://cpanel.panimalar.ac.in "HTTP/1.1 301 Moved"
+2025-03-22 21:57:04,639 - INFO - httpx - HTTP Request: GET https://www.panimalar1.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 21:57:04,726 - INFO - httpx - HTTP Request: GET https://cpanel.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 21:57:04,754 - INFO - httpx - HTTP Request: GET https://coe.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 21:57:04,772 - INFO - httpx - HTTP Request: GET http://cpcalendars.panimalar.ac.in "HTTP/1.1 302 Moved"
+2025-03-22 21:57:04,807 - INFO - httpx - HTTP Request: GET https://cpcalendars.panimalar.ac.in "HTTP/1.1 401 Unauthorized"
+2025-03-22 21:57:04,824 - INFO - httpx - HTTP Request: GET http://webdisk.panimalar.ac.in "HTTP/1.1 302 Moved"
+2025-03-22 21:57:04,976 - INFO - httpx - HTTP Request: GET http://panimalar1.panimalar.ac.in "HTTP/1.1 302 Found"
+2025-03-22 21:57:04,993 - INFO - httpx - HTTP Request: GET https://webdisk.panimalar.ac.in "HTTP/1.1 401 Unauthorized"
+2025-03-22 21:57:04,995 - INFO - httpx - HTTP Request: GET http://www.alumni.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 21:57:05,021 - INFO - httpx - HTTP Request: GET http://cpcontacts.panimalar.ac.in "HTTP/1.1 302 Moved"
+2025-03-22 21:57:05,023 - INFO - httpx - HTTP Request: GET https://cpanel.alumni.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 21:57:05,070 - INFO - httpx - HTTP Request: GET http://www.panimalar.panimalar.ac.in "HTTP/1.1 302 Found"
+2025-03-22 21:57:05,144 - INFO - httpx - HTTP Request: GET https://www.alumni.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 21:57:05,169 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 21:57:05,230 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 21:57:05,277 - INFO - httpx - HTTP Request: GET https://cpanel.alumni.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 21:57:05,333 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in/panimalar.edu.in/ "HTTP/1.1 200 OK"
+2025-03-22 21:57:05,354 - INFO - httpx - HTTP Request: GET https://panimalar1.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 21:57:05,380 - INFO - httpx - HTTP Request: GET https://webmail.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 21:57:05,564 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 21:57:05,584 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in/panimalar.res.in/ "HTTP/1.1 200 OK"
+2025-03-22 21:57:05,604 - INFO - httpx - HTTP Request: GET https://cpcontacts.panimalar.ac.in "HTTP/1.1 401 Unauthorized"
+2025-03-22 21:57:06,309 - INFO - httpx - HTTP Request: GET https://www.panimalar.panimalar.ac.in "HTTP/1.1 200 OK"
+2025-03-22 21:57:06,355 - INFO - httpx - HTTP Request: GET https://cpanel.panimalar.ac.in/ "HTTP/1.1 200 OK"
+2025-03-22 21:57:06,615 - INFO - httpx - HTTP Request: GET https://cpcalendars.panimalar.ac.in/ "HTTP/1.1 401 Unauthorized"
+2025-03-22 21:57:06,626 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in/panimalar.res.in/ "HTTP/1.1 200 OK"
+2025-03-22 21:57:06,638 - INFO - httpx - HTTP Request: GET https://cpcontacts.panimalar.ac.in/ "HTTP/1.1 401 Unauthorized"
+2025-03-22 21:57:06,659 - INFO - httpx - HTTP Request: GET https://webdisk.panimalar.ac.in/ "HTTP/1.1 401 Unauthorized"
+2025-03-22 21:57:07,624 - INFO - httpx - HTTP Request: GET https://www.panimalar.ac.in/panimalar.edu.in/ "HTTP/1.1 200 OK"
+2025-03-22 21:57:07,627 - INFO - security_api.subdomain_scanner - Found 30 active subdomains
+2025-03-22 21:57:07,627 - INFO - security_api.app - Validated 30 active subdomains
+2025-03-22 21:57:07,628 - INFO - security_api.subdomain_scanner - Fetching URLs from Wayback and Paramspider for 30 subdomains...
+2025-03-22 21:57:07,628 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.panimalar.ac.in
+2025-03-22 21:57:07,639 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.panimalar.ac.in
+2025-03-22 21:57:07,653 - INFO - security_api.subdomain_scanner - Running command: waybackurls panimalar.ac.in
+2025-03-22 21:57:07,667 - INFO - security_api.subdomain_scanner - Running command: waybackurls panimalar.ac.in
+2025-03-22 21:57:07,684 - INFO - security_api.subdomain_scanner - Running command: waybackurls webmail.panimalar.ac.in
+2025-03-22 21:57:07,700 - INFO - security_api.subdomain_scanner - Running command: waybackurls webmail.panimalar.ac.in
+2025-03-22 21:57:07,717 - INFO - security_api.subdomain_scanner - Running command: waybackurls coe.panimalar.ac.in
+2025-03-22 21:57:07,745 - INFO - security_api.subdomain_scanner - Running command: waybackurls coe.panimalar.ac.in
+2025-03-22 21:57:07,764 - INFO - security_api.subdomain_scanner - Running command: waybackurls alumni.panimalar.ac.in
+2025-03-22 21:57:07,781 - INFO - security_api.subdomain_scanner - Running command: waybackurls alumni.panimalar.ac.in
+2025-03-22 21:57:07,806 - INFO - security_api.subdomain_scanner - Running command: waybackurls mail.alumni.panimalar.ac.in
+2025-03-22 21:57:07,825 - INFO - security_api.subdomain_scanner - Running command: waybackurls mail.alumni.panimalar.ac.in
+2025-03-22 21:57:07,857 - INFO - security_api.subdomain_scanner - Running command: waybackurls mail.panimalar.ac.in
+2025-03-22 21:57:07,871 - INFO - security_api.subdomain_scanner - Running command: waybackurls mail.panimalar.ac.in
+2025-03-22 21:57:07,903 - INFO - security_api.subdomain_scanner - Running command: waybackurls panimalar.panimalar.ac.in
+2025-03-22 21:57:07,931 - INFO - security_api.subdomain_scanner - Running command: waybackurls panimalar.panimalar.ac.in
+2025-03-22 21:57:07,954 - INFO - security_api.subdomain_scanner - Running command: waybackurls cpanel.panimalar.ac.in
+2025-03-22 21:57:07,974 - INFO - security_api.subdomain_scanner - Running command: waybackurls cpanel.panimalar.ac.in
+2025-03-22 21:57:07,995 - INFO - security_api.subdomain_scanner - Running command: waybackurls panimalar1.panimalar.ac.in
+2025-03-22 21:57:08,032 - INFO - security_api.subdomain_scanner - Running command: waybackurls panimalar1.panimalar.ac.in
+2025-03-22 21:57:08,057 - INFO - security_api.subdomain_scanner - Running command: waybackurls mail.coe.panimalar.ac.in
+2025-03-22 21:57:08,101 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.panimalar1.panimalar.ac.in
+2025-03-22 21:57:08,129 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.panimalar1.panimalar.ac.in
+2025-03-22 21:57:08,155 - INFO - security_api.subdomain_scanner - Running command: waybackurls cpanel.alumni.panimalar.ac.in
+2025-03-22 21:57:08,218 - INFO - security_api.subdomain_scanner - Running command: waybackurls cpanel.alumni.panimalar.ac.in
+2025-03-22 21:57:08,251 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.panimalar.panimalar.ac.in
+2025-03-22 21:57:08,298 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.panimalar.panimalar.ac.in
+2025-03-22 21:57:08,322 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.alumni.panimalar.ac.in
+2025-03-22 21:57:08,356 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.alumni.panimalar.ac.in
+2025-03-22 21:57:08,385 - INFO - security_api.subdomain_scanner - Running command: waybackurls www.coe.panimalar.ac.in
+2025-03-22 21:57:08,565 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 21 lines
+2025-03-22 21:57:08,689 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 21 lines
+2025-03-22 21:57:08,967 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 14 lines
+2025-03-22 21:57:09,315 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 514 lines
+2025-03-22 21:57:09,332 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 514 lines
+2025-03-22 21:57:10,937 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 5557 lines
+2025-03-22 21:57:11,315 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 5557 lines
+2025-03-22 21:57:11,434 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 5539 lines
+2025-03-22 21:57:21,496 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 21:57:21,716 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 21:57:21,775 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 5539 lines
+2025-03-22 21:57:21,866 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 1 lines
+2025-03-22 21:57:21,989 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 21:57:22,052 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 21:57:22,888 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 21:57:22,929 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 21:57:23,106 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 21:57:23,222 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 21:57:23,230 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 21:57:23,405 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 21:57:23,443 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 21:57:23,478 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 21:57:25,426 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 21:57:25,983 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 21:57:28,861 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 14 lines
+2025-03-22 21:57:28,931 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 21:57:28,976 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 21:57:29,102 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 21:57:29,195 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 21:57:29,225 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 0 lines
+2025-03-22 21:57:29,226 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.panimalar.ac.in
+2025-03-22 21:57:29,238 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.panimalar.ac.in
+2025-03-22 21:57:29,249 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain panimalar.ac.in
+2025-03-22 21:57:29,265 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain panimalar.ac.in
+2025-03-22 21:57:29,278 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain webmail.panimalar.ac.in
+2025-03-22 21:57:29,293 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain webmail.panimalar.ac.in
+2025-03-22 21:57:29,311 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain coe.panimalar.ac.in
+2025-03-22 21:57:29,327 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain coe.panimalar.ac.in
+2025-03-22 21:57:29,345 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain alumni.panimalar.ac.in
+2025-03-22 21:57:29,365 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain alumni.panimalar.ac.in
+2025-03-22 21:57:29,384 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain mail.alumni.panimalar.ac.in
+2025-03-22 21:57:29,407 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain mail.alumni.panimalar.ac.in
+2025-03-22 21:57:29,428 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain mail.panimalar.ac.in
+2025-03-22 21:57:29,461 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain mail.panimalar.ac.in
+2025-03-22 21:57:29,481 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain panimalar.panimalar.ac.in
+2025-03-22 21:57:29,571 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain panimalar.panimalar.ac.in
+2025-03-22 21:57:29,597 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain cpanel.panimalar.ac.in
+2025-03-22 21:57:29,728 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain cpanel.panimalar.ac.in
+2025-03-22 21:57:29,766 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain panimalar1.panimalar.ac.in
+2025-03-22 21:57:29,918 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain panimalar1.panimalar.ac.in
+2025-03-22 21:57:30,042 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain mail.coe.panimalar.ac.in
+2025-03-22 21:57:30,120 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.panimalar1.panimalar.ac.in
+2025-03-22 21:57:30,171 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.panimalar1.panimalar.ac.in
+2025-03-22 21:57:30,193 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain cpanel.alumni.panimalar.ac.in
+2025-03-22 21:57:30,221 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain cpanel.alumni.panimalar.ac.in
+2025-03-22 21:57:30,245 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.panimalar.panimalar.ac.in
+2025-03-22 21:57:30,296 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.panimalar.panimalar.ac.in
+2025-03-22 21:57:30,408 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.alumni.panimalar.ac.in
+2025-03-22 21:57:30,664 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.alumni.panimalar.ac.in
+2025-03-22 21:57:30,725 - INFO - security_api.subdomain_scanner - Running command: paramspider --domain www.coe.panimalar.ac.in
+2025-03-22 21:57:34,717 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mpanimalar.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mpanimalar.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mpanimalar.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\panimalar.panimalar.ac.in.txt[0m
+
+2025-03-22 21:57:34,719 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:57:34,810 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36malumni.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m19[0m URLs for [36malumni.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36malumni.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m18[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\alumni.panimalar.ac.in.txt[0m
+
+2025-03-22 21:57:34,812 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:57:34,843 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mcoe.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m361[0m URLs for [36mcoe.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mcoe.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m93[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\coe.panimalar.ac.in.txt[0m
+
+2025-03-22 21:57:34,844 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:57:34,854 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mcpanel.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mcpanel.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mcpanel.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\cpanel.panimalar.ac.in.txt[0m
+
+2025-03-22 21:57:34,855 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:57:34,908 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mcpanel.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mcpanel.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mcpanel.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\cpanel.panimalar.ac.in.txt[0m
+
+2025-03-22 21:57:34,908 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:57:34,910 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36malumni.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m19[0m URLs for [36malumni.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36malumni.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m18[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\alumni.panimalar.ac.in.txt[0m
+
+2025-03-22 21:57:34,910 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:57:35,088 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mpanimalar.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mpanimalar.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mpanimalar.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\panimalar.panimalar.ac.in.txt[0m
+
+2025-03-22 21:57:35,090 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:57:35,159 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mmail.coe.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m148[0m URLs for [36mmail.coe.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mmail.coe.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m39[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\mail.coe.panimalar.ac.in.txt[0m
+
+2025-03-22 21:57:35,160 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:57:35,254 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mpanimalar1.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mpanimalar1.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mpanimalar1.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\panimalar1.panimalar.ac.in.txt[0m
+
+2025-03-22 21:57:35,255 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:57:35,371 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mmail.alumni.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mmail.alumni.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mmail.alumni.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\mail.alumni.panimalar.ac.in.txt[0m
+
+2025-03-22 21:57:35,373 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:57:35,406 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mcoe.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m361[0m URLs for [36mcoe.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mcoe.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m93[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\coe.panimalar.ac.in.txt[0m
+
+2025-03-22 21:57:35,407 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:57:35,626 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwebmail.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m14[0m URLs for [36mwebmail.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mwebmail.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m13[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\webmail.panimalar.ac.in.txt[0m
+
+2025-03-22 21:57:35,627 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:57:36,162 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mpanimalar.ac.in[0m
+[33m[INFO][0m Found [32m4959[0m URLs for [36mpanimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mpanimalar.ac.in[0m
+[33m[INFO][0m Found [32m1050[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\panimalar.ac.in.txt[0m
+
+2025-03-22 21:57:36,164 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:57:36,377 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m4959[0m URLs for [36mwww.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mwww.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1050[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\www.panimalar.ac.in.txt[0m
+
+2025-03-22 21:57:36,378 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:57:36,923 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mpanimalar.ac.in[0m
+[33m[INFO][0m Found [32m4959[0m URLs for [36mpanimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mpanimalar.ac.in[0m
+[33m[INFO][0m Found [32m1050[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\panimalar.ac.in.txt[0m
+
+2025-03-22 21:57:36,924 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:57:40,677 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mmail.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m25[0m URLs for [36mmail.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mmail.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m22[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\mail.panimalar.ac.in.txt[0m
+
+2025-03-22 21:57:40,678 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:57:42,082 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m4959[0m URLs for [36mwww.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mwww.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1050[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\www.panimalar.ac.in.txt[0m
+
+2025-03-22 21:57:42,083 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:57:44,919 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mmail.alumni.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs for [36mmail.alumni.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mmail.alumni.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m1[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\mail.alumni.panimalar.ac.in.txt[0m
+
+2025-03-22 21:57:44,920 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:57:47,948 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mmail.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m25[0m URLs for [36mmail.panimalar.ac.in[0m
+[33m[INFO][0m Cleaning URLs for [36mmail.panimalar.ac.in[0m
+[33m[INFO][0m Found [32m22[0m URLs after cleaning
+[33m[INFO][0m Extracting URLs with parameters
+[33m[INFO][0m Saved cleaned URLs to [36mresults\mail.panimalar.ac.in.txt[0m
+
+2025-03-22 21:57:47,949 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:58:28,946 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mcpanel.alumni.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=cpanel.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=cpanel.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=cpanel.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=cpanel.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 21:58:28,948 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:58:30,315 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mpanimalar1.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 21:58:30,316 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:58:31,833 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.panimalar1.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=www.panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 21:58:31,834 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:58:34,432 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.panimalar.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=www.panimalar.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 21:58:34,434 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:58:35,938 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mcpanel.alumni.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=cpanel.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=cpanel.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=cpanel.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=cpanel.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 21:58:35,939 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:58:36,383 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.alumni.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=www.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 21:58:36,384 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:58:37,625 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.coe.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.coe.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.coe.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.coe.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=www.coe.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 21:58:37,627 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:58:37,959 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.alumni.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=www.alumni.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 21:58:37,960 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:58:39,350 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.panimalar.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=www.panimalar.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 21:58:39,352 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines
+2025-03-22 21:58:42,635 - WARNING - security_api.subdomain_scanner - Command stderr: [33m[INFO][0m Fetching URLs for [36mwww.panimalar1.panimalar.ac.in[0m
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Error fetching URL https://web.archive.org/cdx/search/cdx?url=www.panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/. Retrying in 5 seconds...
+Failed to fetch URL https://web.archive.org/cdx/search/cdx?url=www.panimalar1.panimalar.ac.in/*&output=txt&collapse=urlkey&fl=original&page=/ after 3 retries.
+
+2025-03-22 21:58:42,641 - INFO - security_api.subdomain_scanner - Command completed successfully, returned 10 lines

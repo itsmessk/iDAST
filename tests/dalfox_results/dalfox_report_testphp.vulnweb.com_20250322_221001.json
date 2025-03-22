@@ -1,0 +1,15 @@
+{
+    "scan_info": {
+        "domain": "testphp.vulnweb.com",
+        "timestamp": "2025-03-22T22:10:22.159776",
+        "scanner": "Dalfox"
+    },
+    "vulnerabilities": {
+        "xss": [],
+        "open_redirect": []
+    },
+    "statistics": {
+        "total_xss": 0,
+        "total_open_redirect": 0
+    }
+}

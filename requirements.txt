@@ -1,0 +1,17 @@
+Flask
+Flask[async]
+httpx
+asyncio
+logging
+dnspython
+requests
+urllib3
+httpx
+flask-cors
+python-Wappalyzer
+setuptools
+aiohttp
+pyppeteer
+pymongo
+pytz
+python-dotenv

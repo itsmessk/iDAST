@@ -1,0 +1,51 @@
+{
+    "scan_info": {
+        "url": "http://example.com/api?callback=http://192.168.1.1",
+        "domain": "example.com",
+        "timestamp": "2025-03-22T22:13:45.346594",
+        "scanner": "SSRFScanner"
+    },
+    "endpoints": [
+        {
+            "parameter": "callback",
+            "original_value": "http://192.168.1.1",
+            "is_vulnerable": true,
+            "risk_level": "High",
+            "vulnerability_type": "SSRF",
+            "test_results": [
+                {
+                    "test": "Parameter name analysis",
+                    "result": "Parameter name suggests URL functionality",
+                    "details": "Parameter 'callback' matches common SSRF parameter patterns"
+                },
+                {
+                    "test": "URL structure analysis",
+                    "result": "Parameter accepts URL structure",
+                    "details": "Value contains URL components (scheme/domain)"
+                },
+                {
+                    "test": "Internal network access",
+                    "result": "Potential internal network access detected",
+                    "details": "Parameter might allow access to internal networks"
+                }
+            ],
+            "recommendations": [
+                "Validate URL scheme (protocol) against an allowlist",
+                "Implement domain validation against trusted domains only",
+                "Implement strict input validation for URL parameters",
+                "Add rate limiting for URL requests",
+                "Use an allowlist of allowed domains and protocols",
+                "Implement network-level segmentation to prevent internal network access",
+                "Consider implementing a URL proxy service",
+                "Use a proxy service for external URL requests",
+                "Implement proper network segmentation",
+                "Implement logging and monitoring for URL requests",
+                "Block access to internal IP ranges and localhost"
+            ]
+        }
+    ],
+    "statistics": {
+        "total_endpoints": 1,
+        "vulnerable_endpoints": 1
+    }
+}

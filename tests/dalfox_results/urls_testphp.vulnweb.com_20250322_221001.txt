@@ -1,0 +1,2 @@
+http://testphp.vulnweb.com/search.php?test=<script>alert(1)</script>
+http://testphp.vulnweb.com/guestbook.php?name=<img src=x onerror=alert(1)>

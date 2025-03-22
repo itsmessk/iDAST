@@ -1,0 +1,9 @@
+http://infoziant.com/onlinetest/generate.php?testids=FUZZ&section=FUZZ&paidTest=FUZZ&type=FUZZ
+http://infoziant.com/blog-detail.php?id=FUZZ
+https://infoziant.com/?liquid-header=FUZZ
+http://infoziant.com/infoassets/fonts/fontawesome-webfont3e6e.html?v=FUZZ
+http://infoziant.com/onlinetest/test_generator.php?testData=FUZZ
+http://www.infoziant.com/blog-detail.php?id=FUZZ
+http://infoziant.com/blog-details.php?blogid=FUZZ
+http://www.infoziant.com/payroll/index.php?page=FUZZ&Admin=FUZZ
+https://infoziant.com/?liquid-footer=FUZZ
