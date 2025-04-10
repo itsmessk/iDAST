@@ -29,8 +29,9 @@ RUN apt-get update && \
     apt-get install -y ./google-chrome-stable_current_amd64.deb && \
     rm google-chrome-stable_current_amd64.deb && \
     # Install Node.js
-    curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs && \
+    npm install -g npm@latest && \
     # Cleanup
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
@@ -55,7 +56,7 @@ RUN wget https://go.dev/dl/go1.21.0.linux-amd64.tar.gz && \
     go install github.com/hahwul/dalfox/v2@latest
 
 # Install Node.js tools
-RUN npm install -g retire@5.3.0
+RUN npm install -g retire@4.0.0
 
 # Copy requirements first for better caching
 COPY requirements.txt .

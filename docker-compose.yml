@@ -11,9 +11,9 @@ services:
     environment:
       - FLASK_ENV=production
       - PORT=3000
-      - MONGO_URI=mongodb://${MONGO_USER:-secpro_user}:${MONGO_PASSWORD}@mongo:27017/${MONGO_DB_NAME:-secpro}?authSource=admin
+      - MONGO_URI=mongodb+srv://secpro_user:${MONGO_PASSWORD}@secpro.vexiur2.mongodb.net/?retryWrites=true&w=majority&appName=secpro
       - MONGO_DB_NAME=${MONGO_DB_NAME:-secpro}
-      - REDIS_URL=redis://redis:6379/0
+      - REDIS_URL=redis://default:PIa5xxSO9Ue8kkoTaV4jU4uIvzhuTcM0@redis-14228.c305.ap-south-1-1.ec2.redns.redis-cloud.com:14228
       - REDIS_PREFIX=${REDIS_PREFIX:-secpro}
       - SECRET_KEY=${SECRET_KEY}
       - LOG_LEVEL=${LOG_LEVEL:-INFO}
