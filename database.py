@@ -375,8 +375,11 @@ class Database:
         Returns: (user_data, error_code, error_message)
         """
         try:
+            if not api_key:
+                return None, "invalid_key", "No API key provided"
+
             user = await self.find_user({"api_key": api_key})
-            if not user:
+            if user is None:
                 return None, "invalid_key", "Invalid API key"
 
             # Check if API key is active
@@ -388,6 +391,9 @@ class Database:
                 return None, "invalid_key", "API key mismatch"
 
             return user, None, None
+        except Exception as e:
+            logger.error(f"Error validating API key: {e}")
+            return None, "validation_error", str(e)
         except Exception as e:
             logger.error(f"Error validating API key: {e}")
             return False, "Error validating API key"
@@ -403,7 +409,7 @@ class Database:
             
         try:
             # Ensure connection is active
-            if not self.async_client or not self.async_db:
+            if self.async_client is None or self.async_db is None:
                 logger.info("Reconnecting to MongoDB...")
                 self.async_client = AsyncIOMotorClient(config.MONGO_URI, **self.conn_options)
                 self.async_db = self.async_client[config.MONGO_DB_NAME]

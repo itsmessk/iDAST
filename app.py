@@ -339,7 +339,8 @@ async def scan_domain():
         if not user_targets:
             return jsonify({
                 "error": "No targets found",
-                "message": "User has no registered targets"
+                "message": "User has no registered targets",
+                "code": "no_targets"
             }), 404
 
         # Find target in user's targets array
@@ -347,8 +348,28 @@ async def scan_domain():
         if not target:
             return jsonify({
                 "error": "Invalid target",
-                "message": "Target ID not found in user's targets"
+                "message": "Target ID not found in user's targets",
+                "code": "invalid_target"
             }), 403
+
+        # Verify target has required fields
+        required_fields = ['domain', 'scan_config']
+        missing_fields = [field for field in required_fields if not target.get(field)]
+        if missing_fields:
+            return jsonify({
+                "error": "Invalid target configuration",
+                "message": f"Missing required fields: {', '.join(missing_fields)}",
+                "code": "invalid_config"
+            }), 400
+
+        # Verify scan configuration
+        scan_config = target.get('scan_config', {})
+        if not isinstance(scan_config, dict):
+            return jsonify({
+                "error": "Invalid scan configuration",
+                "message": "Scan configuration must be an object",
+                "code": "invalid_config_type"
+            }), 400
 
         # Validate scan type
         scan_type = data.get('scan_type', 'quick')
