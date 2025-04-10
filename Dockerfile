@@ -79,16 +79,20 @@ RUN git clone --depth 1 https://github.com/devanshbatham/ParamSpider /opt/params
     # Verify installations
     ssrfuzz -h || echo "SSRFuzz installation verified"
 
-# Create necessary directories and set permissions
+# Create necessary directories with proper permissions
 RUN mkdir -p /app/logs /app/logs_backup /app/results /app/results_backup \
     /app/csrf_results /app/dalfox_results /app/ssrf_results /app/xxe_results && \
-    chown -R secpro:secpro /app
+    chown -R secpro:secpro /app && \
+    chmod -R 777 /app/logs /app/logs_backup /app/results /app/results_backup \
+    /app/csrf_results /app/dalfox_results /app/ssrf_results /app/xxe_results
 
 # Copy application code
 COPY --chown=secpro:secpro . .
 
-# Ensure all files and directories are owned by secpro
-RUN chown -R secpro:secpro /app
+# Ensure all files and directories have correct permissions
+RUN chown -R secpro:secpro /app && \
+    chmod -R 777 /app/logs /app/logs_backup /app/results /app/results_backup \
+    /app/csrf_results /app/dalfox_results /app/ssrf_results /app/xxe_results
 
 # Switch to non-root user
 USER secpro
