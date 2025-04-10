@@ -228,13 +228,9 @@ class Database:
             logger.info("Connecting to MongoDB...")
             # MongoDB Atlas connection options
             self.conn_options = {
-                'tls': True,
-                'tlsCAFile': certifi.where(),
-                'retryWrites': True,
-                'serverSelectionTimeoutMS': 30000,
-                'socketTimeoutMS': 30000,
-                'connectTimeoutMS': 30000
+                'tlsCAFile': certifi.where()
             }
+            
 
             # Monitor connection pool metrics
             self.pool_metrics = {
