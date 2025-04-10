@@ -240,7 +240,8 @@ class Database:
                 'compressors': 'snappy,zlib',  # Enable compression
                 'zlibCompressionLevel': 6,  # Balanced compression level
                 'directConnection': False,  # Better for MongoDB Atlas
-                'retryable': True,  # Enable retryable operations
+                'retryReads': True,  # Enable retry for read operations
+                'retryWrites': True,  # Enable retry for write operations
                 'ssl': True,  # Required for Atlas
                 'tlsAllowInvalidCertificates': False  # Enforce valid certificates
             }
