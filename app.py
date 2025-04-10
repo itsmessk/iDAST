@@ -294,43 +294,45 @@ async def scan_domain():
         validation_error = validate_request_data(data)
         if validation_error:
             return validation_error
-targetid = data.get('targetid')
-if not targetid:
-    return jsonify({"error": "Target ID is required"}), 400
 
-# Extract domain from target ID (format: target_domain_timestamp_suffix)
-try:
-    target_parts = targetid.split('_')
-    if len(target_parts) < 4 or target_parts[0] != 'target':
-        return jsonify({"error": "Invalid target ID format"}), 400
-    domain = target_parts[1]
-except Exception as e:
-    logger.error(f"Error parsing target ID: {e}")
-    return jsonify({"error": "Invalid target ID format"}), 400
+        targetid = data.get('targetid')
+        if not targetid:
+            return jsonify({"error": "Target ID is required"}), 400
 
-userid = request.user.get('id')
-scan_type = data.get('scan_type', 'quick')
+        # Extract domain from target ID (format: target_domain_timestamp_suffix)
+        try:
+            target_parts = targetid.split('_')
+            if len(target_parts) < 4 or target_parts[0] != 'target':
+                return jsonify({"error": "Invalid target ID format"}), 400
+            domain = target_parts[1]
+        except Exception as e:
+            logger.error(f"Error parsing target ID: {e}")
+            return jsonify({"error": "Invalid target ID format"}), 400
 
-# Check cache
-cache_hit = scan_cache.get(f"{domain}:{scan_type}:{userid}")
-if cache_hit:
-    logger.info(f"Returning cached results for {domain}")
-    return jsonify(cache_hit)
+        userid = request.user.get('id')
+        scan_type = data.get('scan_type', 'quick')
 
-# Process domain/URL for validation
-parsed_url = urlparse(ensure_url_has_protocol(domain))
-validated_domain = parsed_url.netloc if parsed_url.netloc else parsed_url.path
+        # Check cache
+        cache_hit = scan_cache.get(f"{domain}:{scan_type}:{userid}")
+        if cache_hit:
+            logger.info(f"Returning cached results for {domain}")
+            return jsonify(cache_hit)
 
-# Ensure the domain matches the target ID
-if validated_domain != domain:
-    return jsonify({"error": "Domain mismatch with target ID"}), 400
+        # Process domain/URL for validation
+        parsed_url = urlparse(ensure_url_has_protocol(domain))
+        validated_domain = parsed_url.netloc if parsed_url.netloc else parsed_url.path
+
+        # Ensure the domain matches the target ID
+        if validated_domain != domain:
+            return jsonify({"error": "Domain mismatch with target ID"}), 400
+
         domain = parsed_url.netloc if parsed_url.netloc else parsed_url.path
-        
+
         logger.info(f"Starting {scan_type} scan for {domain} (User: {userid}, Target: {targetid})")
-        
+
         # Record scan start time
         start_time = get_current_time()
-        
+
         # Initialize scan results structure
         scan_results = {
             "domain": domain,
@@ -345,7 +347,7 @@ if validated_domain != domain:
                 "last_scan": format_timestamp(start_time)
             }
         }
-        
+
         try:
             # Run all scans with timeout
             async with asyncio.timeout(config.TOTAL_SCAN_TIMEOUT):
@@ -357,16 +359,16 @@ if validated_domain != domain:
                 "scan_status": "timeout",
                 "error": f"Scan timed out after {config.TOTAL_SCAN_TIMEOUT} seconds"
             })
-        
+
         # Store results
         if config.ENABLE_DATABASE and targetid:
             await db.store_scan_results(targetid, scan_results)
-        
+
         # Cache results
         scan_cache[f"{domain}:{scan_type}:{userid}"] = scan_results
-        
+
         return jsonify(scan_results)
-        
+
     except Exception as e:
         logger.error(f"Error during scan: {str(e)}")
         return jsonify({
@@ -375,12 +377,14 @@ if validated_domain != domain:
             "request_id": getattr(request, 'request_id', None)
         }), 500
 
+
 async def shutdown_event():
     """Cleanup on shutdown."""
     logger.info("Shutting down application...")
     await vulnerability_scanner.cleanup()
     # Close other connections (Redis, MongoDB, etc.)
     await db.close()
+
 
 # Register shutdown handler
 signal.signal(signal.SIGTERM, lambda s, f: asyncio.create_task(shutdown_event()))
