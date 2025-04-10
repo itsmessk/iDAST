@@ -24,4 +24,5 @@ colorlog
 pytest
 pytest-asyncio
 redis>=4.5.0
-hiredis>=2.2.0 
+hiredis>=2.2.0
+cachetools>=5.0.0
