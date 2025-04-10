@@ -24,4 +24,4 @@ colorlog
 pytest
 pytest-asyncio
 redis>=4.5.0
-hiredis>=2.2.0  # Optional C extension for better performance
+hiredis>=2.2.0 
