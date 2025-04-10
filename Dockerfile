@@ -23,7 +23,10 @@ RUN apt-get update && \
     libappindicator1 \
     libgconf-2-4 \
     libpango1.0-0 \
-    fonts-liberation && \
+    fonts-liberation \
+    libxml2-dev \
+    libxmlsec1-dev \
+    pkg-config && \
     # Install Chrome
     wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     apt-get install -y ./google-chrome-stable_current_amd64.deb && \

@@ -33,7 +33,7 @@ wapiti3
 backoff
 PyJWT
 defusedxml
-python-signxml
+python-signxml==3.1.0
 cryptography
 aiofiles
 aiodns
