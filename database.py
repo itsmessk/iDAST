@@ -226,26 +226,26 @@ class Database:
         """Establish connection to MongoDB with retry mechanism."""
         try:
             logger.info("Connecting to MongoDB...")
-            # Connection options optimized for cloud connections
+            # Connection options optimized for cloud connections with proper TLS
             self.conn_options = {
-                'serverSelectionTimeoutMS': 10000,  # Increased from default
+                'serverSelectionTimeoutMS': 30000,
                 'maxPoolSize': config.MONGO_POOL_SIZE,
-                'minPoolSize': max(1, config.MONGO_POOL_SIZE // 4),  # 25% of max pool size
+                'minPoolSize': max(1, config.MONGO_POOL_SIZE // 4),
                 'maxIdleTimeMS': config.MONGO_MAX_IDLE_TIME,
-                'waitQueueTimeoutMS': 5000,  # Increased for cloud latency
-                'retryWrites': True,  # Enable retry for write operations
-                'retryReads': True,  # Enable retry for read operations
-                'w': 'majority',  # Write concern
+                'waitQueueTimeoutMS': 10000,
+                'retryWrites': True,
+                'retryReads': True,
+                'w': 'majority',
                 'readPreference': 'primaryPreferred',
                 'appName': 'SecPro-Scanner',
-                'connectTimeoutMS': 10000,  # Increased for cloud connections
-                'socketTimeoutMS': 20000,  # Increased for cloud operations
+                'connectTimeoutMS': 20000,
+                'socketTimeoutMS': 20000,
                 'heartbeatFrequencyMS': 10000,
-                'maxPoolSize': config.MONGO_POOL_SIZE,  # Maximum connections
-                'minPoolSize': 0,  # Start with minimum connections
-                'serverSelectionTimeoutMS': 30000,  # Increase server selection timeout
-                'socketTimeoutMS': 20000,  # Socket timeout
-                'connectTimeoutMS': 20000  # Connection timeout
+                'tlsCAFile': certifi.where(),  # Use system CA certificates
+                'tlsAllowInvalidCertificates': False,
+                'tlsInsecure': False,
+                'ssl': True,
+                'tls': True
             }
 
             # Monitor connection pool metrics
