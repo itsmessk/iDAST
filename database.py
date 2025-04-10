@@ -242,10 +242,8 @@ class Database:
                 'socketTimeoutMS': 20000,
                 'heartbeatFrequencyMS': 10000,
                 'tlsCAFile': certifi.where(),  # Use system CA certificates
-                'tlsAllowInvalidCertificates': False,
-                'tlsInsecure': False,
-                'ssl': True,
-                'tls': True
+                'tls': True,
+                'ssl': True
             }
 
             # Monitor connection pool metrics
