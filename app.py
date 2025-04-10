@@ -123,23 +123,44 @@ def require_api_key(f):
     async def decorated(*args, **kwargs):
         api_key = request.headers.get('X-API-Key')
         if not api_key:
-            return jsonify({"error": "No API key provided"}), 401
+            return jsonify({
+                "error": "No API key provided",
+                "message": "Please include X-API-Key header"
+            }), 401
 
         try:
             # Validate API key and check expiration
-            user = await db.validate_api_key(api_key)
-            if not user:
+            user, error_code, error_message = await db.validate_api_key(api_key)
+            
+            if error_code:
+                error_responses = {
+                    "invalid_key": ("Invalid API key", 401),
+                    "expired_key": ("Expired API key", 401),
+                    "inactive_key": ("Inactive API key", 403),
+                    "validation_error": ("Authentication failed", 500)
+                }
+                error_title, status_code = error_responses.get(error_code, ("Authentication failed", 401))
                 return jsonify({
-                    "error": "Invalid or expired API key",
-                    "message": "Please check your API key or contact support for renewal"
-                }), 401
+                    "error": error_title,
+                    "message": error_message,
+                    "code": error_code
+                }), status_code
 
             # Add user to request context
             request.user = user
+            
+            # Add warning header if API key is expiring soon
+            if warning := user.get('warning'):
+                request.headers['X-API-Key-Warning'] = warning
+            
             return await f(*args, **kwargs)
         except Exception as e:
             logger.error(f"Authentication error: {e}")
-            return jsonify({"error": "Authentication failed"}), 401
+            return jsonify({
+                "error": "Authentication failed",
+                "message": "An unexpected error occurred",
+                "code": "system_error"
+            }), 500
 
     return decorated
 
@@ -148,9 +169,20 @@ def validate_request_data(data: Dict) -> Optional[tuple]:
     if not data:
         return jsonify({"error": "No data provided"}), 400
 
-    domain = data.get('domain')
-    if not domain:
-        return jsonify({"error": "Domain is required"}), 400
+    targetid = data.get('targetid')
+    if not targetid:
+        return jsonify({"error": "Target ID is required"}), 400
+
+    # Validate target ID format
+    try:
+        target_parts = targetid.split('_')
+        if len(target_parts) < 4 or target_parts[0] != 'target':
+            return jsonify({
+                "error": "Invalid target ID format",
+                "message": "Target ID must be in format: target_domain_timestamp_suffix"
+            }), 400
+    except Exception:
+        return jsonify({"error": "Invalid target ID format"}), 400
 
     scan_type = data.get('scan_type', 'quick')
     if scan_type not in ['quick', 'full', 'custom']:
@@ -296,42 +328,32 @@ async def scan_domain():
             return validation_error
 
         targetid = data.get('targetid')
-        if not targetid:
-            return jsonify({"error": "Target ID is required"}), 400
-
-        # Extract domain from target ID (format: target_domain_timestamp_suffix)
-        try:
-            target_parts = targetid.split('_')
-            if len(target_parts) < 4 or target_parts[0] != 'target':
-                return jsonify({"error": "Invalid target ID format"}), 400
-            domain = target_parts[1]
-        except Exception as e:
-            logger.error(f"Error parsing target ID: {e}")
-            return jsonify({"error": "Invalid target ID format"}), 400
-
-        userid = request.user.get('id')
         scan_type = data.get('scan_type', 'quick')
 
+        # Verify target belongs to user
+        user_targets = request.user.get('targets', [])
+        target = next((t for t in user_targets if t['id'] == targetid), None)
+        if not target:
+            return jsonify({
+                "error": "Invalid target",
+                "message": "Target ID not found or unauthorized"
+            }), 403
+
+        domain = target['domain']
+        
         # Check cache
-        cache_hit = scan_cache.get(f"{domain}:{scan_type}:{userid}")
+        cache_hit = scan_cache.get(f"{domain}:{scan_type}:{request.user['_id']}")
         if cache_hit:
             logger.info(f"Returning cached results for {domain}")
             return jsonify(cache_hit)
 
-        # Process domain/URL for validation
-        parsed_url = urlparse(ensure_url_has_protocol(domain))
-        validated_domain = parsed_url.netloc if parsed_url.netloc else parsed_url.path
-
-        # Ensure the domain matches the target ID
-        if validated_domain != domain:
-            return jsonify({"error": "Domain mismatch with target ID"}), 400
-
-        domain = parsed_url.netloc if parsed_url.netloc else parsed_url.path
+        logger.info(f"Starting {scan_type} scan for {domain} (User: {request.user['_id']}, Target: {targetid})")
 
         logger.info(f"Starting {scan_type} scan for {domain} (User: {userid}, Target: {targetid})")
 
         # Record scan start time
         start_time = get_current_time()
+        scan_count = await db.get_scan_count(targetid) + 1
 
         # Initialize scan results structure
         scan_results = {
@@ -341,10 +363,14 @@ async def scan_domain():
             "scan_status": "in_progress",
             "request_id": secrets.token_hex(16),
             "target": {
-                "id": targetid,
-                "domain": domain,
-                "scan_count": await db.get_scan_count(targetid) + 1,
+                **target,  # Include all target metadata
+                "scan_count": scan_count,
                 "last_scan": format_timestamp(start_time)
+            },
+            "metadata": {
+                "user_id": str(request.user['_id']),
+                "company": request.user.get('company', 'Unknown'),
+                "environment": target.get('metadata', {}).get('environment', 'production')
             }
         }
 
@@ -364,17 +390,28 @@ async def scan_domain():
         if config.ENABLE_DATABASE and targetid:
             await db.store_scan_results(targetid, scan_results)
 
-        # Cache results
-        scan_cache[f"{domain}:{scan_type}:{userid}"] = scan_results
+        # Cache results using target ID for better precision
+        cache_key = f"{targetid}:{scan_type}:{request.user['_id']}"
+        scan_cache[cache_key] = scan_results
 
         return jsonify(scan_results)
 
+    except asyncio.TimeoutError as e:
+        logger.error(f"Scan timeout: {str(e)}")
+        return jsonify({
+            "error": "Scan timeout",
+            "message": f"Scan timed out after {config.TOTAL_SCAN_TIMEOUT} seconds",
+            "request_id": scan_results.get('request_id')
+        }), 408
+
     except Exception as e:
         logger.error(f"Error during scan: {str(e)}")
+        error_message = str(e) if config.DEBUG_MODE else "An unexpected error occurred"
         return jsonify({
             "error": "Internal server error",
-            "message": str(e) if config.DEBUG_MODE else "An unexpected error occurred",
-            "request_id": getattr(request, 'request_id', None)
+            "message": error_message,
+            "request_id": getattr(request, 'request_id', None),
+            "target_id": targetid
         }), 500
 
 

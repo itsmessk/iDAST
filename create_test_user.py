@@ -6,14 +6,13 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from typing import List, Dict
 import os
 from dotenv import load_dotenv
+import certifi
 
 # Load environment variables
 load_dotenv()
 
-import certifi
-
 # MongoDB configuration
-MONGO_URI = os.getenv('MONGO_URI', 'mongodb+srv://secpro_user:drbgQZAeFdTEK06j@secpro.vexiur2.mongodb.net/?retryWrites=true&w=majority&appName=secpro')
+MONGO_URI = os.getenv('MONGO_URI', 'mongodb+srv://secpro_user:your_password@your_cluster.mongodb.net/?retryWrites=true&w=majority')
 MONGO_DB_NAME = os.getenv('MONGO_DB_NAME', 'secpro')
 MONGO_USER_COLLECTION = os.getenv('MONGO_USER_COLLECTION', 'users')
 
@@ -24,66 +23,68 @@ MONGO_OPTIONS = {
     'w': 'majority'
 }
 
-def generate_api_key() -> Dict:
-    """Generate a secure API key with expiration."""
+def create_target_id(domain: str, name: str) -> Dict:
+    """Create a target ID with metadata for a specific site."""
+    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+    random_suffix = secrets.token_hex(4)
+    target_id = f"target_{domain}_{timestamp}_{random_suffix}"
+    
+    return {
+        "id": target_id,
+        "domain": domain,
+        "name": name,
+        "created_at": datetime.utcnow(),
+        "status": "active",
+        "scan_frequency": "daily",
+        "last_scan": None,
+        "risk_level": "high" if domain == "infoziant.com" else "medium",
+        "tags": ["test", f"domain-{domain}"],
+        "metadata": {
+            "created_by": "manual",
+            "environment": "production" if domain == "infoziant.com" else "testing"
+        }
+    }
+
+def generate_api_key_details() -> Dict:
+    """Generate API key details with expiration."""
     return {
         "key": f"secpro_{secrets.token_hex(16)}",
         "created_at": datetime.utcnow(),
-        "expires_at": datetime.utcnow() + timedelta(days=30),  # 30 days validity
+        "expires_at": datetime.utcnow() + timedelta(days=30),
         "status": "active",
-        "last_renewed": None
+        "last_renewed": None,
+        "metadata": {
+            "created_by": "manual",
+            "environment": "production"
+        }
     }
 
-def generate_target_ids() -> List[Dict]:
-    """Generate target IDs with metadata for specific sites."""
-    sites = [
-        {"domain": "infoziant.com", "name": "Infoziant", "risk_level": "high"},
-        {"domain": "example.com", "name": "Example Site", "risk_level": "medium"},
-        {"domain": "testsite.local", "name": "Test Environment", "risk_level": "low"}
-    ]
-    
-    targets = []
-    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
-    
-    for site in sites:
-        random_suffix = secrets.token_hex(4)
-        target_id = f"target_{site['domain']}_{timestamp}_{random_suffix}"
-        targets.append({
-            "id": target_id,
-            "domain": site['domain'],
-            "name": site['name'],
-            "created_at": datetime.utcnow(),
-            "status": "active",
-            "scan_frequency": "daily",
-            "last_scan": None,
-            "risk_level": site['risk_level'],
-            "tags": ["test", f"domain-{site['domain']}"]
-        })
-    return targets
-
-async def create_test_user():
-    """Create a test user with complete profile in MongoDB."""
+async def create_user(email: str, name: str, company: str, domains: List[Dict[str, str]]):
+    """Create a user with specific targets in MongoDB."""
     try:
         # Connect to MongoDB Atlas
         client = AsyncIOMotorClient(MONGO_URI, **MONGO_OPTIONS)
         db = client[MONGO_DB_NAME]
         users_collection = db[MONGO_USER_COLLECTION]
 
-        # Generate user data
-        api_key_data = generate_api_key()
-        targets = generate_target_ids()
+        # Generate API key details
+        api_key_details = generate_api_key_details()
         
+        # Generate targets for specified domains
+        targets = [create_target_id(domain['domain'], domain['name']) for domain in domains]
+        
+        # Create user data
         user_data = {
-            "email": "test@secpro.local",
-            "name": "Test User",
-            "username": f"testuser_{secrets.token_hex(4)}",
-            "api_key": api_key_data["key"],
-            "api_key_details": api_key_data,
+            "email": email,
+            "name": name,
+            "username": f"user_{secrets.token_hex(4)}",
+            "api_key": api_key_details["key"],
+            "api_key_details": api_key_details,
             "role": "admin",
             "status": "active",
             "created_at": datetime.utcnow(),
             "last_login": None,
-            "company": "SecPro Testing",
+            "company": company,
             "department": "Security",
             "phone": "+1234567890",
             "targets": targets,
@@ -100,8 +101,8 @@ async def create_test_user():
                 "max_targets": 50
             },
             "metadata": {
-                "source": "test_script",
-                "environment": "testing"
+                "source": "manual_creation",
+                "environment": "production"
             }
         }
 
@@ -109,23 +110,29 @@ async def create_test_user():
         result = await users_collection.insert_one(user_data)
         
         # Print success message and user details
-        print("\n=== Test User Created Successfully ===")
+        print("\n=== User Created Successfully ===")
         print(f"User ID: {result.inserted_id}")
         print(f"Username: {user_data['username']}")
         print(f"Email: {user_data['email']}")
-        print(f"API Key: {api_key_data['key']}")
-        print(f"API Key Expires: {api_key_data['expires_at'].strftime('%Y-%m-%d %H:%M:%S UTC')}")
+        print("\nAPI Key Details:")
+        print(f"Key: {api_key_details['key']}")
+        print(f"Created: {api_key_details['created_at'].strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"Expires: {api_key_details['expires_at'].strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"Status: {api_key_details['status']}")
+        
         print("\nTarget IDs:")
         for target in targets:
-            print(f"- {target['id']} ({target['name']})")
+            print(f"- {target['id']}")
+            print(f"  Domain: {target['domain']}")
+            print(f"  Name: {target['name']}")
+            print(f"  Risk Level: {target['risk_level']}")
+            print()
         
         print("\n=== Example API Request ===")
         print("curl -X POST http://localhost:3000/scan \\")
         print("-H 'Content-Type: application/json' \\")
-        print(f"-H 'X-API-Key: {api_key}' \\")
+        print(f"-H 'X-API-Key: {api_key_details['key']}' \\")
         print("-d '{")
-        print(f'  "domain": "example.com",')
-        print('  "scan_type": "quick",')
         print(f'  "targetid": "{targets[0]["id"]}"')
         print("}'")
 
@@ -133,7 +140,19 @@ async def create_test_user():
         client.close()
 
     except Exception as e:
-        print(f"Error creating test user: {e}")
+        print(f"Error creating user: {e}")
 
 if __name__ == "__main__":
-    asyncio.run(create_test_user())
+    # Example usage
+    test_domains = [
+        {"domain": "infoziant.com", "name": "Infoziant Production"},
+        {"domain": "staging.infoziant.com", "name": "Infoziant Staging"},
+        {"domain": "dev.infoziant.com", "name": "Infoziant Development"}
+    ]
+    
+    asyncio.run(create_user(
+        email="security@infoziant.com",
+        name="Security Team",
+        company="Infoziant",
+        domains=test_domains
+    ))

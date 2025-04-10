@@ -369,30 +369,42 @@ class Database:
         (ConnectionFailure, OperationFailure),
         max_tries=3
     )
-    async def validate_api_key(self, api_key: str) -> Optional[Dict]:
-        """Validate API key and check expiration."""
+    async def validate_api_key(self, api_key: str) -> tuple[Optional[Dict], Optional[str], Optional[str]]:
+        """
+        Validate API key and check expiration.
+        Returns: (user_dict, error_code, error_message)
+        """
         try:
             user = await self.find_user({"api_key": api_key})
             if not user:
-                return None
+                return None, "invalid_key", "API key not found"
 
             api_key_details = user.get('api_key_details', {})
             if not api_key_details:
-                return None
+                return None, "invalid_key", "API key details not found"
 
             # Check if API key is expired
             expires_at = api_key_details.get('expires_at')
-            if not expires_at or datetime.utcnow() > expires_at:
-                return None
+            if not expires_at:
+                return None, "invalid_key", "API key expiration not set"
+            
+            if datetime.utcnow() > expires_at:
+                days_expired = (datetime.utcnow() - expires_at).days
+                return None, "expired_key", f"API key expired {days_expired} days ago"
 
             # Check if API key is active
             if api_key_details.get('status') != 'active':
-                return None
+                return None, "inactive_key", f"API key is {api_key_details.get('status', 'inactive')}"
 
-            return user
+            # Check if expiring soon (within 7 days)
+            days_until_expiry = (expires_at - datetime.utcnow()).days
+            if days_until_expiry <= 7:
+                user['warning'] = f"API key will expire in {days_until_expiry} days"
+
+            return user, None, None
         except Exception as e:
             logger.error(f"Error validating API key: {e}")
-            return None
+            return None, "validation_error", "Error validating API key"
 
     async def find_user(self, query: Dict) -> Optional[Dict]:
         """Find user matching the query with caching."""
@@ -496,6 +508,41 @@ class Database:
             logger.error(f"Error updating scan status: {e}")
             raise OperationError(f"Failed to update scan status: {e}")
     
+    async def renew_api_key(self, api_key: str, days: int = 30) -> tuple[Optional[Dict], Optional[str], Optional[str]]:
+        """
+        Manually renew an API key for the specified number of days.
+        Returns: (updated_user, error_code, error_message)
+        """
+        try:
+            # First validate the current key
+            user, error_code, error_message = await self.validate_api_key(api_key)
+            if not user and error_code != "expired_key":  # Allow renewal of expired keys
+                return None, error_code, error_message
+
+            # Update API key details
+            new_expiry = datetime.utcnow() + timedelta(days=days)
+            update_result = await self.async_db[config.MONGO_USER_COLLECTION].update_one(
+                {"api_key": api_key},
+                {
+                    "$set": {
+                        "api_key_details.expires_at": new_expiry,
+                        "api_key_details.status": "active",
+                        "api_key_details.last_renewed": datetime.utcnow()
+                    }
+                }
+            )
+
+            if update_result.modified_count == 0:
+                return None, "renewal_failed", "Failed to renew API key"
+
+            # Get updated user data
+            updated_user = await self.find_user({"api_key": api_key})
+            return updated_user, None, None
+
+        except Exception as e:
+            logger.error(f"Error renewing API key: {e}")
+            return None, "system_error", "Error during API key renewal"
+
     async def cleanup_old_scans(self, days: int = 30) -> int:
         """Clean up scan results older than specified days."""
         try:
