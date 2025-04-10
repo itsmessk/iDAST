@@ -233,11 +233,7 @@ class Database:
                 'retryWrites': True,
                 'serverSelectionTimeoutMS': 30000,
                 'socketTimeoutMS': 30000,
-                'connectTimeoutMS': 30000,
-                'tlsInsecure': False,
-                'authMechanism': 'SCRAM-SHA-1',
-                'tlsAllowInvalidCertificates': False,
-                'minPoolSize': 0
+                'connectTimeoutMS': 30000
             }
 
             # Monitor connection pool metrics
