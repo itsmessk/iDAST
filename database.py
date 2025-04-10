@@ -244,10 +244,7 @@ class Database:
                 'compressors': 'snappy,zlib',  # Enable compression
                 'zlibCompressionLevel': 6,  # Balanced compression level
                 'directConnection': False,  # Better for MongoDB Atlas
-                'tls': True,  # Required for Atlas
                 'tlsCAFile': certifi.where(),  # Use certifi's CA bundle
-                'tlsAllowInvalidCertificates': False,  # Enforce valid certificates
-                'tlsInsecure': False,  # Enforce secure TLS connections
                 'serverSelectionTimeoutMS': 30000  # Increase server selection timeout
             }
 
