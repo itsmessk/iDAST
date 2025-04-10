@@ -247,6 +247,20 @@ def ratelimit_handler(e):
         "message": str(e.description)
     }), 429
 
+@app.route('/')
+@limiter.exempt
+async def index():
+    """API root endpoint."""
+    return jsonify({
+        'name': 'SecPro API',
+        'version': config.VERSION,
+        'status': 'running',
+        'endpoints': {
+            'health': '/health',
+            'scan': '/scan'
+        }
+    })
+
 @app.route('/health')
 @limiter.exempt
 async def health_check():
