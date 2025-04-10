@@ -244,7 +244,6 @@ class Database:
                 'ssl': True,  # Required for Atlas
                 'tlsAllowInvalidCertificates': False  # Enforce valid certificates
             }
-            }
 
             # Monitor connection pool metrics
             self.pool_metrics = {
