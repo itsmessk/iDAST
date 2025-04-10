@@ -1,1 +1,91 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.env
+.venv
+.python-version
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.project
+.pydevproject
+.settings/
+*.sublime-workspace
+*.sublime-project
+
+# Logs and Results
+logs/
+logs_backup/
+results/
+results_backup/
+*.log
+csrf_results/
+dalfox_results/
+ssrf_results/
+xxe_results/
+
+# Cache
+.cache/
+.pytest_cache/
+.coverage
+coverage.xml
+*.cover
+htmlcov/
+
+# OS
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+*.temp
+
+# Project specific
+node_modules/
+.env
+*.env
+.env.*
+!.env.example
+
+# Virtual Environment (additional)
 v/
+v/*/
+
+# Test directories
+tests/**/csrf_results/
+tests/**/dalfox_results/
+tests/**/logs/
+tests/**/results/
+tests/**/ssrf_results/
+tests/**/__pycache__/
+tests/**/.git/
+tests/**/tests/
+
+# Additional scan results
+*_results/
+*_results_backup/
