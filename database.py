@@ -226,10 +226,18 @@ class Database:
         """Establish connection to MongoDB with retry mechanism."""
         try:
             logger.info("Connecting to MongoDB...")
-            # Basic connection options
+            # MongoDB Atlas connection options
             self.conn_options = {
-                'tlsAllowInvalidCertificates': True,
-                'retryWrites': True
+                'tls': True,
+                'tlsCAFile': certifi.where(),
+                'retryWrites': True,
+                'serverSelectionTimeoutMS': 30000,
+                'socketTimeoutMS': 30000,
+                'connectTimeoutMS': 30000,
+                'tlsInsecure': False,
+                'authMechanism': 'SCRAM-SHA-1',
+                'tlsAllowInvalidCertificates': False,
+                'minPoolSize': 0
             }
 
             # Monitor connection pool metrics
