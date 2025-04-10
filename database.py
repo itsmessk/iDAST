@@ -371,40 +371,26 @@ class Database:
     )
     async def validate_api_key(self, api_key: str) -> tuple[Optional[Dict], Optional[str], Optional[str]]:
         """
-        Validate API key and check expiration.
-        Returns: (user_dict, error_code, error_message)
+        Validate API key and return user data.
+        Returns: (user_data, error_code, error_message)
         """
         try:
             user = await self.find_user({"api_key": api_key})
             if not user:
-                return None, "invalid_key", "API key not found"
-
-            api_key_details = user.get('api_key_details', {})
-            if not api_key_details:
-                return None, "invalid_key", "API key details not found"
-
-            # Check if API key is expired
-            expires_at = api_key_details.get('expires_at')
-            if not expires_at:
-                return None, "invalid_key", "API key expiration not set"
-            
-            if datetime.utcnow() > expires_at:
-                days_expired = (datetime.utcnow() - expires_at).days
-                return None, "expired_key", f"API key expired {days_expired} days ago"
+                return None, "invalid_key", "Invalid API key"
 
             # Check if API key is active
-            if api_key_details.get('status') != 'active':
-                return None, "inactive_key", f"API key is {api_key_details.get('status', 'inactive')}"
+            if user.get('api_key_status', 'active') != 'active':
+                return None, "inactive_key", "API key is inactive"
 
-            # Check if expiring soon (within 7 days)
-            days_until_expiry = (expires_at - datetime.utcnow()).days
-            if days_until_expiry <= 7:
-                user['warning'] = f"API key will expire in {days_until_expiry} days"
+            # Check if API key matches the one in headers
+            if user.get('api_key') != api_key:
+                return None, "invalid_key", "API key mismatch"
 
             return user, None, None
         except Exception as e:
             logger.error(f"Error validating API key: {e}")
-            return None, "validation_error", "Error validating API key"
+            return False, "Error validating API key"
 
     async def find_user(self, query: Dict) -> Optional[Dict]:
         """Find user matching the query with caching."""

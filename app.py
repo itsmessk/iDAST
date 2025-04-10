@@ -129,7 +129,7 @@ def require_api_key(f):
             }), 401
 
         try:
-            # Validate API key and check expiration
+            # Validate API key and get user data
             user, error_code, error_message = await db.validate_api_key(api_key)
             
             if error_code:
@@ -152,6 +152,9 @@ def require_api_key(f):
             # Add warning header if API key is expiring soon
             if warning := user.get('warning'):
                 request.headers['X-API-Key-Warning'] = warning
+
+            # Add API key to request context for later verification
+            request.api_key = api_key
             
             return await f(*args, **kwargs)
         except Exception as e:
@@ -323,35 +326,47 @@ async def scan_domain():
     try:
         # Validate request data
         data = request.json
-        validation_error = validate_request_data(data)
-        if validation_error:
-            return validation_error
+        if not data:
+            return jsonify({"error": "No data provided"}), 400
 
-        targetid = data.get('targetid')
-        scan_type = data.get('scan_type', 'quick')
+        user_id = str(request.user.get('_id'))
+        target_id = data.get('targetid')
+        if not target_id:
+            return jsonify({"error": "Target ID is required"}), 400
 
-        # Verify target belongs to user
+        # Get user's targets from their profile
         user_targets = request.user.get('targets', [])
-        target = next((t for t in user_targets if t['id'] == targetid), None)
+        if not user_targets:
+            return jsonify({
+                "error": "No targets found",
+                "message": "User has no registered targets"
+            }), 404
+
+        # Find target in user's targets array
+        target = next((t for t in user_targets if t['id'] == target_id), None)
         if not target:
             return jsonify({
                 "error": "Invalid target",
-                "message": "Target ID not found or unauthorized"
+                "message": "Target ID not found in user's targets"
             }), 403
 
-        domain = target['domain']
-        
-        user_id = str(request.user.get('_id'))
-        
+        # Validate scan type
+        scan_type = data.get('scan_type', 'quick')
+        if scan_type not in ['quick', 'full', 'custom']:
+            return jsonify({"error": "Invalid scan type"}), 400
+
+        domain = target.get('domain')
+        if not domain:
+            return jsonify({"error": "Target domain not found"}), 400
+
         # Check cache
-        cache_hit = scan_cache.get(f"{domain}:{scan_type}:{user_id}")
+        cache_key = f"{target_id}:{scan_type}:{user_id}"
+        cache_hit = scan_cache.get(cache_key)
         if cache_hit:
             logger.info(f"Returning cached results for {domain}")
             return jsonify(cache_hit)
 
-        logger.info(f"Starting {scan_type} scan for {domain} (User: {user_id}, Target: {targetid})")
-
-        logger.info(f"Starting {scan_type} scan for {domain} (User: {userid}, Target: {targetid})")
+        logger.info(f"Starting {scan_type} scan for {domain} (User: {user_id}, Target: {target_id})")
 
         # Record scan start time
         start_time = get_current_time()
