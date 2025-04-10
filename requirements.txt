@@ -9,12 +9,13 @@ setuptools
 wheel
 aiohttp
 pyppeteer
-pymongo
-motor
+pymongo>=4.6.0
+motor>=3.3.0
 pytz
 python-dotenv
 gunicorn
-dnspython
+dnspython>=2.4.0
+certifi>=2024.2.2
 pyyaml
 beautifulsoup4
 lxml

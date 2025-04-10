@@ -13,8 +13,11 @@ from functools import wraps
 import json
 import hashlib
 import asyncio
+import certifi
 from config import config
 from logger import get_logger
+
+logger = get_logger('database')
 
 def rate_limit(
     max_calls: int,
@@ -94,6 +97,7 @@ class Database:
         self.scan_collection = None
         self.user_collection = None
         self.redis_client = None
+        self.conn_options = None  # Store connection options as instance variable
         self._initialized = True
         
         # Initialize connection pools
@@ -223,14 +227,14 @@ class Database:
         try:
             logger.info("Connecting to MongoDB...")
             # Connection options optimized for cloud connections
-            conn_options = {
+            self.conn_options = {
                 'serverSelectionTimeoutMS': 10000,  # Increased from default
                 'maxPoolSize': config.MONGO_POOL_SIZE,
                 'minPoolSize': max(1, config.MONGO_POOL_SIZE // 4),  # 25% of max pool size
                 'maxIdleTimeMS': config.MONGO_MAX_IDLE_TIME,
                 'waitQueueTimeoutMS': 5000,  # Increased for cloud latency
-                'retryWrites': True,
-                'retryReads': True,
+                'retryWrites': True,  # Enable retry for write operations
+                'retryReads': True,  # Enable retry for read operations
                 'w': 'majority',  # Write concern
                 'readPreference': 'primaryPreferred',
                 'appName': 'SecPro-Scanner',
@@ -240,10 +244,11 @@ class Database:
                 'compressors': 'snappy,zlib',  # Enable compression
                 'zlibCompressionLevel': 6,  # Balanced compression level
                 'directConnection': False,  # Better for MongoDB Atlas
-                'retryReads': True,  # Enable retry for read operations
-                'retryWrites': True,  # Enable retry for write operations
-                'ssl': True,  # Required for Atlas
-                'tlsAllowInvalidCertificates': False  # Enforce valid certificates
+                'tls': True,  # Required for Atlas
+                'tlsCAFile': certifi.where(),  # Use certifi's CA bundle
+                'tlsAllowInvalidCertificates': False,  # Enforce valid certificates
+                'tlsInsecure': False,  # Enforce secure TLS connections
+                'serverSelectionTimeoutMS': 30000  # Increase server selection timeout
             }
 
             # Monitor connection pool metrics
@@ -255,10 +260,10 @@ class Database:
             }
             
             # Synchronous client
-            self.client = MongoClient(config.MONGO_URI, **conn_options)
+            self.client = MongoClient(config.MONGO_URI, **self.conn_options)
             
             # Async client
-            self.async_client = AsyncIOMotorClient(config.MONGO_URI, **conn_options)
+            self.async_client = AsyncIOMotorClient(config.MONGO_URI, **self.conn_options)
             
             # Test connection
             self.client.admin.command('ping')

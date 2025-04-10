@@ -17,6 +17,7 @@ RUN apt-get update && \
     gnupg \
     unzip \
     nmap \
+    ca-certificates \
     chromium-driver \
     libnss3 \
     libxss1 \

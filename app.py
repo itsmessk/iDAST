@@ -120,9 +120,9 @@ REQUEST_TIMEOUT = ClientTimeout(total=config.REQUEST_TIMEOUT)
 def require_auth(f):
     """Decorator to require authentication."""
     @wraps(f)
-    def decorated(*args, **kwargs):
+    async def decorated(*args, **kwargs):
         if not config.ENABLE_AUTH:
-            return f(*args, **kwargs)
+            return await f(*args, **kwargs)
 
         auth_header = request.headers.get('Authorization')
         if not auth_header:
@@ -133,12 +133,12 @@ def require_auth(f):
             if token_type.lower() != 'bearer':
                 return jsonify({"error": "Invalid token type"}), 401
 
-            user = db.validate_token(token)
+            user = await db.validate_token(token)
             if not user:
                 return jsonify({"error": "Invalid or expired token"}), 401
 
             request.user = user
-            return f(*args, **kwargs)
+            return await f(*args, **kwargs)
         except Exception as e:
             logger.error(f"Authentication error: {e}")
             return jsonify({"error": "Authentication failed"}), 401
@@ -249,11 +249,13 @@ def ratelimit_handler(e):
 
 @app.route('/health')
 @limiter.exempt
-def health_check():
+async def health_check():
     """API health check endpoint."""
     try:
         # Check MongoDB connection
-        db.ping()
+        is_healthy = await db.ping()
+        if not is_healthy:
+            raise Exception("Database ping failed")
         
         return jsonify({
             'status': 'healthy',
