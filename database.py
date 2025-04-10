@@ -226,24 +226,10 @@ class Database:
         """Establish connection to MongoDB with retry mechanism."""
         try:
             logger.info("Connecting to MongoDB...")
-            # Connection options optimized for cloud connections with proper TLS
+            # Basic connection options
             self.conn_options = {
-                'serverSelectionTimeoutMS': 30000,
-                'maxPoolSize': config.MONGO_POOL_SIZE,
-                'minPoolSize': max(1, config.MONGO_POOL_SIZE // 4),
-                'maxIdleTimeMS': config.MONGO_MAX_IDLE_TIME,
-                'waitQueueTimeoutMS': 10000,
-                'retryWrites': True,
-                'retryReads': True,
-                'w': 'majority',
-                'readPreference': 'primaryPreferred',
-                'appName': 'SecPro-Scanner',
-                'connectTimeoutMS': 20000,
-                'socketTimeoutMS': 20000,
-                'heartbeatFrequencyMS': 10000,
-                'tlsCAFile': certifi.where(),  # Use system CA certificates
-                'tls': True,
-                'ssl': True
+                'tlsAllowInvalidCertificates': True,
+                'retryWrites': True
             }
 
             # Monitor connection pool metrics
