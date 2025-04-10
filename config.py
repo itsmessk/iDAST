@@ -16,23 +16,13 @@ class BaseConfig:
     FLASK_ENV = os.getenv('FLASK_ENV', 'production')
     
     # MongoDB Configuration
-    MONGO_HOST = os.getenv('MONGO_HOST', 'localhost')
-    MONGO_PORT = int(os.getenv('MONGO_PORT', 27017))
-    MONGO_USER = os.getenv('MONGO_USER', '')
-    MONGO_PASSWORD = os.getenv('MONGO_PASSWORD', '')
+    MONGO_URI = os.getenv('MONGO_URI', 'mongodb://localhost:27017')
     MONGO_DB_NAME = os.getenv('MONGO_DB_NAME', 'secpro')
     MONGO_SCAN_COLLECTION = os.getenv('MONGO_SCAN_COLLECTION', 'scan')
     MONGO_USER_COLLECTION = os.getenv('MONGO_USER_COLLECTION', 'users')
     MONGO_POOL_SIZE = int(os.getenv('MONGO_POOL_SIZE', 50))  # Reduced pool size
     MONGO_CONNECT_TIMEOUT = int(os.getenv('MONGO_CONNECT_TIMEOUT', 3000))  # Reduced timeout
     MONGO_MAX_IDLE_TIME = int(os.getenv('MONGO_MAX_IDLE_TIME', 15000))  # 15 seconds idle time
-    
-    @property
-    def MONGO_URI(self):
-        """Construct MongoDB URI with authentication if credentials are provided."""
-        if self.MONGO_USER and self.MONGO_PASSWORD:
-            return f"mongodb://{self.MONGO_USER}:{self.MONGO_PASSWORD}@{self.MONGO_HOST}:{self.MONGO_PORT}"
-        return f"mongodb://{self.MONGO_HOST}:{self.MONGO_PORT}"
     
     # Redis Configuration
     REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379/0')

@@ -38,3 +38,4 @@ aiofiles
 aiodns
 aioredis
 async-timeout
+python-snappy

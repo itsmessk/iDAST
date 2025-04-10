@@ -106,9 +106,12 @@ class Database:
             self.redis_client = redis.from_url(
                 config.REDIS_URL,
                 decode_responses=True,
-                socket_timeout=3,
-                socket_connect_timeout=3,
-                retry_on_timeout=True
+                socket_timeout=5,
+                socket_connect_timeout=5,
+                retry_on_timeout=True,
+                retry_on_error=[redis.TimeoutError, redis.ConnectionError],
+                health_check_interval=30,
+                max_connections=10
             )
             self.redis_client.ping()
             logger.info("Successfully connected to Redis")
@@ -211,31 +214,36 @@ class Database:
     @backoff.on_exception(
         backoff.expo,
         (ConnectionFailure, ServerSelectionTimeoutError),
-        max_tries=5,
-        max_time=30
+        max_tries=10,
+        max_time=60,
+        jitter=None
     )
     def connect(self):
         """Establish connection to MongoDB with retry mechanism."""
         try:
             logger.info("Connecting to MongoDB...")
-            
-            # Connection options with optimized settings
+            # Connection options optimized for cloud connections
             conn_options = {
-                'serverSelectionTimeoutMS': config.MONGO_CONNECT_TIMEOUT,
+                'serverSelectionTimeoutMS': 10000,  # Increased from default
                 'maxPoolSize': config.MONGO_POOL_SIZE,
                 'minPoolSize': max(1, config.MONGO_POOL_SIZE // 4),  # 25% of max pool size
                 'maxIdleTimeMS': config.MONGO_MAX_IDLE_TIME,
-                'waitQueueTimeoutMS': 3000,  # Reduced wait queue timeout
+                'waitQueueTimeoutMS': 5000,  # Increased for cloud latency
                 'retryWrites': True,
                 'retryReads': True,
                 'w': 'majority',  # Write concern
                 'readPreference': 'primaryPreferred',
                 'appName': 'SecPro-Scanner',
-                'connectTimeoutMS': 5000,
-                'socketTimeoutMS': 10000,
+                'connectTimeoutMS': 10000,  # Increased for cloud connections
+                'socketTimeoutMS': 20000,  # Increased for cloud operations
                 'heartbeatFrequencyMS': 10000,
                 'compressors': 'snappy,zlib',  # Enable compression
-                'zlibCompressionLevel': 6  # Balanced compression level
+                'zlibCompressionLevel': 6,  # Balanced compression level
+                'directConnection': False,  # Better for MongoDB Atlas
+                'retryable': True,  # Enable retryable operations
+                'ssl': True,  # Required for Atlas
+                'tlsAllowInvalidCertificates': False  # Enforce valid certificates
+            }
             }
 
             # Monitor connection pool metrics

@@ -26,11 +26,6 @@ services:
     volumes:
       - ./logs:/app/logs:rw
       - ./results:/app/results:rw
-    depends_on:
-      mongo:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
       interval: 30s
@@ -45,55 +40,3 @@ services:
         reservations:
           cpus: '0.5'
           memory: 1G
-
-  mongo:
-    image: mongo:6.0
-    restart: unless-stopped
-    volumes:
-      - mongo_data:/data/db:rw
-      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER:-secpro_user}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
-      - MONGO_INITDB_DATABASE=${MONGO_DB_NAME:-secpro}
-    healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet -u ${MONGO_USER:-secpro_user} -p ${MONGO_PASSWORD} --authenticationDatabase admin
-      interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 5s
-    deploy:
-      resources:
-        limits:
-          cpus: '1'
-          memory: 2G
-        reservations:
-          cpus: '0.25'
-          memory: 512M
-
-  redis:
-    image: redis:7.0-alpine
-    restart: unless-stopped
-    command: redis-server --appendonly yes --maxmemory 512mb --maxmemory-policy allkeys-lru
-    volumes:
-      - redis_data:/data:rw
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 5s
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 1G
-        reservations:
-          cpus: '0.1'
-          memory: 256M
-
-volumes:
-  mongo_data:
-    name: ${COMPOSE_PROJECT_NAME:-secpro}_mongo_data
-  redis_data:
-    name: ${COMPOSE_PROJECT_NAME:-secpro}_redis_data
