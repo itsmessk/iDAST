@@ -13,8 +13,10 @@ class Logger:
         self.log_file = config.LOG_FILE
         
         # Create logs directory if it doesn't exist
-        os.makedirs('logs', exist_ok=True)
-        log_file_path = os.path.join('logs', self.log_file)
+        log_dir = os.path.dirname(self.log_file)
+        if log_dir:
+            os.makedirs(log_dir, exist_ok=True)
+        log_file_path = self.log_file
         
         # Configure root logger
         logging.basicConfig(
