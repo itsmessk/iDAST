@@ -456,10 +456,9 @@ async def scan_domain():
                 await db.store_scan_results(targetid, {**scan_results, **error_data})
         except Exception as store_error:
             logger.error(f"Failed to store error status: {store_error}")
-        
+
         return jsonify(error_data), status_code
-            "target_id": targetid
-        }), 500
+            
 
 
 async def shutdown_event():
