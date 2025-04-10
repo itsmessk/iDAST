@@ -241,11 +241,11 @@ class Database:
                 'connectTimeoutMS': 10000,  # Increased for cloud connections
                 'socketTimeoutMS': 20000,  # Increased for cloud operations
                 'heartbeatFrequencyMS': 10000,
-                'compressors': 'snappy,zlib',  # Enable compression
-                'zlibCompressionLevel': 6,  # Balanced compression level
-                'directConnection': False,  # Better for MongoDB Atlas
-                'tlsCAFile': certifi.where(),  # Use certifi's CA bundle
-                'serverSelectionTimeoutMS': 30000  # Increase server selection timeout
+                'maxPoolSize': config.MONGO_POOL_SIZE,  # Maximum connections
+                'minPoolSize': 0,  # Start with minimum connections
+                'serverSelectionTimeoutMS': 30000,  # Increase server selection timeout
+                'socketTimeoutMS': 20000,  # Socket timeout
+                'connectTimeoutMS': 20000  # Connection timeout
             }
 
             # Monitor connection pool metrics

@@ -18,6 +18,9 @@ RUN apt-get update && \
     unzip \
     nmap \
     ca-certificates \
+    openssl \
+    libssl-dev \
+    && update-ca-certificates \
     chromium-driver \
     libnss3 \
     libxss1 \
