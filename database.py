@@ -416,6 +416,12 @@ class Database:
             return cached_user
             
         try:
+            # Ensure connection is active
+            if not self.async_client or not self.async_db:
+                logger.info("Reconnecting to MongoDB...")
+                self.async_client = AsyncIOMotorClient(config.MONGO_URI, **self.conn_options)
+                self.async_db = self.async_client[config.MONGO_DB_NAME]
+
             user = await self.async_db[config.MONGO_USER_COLLECTION].find_one(query)
             if user:
                 # Cache user data for 5 minutes
@@ -423,6 +429,17 @@ class Database:
             return user
         except Exception as e:
             logger.error(f"Error finding user: {e}", exc_info=True)
+            # Try to reconnect on connection errors
+            if "Event loop is closed" in str(e):
+                try:
+                    self.async_client = AsyncIOMotorClient(config.MONGO_URI, **self.conn_options)
+                    self.async_db = self.async_client[config.MONGO_DB_NAME]
+                    user = await self.async_db[config.MONGO_USER_COLLECTION].find_one(query)
+                    if user:
+                        await self._set_cache(cache_key, user, 300)
+                    return user
+                except Exception as reconnect_error:
+                    logger.error(f"Reconnection failed: {reconnect_error}")
             raise OperationError(f"Failed to find user: {str(e)}")
     
     @backoff.on_exception(

@@ -341,13 +341,15 @@ async def scan_domain():
 
         domain = target['domain']
         
+        user_id = str(request.user.get('_id'))
+        
         # Check cache
-        cache_hit = scan_cache.get(f"{domain}:{scan_type}:{request.user['_id']}")
+        cache_hit = scan_cache.get(f"{domain}:{scan_type}:{user_id}")
         if cache_hit:
             logger.info(f"Returning cached results for {domain}")
             return jsonify(cache_hit)
 
-        logger.info(f"Starting {scan_type} scan for {domain} (User: {request.user['_id']}, Target: {targetid})")
+        logger.info(f"Starting {scan_type} scan for {domain} (User: {user_id}, Target: {targetid})")
 
         logger.info(f"Starting {scan_type} scan for {domain} (User: {userid}, Target: {targetid})")
 
@@ -355,24 +357,29 @@ async def scan_domain():
         start_time = get_current_time()
         scan_count = await db.get_scan_count(targetid) + 1
 
+        request_id = secrets.token_hex(16)
+        
         # Initialize scan results structure
         scan_results = {
             "domain": domain,
             "scan_type": scan_type,
             "scan_start_time": format_timestamp(start_time),
             "scan_status": "in_progress",
-            "request_id": secrets.token_hex(16),
+            "request_id": request_id,
             "target": {
                 **target,  # Include all target metadata
                 "scan_count": scan_count,
                 "last_scan": format_timestamp(start_time)
             },
             "metadata": {
-                "user_id": str(request.user['_id']),
+                "user_id": user_id,
                 "company": request.user.get('company', 'Unknown'),
                 "environment": target.get('metadata', {}).get('environment', 'production')
             }
         }
+
+        # Store request ID in request context for error handling
+        request.request_id = request_id
 
         try:
             # Run all scans with timeout
@@ -397,20 +404,60 @@ async def scan_domain():
         return jsonify(scan_results)
 
     except asyncio.TimeoutError as e:
-        logger.error(f"Scan timeout: {str(e)}")
-        return jsonify({
+        error_data = {
+            "scan_status": "timeout",
             "error": "Scan timeout",
             "message": f"Scan timed out after {config.TOTAL_SCAN_TIMEOUT} seconds",
-            "request_id": scan_results.get('request_id')
-        }), 408
+            "request_id": request.request_id,
+            "target_id": targetid,
+            "timestamp": format_timestamp()
+        }
+        logger.error(f"Scan timeout: {str(e)}")
+        
+        # Try to store timeout status
+        try:
+            if config.ENABLE_DATABASE:
+                await db.store_scan_results(targetid, {**scan_results, **error_data})
+        except Exception as store_error:
+            logger.error(f"Failed to store timeout status: {store_error}")
+            
+        return jsonify(error_data), 408
 
     except Exception as e:
-        logger.error(f"Error during scan: {str(e)}")
-        error_message = str(e) if config.DEBUG_MODE else "An unexpected error occurred"
-        return jsonify({
-            "error": "Internal server error",
-            "message": error_message,
-            "request_id": getattr(request, 'request_id', None),
+        error_message = str(e)
+        logger.error(f"Error during scan: {error_message}", exc_info=True)
+        
+        # Determine error type and status code
+        status_code = 500
+        error_type = "Internal server error"
+        
+        if "Event loop is closed" in error_message:
+            error_type = "Database connection error"
+            error_message = "Database connection lost. Please try again."
+        elif "validation failed" in error_message.lower():
+            status_code = 400
+            error_type = "Validation error"
+        elif "unauthorized" in error_message.lower():
+            status_code = 403
+            error_type = "Authorization error"
+        
+        error_data = {
+            "error": error_type,
+            "message": error_message if config.DEBUG_MODE else "An unexpected error occurred",
+            "request_id": request.request_id,
+            "target_id": targetid,
+            "scan_status": "error",
+            "timestamp": format_timestamp()
+        }
+        
+        # Try to store error status
+        try:
+            if config.ENABLE_DATABASE and 'scan_results' in locals():
+                await db.store_scan_results(targetid, {**scan_results, **error_data})
+        except Exception as store_error:
+            logger.error(f"Failed to store error status: {store_error}")
+        
+        return jsonify(error_data), status_code
             "target_id": targetid
         }), 500
 
