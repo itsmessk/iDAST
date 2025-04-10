@@ -369,6 +369,31 @@ class Database:
         (ConnectionFailure, OperationFailure),
         max_tries=3
     )
+    async def validate_api_key(self, api_key: str) -> Optional[Dict]:
+        """Validate API key and check expiration."""
+        try:
+            user = await self.find_user({"api_key": api_key})
+            if not user:
+                return None
+
+            api_key_details = user.get('api_key_details', {})
+            if not api_key_details:
+                return None
+
+            # Check if API key is expired
+            expires_at = api_key_details.get('expires_at')
+            if not expires_at or datetime.utcnow() > expires_at:
+                return None
+
+            # Check if API key is active
+            if api_key_details.get('status') != 'active':
+                return None
+
+            return user
+        except Exception as e:
+            logger.error(f"Error validating API key: {e}")
+            return None
+
     async def find_user(self, query: Dict) -> Optional[Dict]:
         """Find user matching the query with caching."""
         cache_key = self._cache_key('user', json.dumps(query, sort_keys=True))

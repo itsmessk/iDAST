@@ -117,26 +117,24 @@ OUTPUT_TZ = pytz.timezone(config.OUTPUT_TIMEZONE)
 SCAN_TIMEOUT = ClientTimeout(total=config.SCAN_TIMEOUT)
 REQUEST_TIMEOUT = ClientTimeout(total=config.REQUEST_TIMEOUT)
 
-def require_auth(f):
-    """Decorator to require authentication."""
+def require_api_key(f):
+    """Decorator to require API key authentication."""
     @wraps(f)
     async def decorated(*args, **kwargs):
-        if not config.ENABLE_AUTH:
-            return await f(*args, **kwargs)
-
-        auth_header = request.headers.get('Authorization')
-        if not auth_header:
-            return jsonify({"error": "No authorization header"}), 401
+        api_key = request.headers.get('X-API-Key')
+        if not api_key:
+            return jsonify({"error": "No API key provided"}), 401
 
         try:
-            token_type, token = auth_header.split()
-            if token_type.lower() != 'bearer':
-                return jsonify({"error": "Invalid token type"}), 401
-
-            user = await db.validate_token(token)
+            # Validate API key and check expiration
+            user = await db.validate_api_key(api_key)
             if not user:
-                return jsonify({"error": "Invalid or expired token"}), 401
+                return jsonify({
+                    "error": "Invalid or expired API key",
+                    "message": "Please check your API key or contact support for renewal"
+                }), 401
 
+            # Add user to request context
             request.user = user
             return await f(*args, **kwargs)
         except Exception as e:
@@ -287,7 +285,7 @@ async def health_check():
 
 @app.route('/scan', methods=['POST'])
 @limiter.limit(config.SCAN_RATE_LIMIT)
-@require_auth
+@require_api_key
 async def scan_domain():
     """API endpoint to scan a domain for security vulnerabilities."""
     try:
@@ -296,20 +294,36 @@ async def scan_domain():
         validation_error = validate_request_data(data)
         if validation_error:
             return validation_error
+targetid = data.get('targetid')
+if not targetid:
+    return jsonify({"error": "Target ID is required"}), 400
 
-        domain = data.get('domain')
-        userid = request.user.get('id')
-        targetid = data.get('targetid')
-        scan_type = data.get('scan_type', 'quick')
-        
-        # Check cache
-        cache_hit = scan_cache.get(f"{domain}:{scan_type}:{userid}")
-        if cache_hit:
-            logger.info(f"Returning cached results for {domain}")
-            return jsonify(cache_hit)
-        
-        # Process domain/URL
-        parsed_url = urlparse(ensure_url_has_protocol(domain))
+# Extract domain from target ID (format: target_domain_timestamp_suffix)
+try:
+    target_parts = targetid.split('_')
+    if len(target_parts) < 4 or target_parts[0] != 'target':
+        return jsonify({"error": "Invalid target ID format"}), 400
+    domain = target_parts[1]
+except Exception as e:
+    logger.error(f"Error parsing target ID: {e}")
+    return jsonify({"error": "Invalid target ID format"}), 400
+
+userid = request.user.get('id')
+scan_type = data.get('scan_type', 'quick')
+
+# Check cache
+cache_hit = scan_cache.get(f"{domain}:{scan_type}:{userid}")
+if cache_hit:
+    logger.info(f"Returning cached results for {domain}")
+    return jsonify(cache_hit)
+
+# Process domain/URL for validation
+parsed_url = urlparse(ensure_url_has_protocol(domain))
+validated_domain = parsed_url.netloc if parsed_url.netloc else parsed_url.path
+
+# Ensure the domain matches the target ID
+if validated_domain != domain:
+    return jsonify({"error": "Domain mismatch with target ID"}), 400
         domain = parsed_url.netloc if parsed_url.netloc else parsed_url.path
         
         logger.info(f"Starting {scan_type} scan for {domain} (User: {userid}, Target: {targetid})")
@@ -323,7 +337,13 @@ async def scan_domain():
             "scan_type": scan_type,
             "scan_start_time": format_timestamp(start_time),
             "scan_status": "in_progress",
-            "request_id": secrets.token_hex(16)
+            "request_id": secrets.token_hex(16),
+            "target": {
+                "id": targetid,
+                "domain": domain,
+                "scan_count": await db.get_scan_count(targetid) + 1,
+                "last_scan": format_timestamp(start_time)
+            }
         }
         
         try:

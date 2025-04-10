@@ -62,14 +62,10 @@ class BaseConfig:
     
     # Security Configuration
     ENABLE_AUTH = True
-    SECRET_KEY = os.getenv('SECRET_KEY', secrets.token_hex(32))
-    JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', secrets.token_hex(32))
-    JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=1)
-    JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=30)
+    API_KEYS = os.getenv('API_KEYS', '').split(',')
     SESSION_COOKIE_SECURE = True
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SAMESITE = 'Lax'
-    PERMANENT_SESSION_LIFETIME = timedelta(days=1)
     
     # Performance Configuration
     WORKER_PROCESSES = int(os.getenv('WORKER_PROCESSES', 4))
