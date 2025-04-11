@@ -29,6 +29,82 @@ class LFIScanner:
         self._initialize_payloads()
         self._initialize_indicators()
 
+    async def scan(self, url, session):
+        """
+        Main entry point for LFI/RFI scanning. This method is called from app.py.
+        
+        Args:
+            url (str): The main URL/domain to scan
+            session (aiohttp.ClientSession): The session to use for HTTP requests
+            
+        Returns:
+            dict: Results of the LFI/RFI scan
+        """
+        try:
+            logger.info(f"Starting LFI/RFI scan for {url}")
+            
+            # Check if subdomain scan results are available
+            from subdomain_scanner import subdomain_scan_results
+            
+            if subdomain_scan_results and subdomain_scan_results.get("all_urls"):
+                # Use URLs from subdomain scan
+                urls_to_scan = subdomain_scan_results.get("all_urls", [])
+                logger.info(f"Using {len(urls_to_scan)} URLs from subdomain scan for LFI/RFI testing")
+            else:
+                # Fallback to just the provided URL
+                logger.warning("No subdomain scan results available, using only the provided URL")
+                urls_to_scan = [url]
+            
+            # Filter URLs to those with parameters (more likely to be vulnerable to LFI/RFI)
+            param_urls = [u for u in urls_to_scan if '?' in u]
+            
+            if param_urls:
+                logger.info(f"Found {len(param_urls)} URLs with parameters for LFI/RFI testing")
+                # Limit to 30 URLs for performance
+                scan_results = await self.scan_urls(param_urls[:30])
+            else:
+                logger.warning("No URLs with parameters found for LFI/RFI testing")
+                scan_results = {}
+            
+            # Format the results
+            vulnerabilities = []
+            for url, result in scan_results.items():
+                if result and result.get('is_vulnerable'):
+                    for vuln in result.get('vulnerabilities', []):
+                        vulnerabilities.append({
+                            'url': url,
+                            'type': vuln.get('type', 'LFI/RFI'),
+                            'injection_point': vuln.get('injection_point', ''),
+                            'evidence': vuln.get('evidence', ''),
+                            'severity': vuln.get('severity', 'High'),
+                            'category': vuln.get('category', '')
+                        })
+            
+            # Get unique recommendations
+            recommendations = set()
+            for _, result in scan_results.items():
+                if result and result.get('is_vulnerable'):
+                    recommendations.update(result.get('recommendations', []))
+            
+            return {
+                "lfi_rfi_scan": {
+                    "status": "completed",
+                    "urls_scanned": len(param_urls[:30]) if param_urls else 0,
+                    "vulnerabilities_found": len(vulnerabilities),
+                    "vulnerabilities": vulnerabilities,
+                    "recommendations": list(recommendations) if vulnerabilities else []
+                }
+            }
+            
+        except Exception as e:
+            logger.error(f"Error in LFI/RFI scan: {e}")
+            return {
+                "lfi_rfi_scan": {
+                    "status": "error",
+                    "error": str(e)
+                }
+            }
+
     def _initialize_payloads(self):
         """Initialize attack payloads with categories."""
         self.lfi_payloads = {

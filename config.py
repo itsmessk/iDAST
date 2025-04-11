@@ -106,6 +106,12 @@ class BaseConfig:
     HEALTH_CHECK_INTERVAL = int(os.getenv('HEALTH_CHECK_INTERVAL', 30))
     HEALTH_CHECK_TIMEOUT = int(os.getenv('HEALTH_CHECK_TIMEOUT', 10))
     HEALTH_CHECK_RETRIES = int(os.getenv('HEALTH_CHECK_RETRIES', 3))
+    
+    # Subdomain Scanner Configuration
+    SUBDOMAIN_SCAN_FIRST = True  # Flag to ensure subdomain scanning runs first
+    MAX_SUBDOMAINS_TO_SCAN = int(os.getenv('MAX_SUBDOMAINS_TO_SCAN', 100))
+    MAX_URLS_PER_SCANNER = int(os.getenv('MAX_URLS_PER_SCANNER', 50))
+    STORE_SUBDOMAIN_RESULTS = True  # Store subdomain results in database
 
 
 class DevelopmentConfig(BaseConfig):

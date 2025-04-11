@@ -55,6 +55,103 @@ class XXEScanner:
             'multipart/form-data'
         ]
 
+    async def scan(self, url, session):
+        """
+        Main entry point for XXE scanning. This method is called from app.py.
+        
+        Args:
+            url (str): The main URL/domain to scan
+            session (aiohttp.ClientSession): The session to use for HTTP requests
+            
+        Returns:
+            dict: Results of the XXE scan
+        """
+        try:
+            logger.info(f"Starting XXE scan for {url}")
+            
+            # Check if subdomain scan results are available
+            from subdomain_scanner import subdomain_scan_results
+            
+            if subdomain_scan_results and subdomain_scan_results.get("all_urls"):
+                # Use URLs from subdomain scan
+                urls_to_scan = subdomain_scan_results.get("all_urls", [])
+                logger.info(f"Using {len(urls_to_scan)} URLs from subdomain scan for XXE testing")
+            else:
+                # Fallback to just the provided URL
+                logger.warning("No subdomain scan results available, using only the provided URL")
+                urls_to_scan = [url]
+            
+            # XXE attacks typically work on endpoints that accept XML input
+            # We'll focus on URLs that might be API endpoints or form submission handlers
+            potential_xml_endpoints = []
+            
+            # Look for potential XML endpoints based on URL patterns
+            for u in urls_to_scan:
+                parsed = urlparse(u)
+                path = parsed.path.lower()
+                
+                # Check for common API or XML processing endpoints
+                if any(pattern in path for pattern in [
+                    'api', 'xml', 'soap', 'wsdl', 'service', 'rpc', 'rest',
+                    'upload', 'import', 'process', 'submit', 'post'
+                ]):
+                    potential_xml_endpoints.append(u)
+            
+            # If no potential XML endpoints found, use a subset of all URLs
+            if not potential_xml_endpoints:
+                logger.warning("No obvious XML endpoints found, testing a subset of URLs")
+                potential_xml_endpoints = urls_to_scan[:15] if len(urls_to_scan) > 15 else urls_to_scan
+            else:
+                # Limit the number of endpoints to test
+                potential_xml_endpoints = potential_xml_endpoints[:15] if len(potential_xml_endpoints) > 15 else potential_xml_endpoints
+            
+            if potential_xml_endpoints:
+                logger.info(f"Testing {len(potential_xml_endpoints)} potential XML endpoints for XXE vulnerabilities")
+                scan_results = await self.scan_urls(potential_xml_endpoints)
+            else:
+                logger.warning("No URLs found for XXE testing")
+                scan_results = {}
+            
+            # Format the results
+            vulnerabilities = []
+            for url, result in scan_results.items():
+                if result and result.get('is_vulnerable'):
+                    for vuln in result.get('vulnerabilities', []):
+                        vulnerabilities.append({
+                            'url': url,
+                            'type': vuln.get('type', 'XML External Entity Injection'),
+                            'content_type': vuln.get('content_type', ''),
+                            'evidence': vuln.get('evidence', []),
+                            'severity': vuln.get('severity', 'Critical'),
+                            'response_code': vuln.get('response_code', 0)
+                        })
+            
+            # Get unique recommendations
+            recommendations = set()
+            for _, result in scan_results.items():
+                if result and result.get('is_vulnerable'):
+                    recommendations.update(result.get('recommendations', []))
+            
+            return {
+                "xxe_scan": {
+                    "status": "completed",
+                    "urls_scanned": len(potential_xml_endpoints),
+                    "vulnerabilities_found": len(vulnerabilities),
+                    "vulnerabilities": vulnerabilities,
+                    "recommendations": list(recommendations) if vulnerabilities else [],
+                    "cwe": "CWE-611"
+                }
+            }
+            
+        except Exception as e:
+            logger.error(f"Error in XXE scan: {e}")
+            return {
+                "xxe_scan": {
+                    "status": "error",
+                    "error": str(e)
+                }
+            }
+
     async def scan_urls(self, urls):
         """
         Scan multiple URLs for XXE vulnerabilities

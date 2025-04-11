@@ -6,6 +6,9 @@ import re
 import logging
 import time
 from datetime import datetime
+from logger import get_logger
+
+logger = get_logger(__name__)
 
 class SQLMapScanner:
     def __init__(self):
@@ -13,6 +16,80 @@ class SQLMapScanner:
         if not os.path.exists(self.results_dir):
             os.makedirs(self.results_dir)
             logging.info("Created results folder")
+
+    async def scan(self, url, session):
+        """
+        Main entry point for SQL injection scanning. This method is called from app.py.
+        
+        Args:
+            url (str): The main URL/domain to scan
+            session (aiohttp.ClientSession): The session to use for HTTP requests
+            
+        Returns:
+            dict: Results of the SQL injection scan
+        """
+        try:
+            logger.info(f"Starting SQL injection scan for {url}")
+            
+            # Check if subdomain scan results are available
+            from subdomain_scanner import subdomain_scan_results
+            
+            if subdomain_scan_results and subdomain_scan_results.get("all_urls"):
+                # Use URLs from subdomain scan
+                urls_to_scan = subdomain_scan_results.get("all_urls", [])
+                logger.info(f"Using {len(urls_to_scan)} URLs from subdomain scan for SQL injection testing")
+            else:
+                # Fallback to just the provided URL
+                logger.warning("No subdomain scan results available, using only the provided URL")
+                urls_to_scan = [url]
+            
+            # Filter URLs to those with parameters (more likely to be vulnerable to SQL injection)
+            param_urls = [u for u in urls_to_scan if '?' in u]
+            
+            if param_urls:
+                logger.info(f"Found {len(param_urls)} URLs with parameters for SQL injection testing")
+                # Limit to 10 URLs for performance
+                scan_results = await self.scan_urls(param_urls[:10])
+            else:
+                logger.warning("No URLs with parameters found for SQL injection testing")
+                scan_results = {}
+            
+            # Format the results
+            vulnerabilities = []
+            for url, result in scan_results.items():
+                if result and result.get('vulnerable'):
+                    vulnerabilities.append({
+                        'url': url,
+                        'injection_point': result.get('injection_point', 'unknown'),
+                        'payload': result.get('payload', ''),
+                        'database_type': result.get('database_type', 'unknown'),
+                        'severity': result.get('risk_level', 'Medium')
+                    })
+            
+            return {
+                "sql_injection_scan": {
+                    "status": "completed",
+                    "urls_scanned": len(param_urls[:10]) if param_urls else 0,
+                    "vulnerabilities_found": len(vulnerabilities),
+                    "vulnerabilities": vulnerabilities,
+                    "recommendations": [
+                        "Use parameterized queries or prepared statements",
+                        "Implement input validation and sanitization",
+                        "Apply the principle of least privilege for database accounts",
+                        "Use ORM frameworks that handle SQL escaping automatically",
+                        "Implement proper error handling to avoid leaking database information"
+                    ] if vulnerabilities else []
+                }
+            }
+            
+        except Exception as e:
+            logger.error(f"Error in SQL injection scan: {e}")
+            return {
+                "sql_injection_scan": {
+                    "status": "error",
+                    "error": str(e)
+                }
+            }
 
     def extract_sqlmap_details(self, log):
         """Extract and parse SQLMap scan details from log."""

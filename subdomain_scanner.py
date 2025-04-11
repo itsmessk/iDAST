@@ -584,5 +584,92 @@ class SubdomainScanner:
         except:
             return False
 
+    async def scan(self, domain, session):
+        """
+        Main entry point for subdomain scanning. This method is called from app.py.
+        
+        Args:
+            domain (str): The domain to scan for subdomains
+            session (aiohttp.ClientSession): The session to use for HTTP requests
+            
+        Returns:
+            dict: Results of the subdomain scan
+        """
+        try:
+            logger.info(f"Starting subdomain scan for {domain}")
+            
+            # Find subdomains
+            subdomains = await self.find_subdomains(domain)
+            
+            if not subdomains:
+                logger.warning(f"No subdomains found for {domain}")
+                return {
+                    "subdomain_scan": {
+                        "status": "completed",
+                        "subdomains_found": 0,
+                        "subdomains": [],
+                        "urls_found": 0,
+                        "urls": {}
+                    }
+                }
+            
+            # Check which subdomains are active
+            active_subdomains = await self.check_subdomain_status(subdomains)
+            
+            # Fetch URLs from active subdomains
+            wayback_data, paramspider_data = await self.fetch_urls(active_subdomains)
+            
+            # Combine all URLs for vulnerability scanning
+            all_urls = []
+            for subdomain_urls in wayback_data.values():
+                all_urls.extend(subdomain_urls)
+            
+            # Store the results in the global context for other scanners to use
+            global_scan_context = {
+                "subdomains": active_subdomains,
+                "wayback_urls": wayback_data,
+                "paramspider_urls": paramspider_data,
+                "all_urls": all_urls
+            }
+            
+            # Store in a global variable that other scanners can access
+            global subdomain_scan_results
+            subdomain_scan_results = global_scan_context
+            
+            return {
+                "subdomain_scan": {
+                    "status": "completed",
+                    "subdomains_found": len(active_subdomains),
+                    "subdomains": active_subdomains,
+                    "urls_found": len(all_urls),
+                    "urls": {
+                        "wayback": wayback_data,
+                        "paramspider": paramspider_data
+                    }
+                }
+            }
+            
+        except Exception as e:
+            logger.error(f"Error in subdomain scan: {e}")
+            return {
+                "subdomain_scan": {
+                    "status": "error",
+                    "error": str(e)
+                }
+            }
+
 # Create a global instance
 subdomain_scanner = SubdomainScanner()
+
+# Global variable to store subdomain scan results
+subdomain_scan_results = None
+
+async def subdomain_scanner_wrapper(domain, session):
+    """
+    Wrapper function for the subdomain scanner.
+    This is the function that's imported and called from app.py.
+    """
+    return await subdomain_scanner.scan(domain, session)
+
+# Replace the global instance with the wrapper function
+subdomain_scanner = subdomain_scanner_wrapper

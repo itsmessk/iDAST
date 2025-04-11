@@ -12,6 +12,72 @@ class DalfoxScanner:
         if not os.path.exists(self.results_dir):
             os.makedirs(self.results_dir)
 
+    async def scan(self, url, session):
+        """
+        Main entry point for XSS scanning. This method is called from app.py.
+        
+        Args:
+            url (str): The main URL/domain to scan
+            session (aiohttp.ClientSession): The session to use for HTTP requests
+            
+        Returns:
+            dict: Results of the XSS scan
+        """
+        try:
+            logger.info(f"Starting XSS scan for {url}")
+            
+            # Check if subdomain scan results are available
+            from subdomain_scanner import subdomain_scan_results
+            
+            if subdomain_scan_results and subdomain_scan_results.get("all_urls"):
+                # Use URLs from subdomain scan
+                urls_to_scan = subdomain_scan_results.get("all_urls", [])
+                logger.info(f"Using {len(urls_to_scan)} URLs from subdomain scan for XSS testing")
+            else:
+                # Fallback to just the provided URL
+                logger.warning("No subdomain scan results available, using only the provided URL")
+                urls_to_scan = [url]
+            
+            # Filter URLs to those with parameters (more likely to be vulnerable to XSS)
+            param_urls = [u for u in urls_to_scan if '?' in u]
+            
+            if param_urls:
+                logger.info(f"Found {len(param_urls)} URLs with parameters for XSS testing")
+                # Extract domain for reporting
+                domain = url.split('//')[1].split('/')[0] if '//' in url else url.split('/')[0]
+                # Limit to 50 URLs for performance
+                scan_results = await self.scan_urls(param_urls[:50], domain)
+            else:
+                logger.warning("No URLs with parameters found for XSS testing")
+                scan_results = {
+                    'domain': url,
+                    'timestamp': datetime.now().isoformat(),
+                    'vulnerabilities': [],
+                    'recommendations': []
+                }
+            
+            # Format the results
+            vulnerabilities = scan_results.get('vulnerabilities', [])
+            
+            return {
+                "xss_scan": {
+                    "status": "completed",
+                    "urls_scanned": len(param_urls[:50]) if param_urls else 0,
+                    "vulnerabilities_found": len(vulnerabilities),
+                    "vulnerabilities": vulnerabilities,
+                    "recommendations": scan_results.get('recommendations', []) if vulnerabilities else []
+                }
+            }
+            
+        except Exception as e:
+            logger.error(f"Error in XSS scan: {e}")
+            return {
+                "xss_scan": {
+                    "status": "error",
+                    "error": str(e)
+                }
+            }
+
     async def scan_urls(self, urls, domain):
         """Scan multiple URLs for XSS vulnerabilities using Dalfox"""
         try:

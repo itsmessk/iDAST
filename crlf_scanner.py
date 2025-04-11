@@ -50,6 +50,84 @@ class CRLFScanner:
             {'location': 'header', 'name': 'X-Forwarded-For', 'template': '127.0.0.1{payload}'}
         ]
 
+    async def scan(self, url, session):
+        """
+        Main entry point for CRLF Injection scanning. This method is called from app.py.
+        
+        Args:
+            url (str): The main URL/domain to scan
+            session (aiohttp.ClientSession): The session to use for HTTP requests
+            
+        Returns:
+            dict: Results of the CRLF Injection scan
+        """
+        try:
+            logger.info(f"Starting CRLF Injection scan for {url}")
+            
+            # Check if subdomain scan results are available
+            from subdomain_scanner import subdomain_scan_results
+            
+            if subdomain_scan_results and subdomain_scan_results.get("all_urls"):
+                # Use URLs from subdomain scan
+                urls_to_scan = subdomain_scan_results.get("all_urls", [])
+                logger.info(f"Using {len(urls_to_scan)} URLs from subdomain scan for CRLF Injection testing")
+            else:
+                # Fallback to just the provided URL
+                logger.warning("No subdomain scan results available, using only the provided URL")
+                urls_to_scan = [url]
+            
+            # CRLF injection can work on any URL, not just those with parameters
+            # But we'll limit the number of URLs to scan for performance
+            urls_to_scan = urls_to_scan[:25] if len(urls_to_scan) > 25 else urls_to_scan
+            
+            if urls_to_scan:
+                logger.info(f"Scanning {len(urls_to_scan)} URLs for CRLF Injection")
+                scan_results = await self.scan_urls(urls_to_scan)
+            else:
+                logger.warning("No URLs found for CRLF Injection testing")
+                scan_results = {}
+            
+            # Format the results
+            vulnerabilities = []
+            for url, result in scan_results.items():
+                if result and result.get('is_vulnerable'):
+                    for vuln in result.get('vulnerabilities', []):
+                        vulnerabilities.append({
+                            'url': url,
+                            'type': vuln.get('type', 'CRLF Injection'),
+                            'injection_point': vuln.get('injection_point', ''),
+                            'payload': vuln.get('payload', ''),
+                            'evidence': vuln.get('evidence', []),
+                            'severity': vuln.get('severity', 'High'),
+                            'response_code': vuln.get('response_code', 0)
+                        })
+            
+            # Get unique recommendations
+            recommendations = set()
+            for _, result in scan_results.items():
+                if result and result.get('is_vulnerable'):
+                    recommendations.update(result.get('recommendations', []))
+            
+            return {
+                "crlf_injection_scan": {
+                    "status": "completed",
+                    "urls_scanned": len(urls_to_scan),
+                    "vulnerabilities_found": len(vulnerabilities),
+                    "vulnerabilities": vulnerabilities,
+                    "recommendations": list(recommendations) if vulnerabilities else [],
+                    "cwe": "CWE-113"
+                }
+            }
+            
+        except Exception as e:
+            logger.error(f"Error in CRLF Injection scan: {e}")
+            return {
+                "crlf_injection_scan": {
+                    "status": "error",
+                    "error": str(e)
+                }
+            }
+
     async def scan_urls(self, urls):
         """
         Scan multiple URLs for CRLF injection vulnerabilities

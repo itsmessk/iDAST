@@ -165,31 +165,6 @@ def require_api_key(f):
             }), 500
 
     return decorated
-# def validate_request_data(data: Dict) -> Optional[tuple]:
-#     """Validate request data."""
-#     if not data:
-#         return jsonify({"error": "No data provided"}), 400
-
-#     targetid = data.get('targetid')
-#     if not targetid:
-#         return jsonify({"error": "Target ID is required"}), 400
-
-#     # Validate target ID format
-#     try:
-#         target_parts = targetid.split('_')
-#         if len(target_parts) < 4 or target_parts[0] != 'target':
-#             return jsonify({
-#                 "error": "Invalid target ID format",
-#                 "message": "Target ID must be in format: target_domain_timestamp_suffix"
-#             }), 400
-#     except Exception:
-#         return jsonify({"error": "Invalid target ID format"}), 400
-
-#     scan_type = data.get('scan_type', 'quick')
-#     if scan_type not in ['quick', 'full', 'custom']:
-#         return jsonify({"error": "Invalid scan type"}), 400
-
-#     return None
 
 async def run_http_security_checks(url, http_security_checker):
     """
@@ -297,8 +272,6 @@ class VulnerabilityScanner:
             logger.error(f"Error creating results directory: {e}")
             raise
 
-    # ... [Rest of the VulnerabilityScanner class implementation remains the same] ...
-
 # Create a global vulnerability scanner instance
 vulnerability_scanner = VulnerabilityScanner()
 
@@ -388,7 +361,6 @@ async def scan_domain():
         if not target_id:
             return jsonify({"error": "Target ID is required"}), 400
 
-        # +++ CORRECTED SECTION START +++
         # Get user's target IDs
         user_target_ids = request.user.get('target_ids', [])
         if not user_target_ids:
@@ -414,7 +386,6 @@ async def scan_domain():
                 "message": f"Target with ID '{target_id}' not found in database",
                 "code": "target_not_found"
             }), 404
-        # +++ CORRECTED SECTION END +++
 
         # Verify target has required fields (Moved after database retrieval)
         required_fields = ['domain', 'scan_config']
@@ -533,11 +504,34 @@ async def scan_domain():
                 # Use custom scan configuration from target
                 scan_modules = scan_config.get('modules', {})
             
-            # Run selected scan modules concurrently
+            # Run subdomain scanner first if enabled
+            subdomain_results = None
+            if scan_modules.get('subdomain', False):
+                logger.info(f"Running subdomain scan for {parsed_url.netloc}")
+                try:
+                    subdomain_results = await subdomain_scanner(parsed_url.netloc, vulnerability_scanner.session)
+                    
+                    # Store subdomain results in database if configured
+                    if config.STORE_SUBDOMAIN_RESULTS and config.ENABLE_DATABASE:
+                        subdomains = subdomain_results.get('subdomain_scan', {}).get('subdomains', [])
+                        urls = subdomain_results.get('subdomain_scan', {}).get('urls', {})
+                        await db.store_subdomain_results(target_id, parsed_url.netloc, subdomains, urls)
+                    
+                    # Add subdomain results to scan results
+                    scan_results.update(subdomain_results)
+                    
+                except Exception as e:
+                    logger.error(f"Error in subdomain scan: {e}")
+                    scan_results["subdomain_scan"] = {
+                        "status": "error",
+                        "error": str(e)
+                    }
+            
+            # Run other scan modules concurrently
             tasks = []
             
             if scan_modules.get('http_security', False):
-                tasks.append(await run_http_security_checks(url, http_security))
+                tasks.append(run_http_security_checks(url, http_security))
             
             if scan_modules.get('website_health', False):
                 tasks.append(website_health.check_website_health(url))
@@ -565,9 +559,6 @@ async def scan_domain():
             
             if scan_modules.get('xxe', False):
                 tasks.append(vulnerability_scanner.xxe_scanner.scan(url, vulnerability_scanner.session))
-            
-            if scan_modules.get('subdomain', False):
-                tasks.append(subdomain_scanner(parsed_url.netloc, vulnerability_scanner.session))
             
             if scan_modules.get('dns_email', False):
                 tasks.append(dns_email_security(parsed_url.netloc, vulnerability_scanner.session))
@@ -621,6 +612,15 @@ async def scan_domain():
             scan_results["risk_score"] = round(risk_score, 1)
             scan_results["vulnerability_counts"] = severity_counts
             scan_results["total_vulnerabilities"] = sum(severity_counts.values())
+            
+            # Store scan results in database
+            if config.ENABLE_DATABASE:
+                await db.store_scan_results(target_id, scan_results)
+            
+            # Cache results
+            scan_cache[cache_key] = scan_results
+            
+            return jsonify(scan_results)
 
         except asyncio.TimeoutError as e:
             # Handle timeout during scanning
@@ -658,13 +658,14 @@ async def scan_domain():
         }
         logger.warning("Scan cancelled")
     
-    # Try to store cancelled status and cleanup
-    try:
-        if config.ENABLE_DATABASE:
-            await db.store_scan_results(target_id, {**scan_results, **error_data})
-        await vulnerability_scanner.cleanup()
-    except Exception as cleanup_error:
-        logger.error(f"Error during cleanup: {cleanup_error}")
+        # Try to store cancelled status and cleanup
+        try:
+            if config.ENABLE_DATABASE:
+                await db.store_scan_results(target_id, {**scan_results, **error_data})
+            await vulnerability_scanner.cleanup()
+        except Exception as cleanup_error:
+            logger.error(f"Error during cleanup: {cleanup_error}")
+        
         return jsonify(error_data), 499
 
     except Exception as e:
@@ -702,25 +703,7 @@ async def scan_domain():
         except Exception as cleanup_error:
             logger.error(f"Error during cleanup: {cleanup_error}")
         
-        error_data = {
-            "error": error_type,
-            "message": error_message if config.DEBUG_MODE else "An unexpected error occurred",
-            "request_id": request.request_id,
-            "target_id": target_id,
-            "scan_status": "error",
-            "timestamp": format_timestamp()
-        }
-        
-        # Try to store error status
-        try:
-            if config.ENABLE_DATABASE and 'scan_results' in locals():
-                await db.store_scan_results(target_id, {**scan_results, **error_data})
-        except Exception as store_error:
-            logger.error(f"Failed to store error status: {store_error}")
-
         return jsonify(error_data), status_code
-            
-
 
 async def shutdown_event():
     """Cleanup on shutdown."""
@@ -735,8 +718,6 @@ async def shutdown_event():
     except Exception as e:
         logger.error(f"Error during shutdown cleanup: {e}")
         
-        
-# Register shutdown handler
 # Register shutdown handler
 signal.signal(signal.SIGTERM, lambda s, f: asyncio.create_task(shutdown_event()))
 signal.signal(signal.SIGINT, lambda s, f: asyncio.create_task(shutdown_event()))

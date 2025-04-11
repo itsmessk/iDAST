@@ -252,7 +252,8 @@ class Database:
             self.async_db = self.async_client[config.MONGO_DB_NAME]
             self.scan_collection = self.db[config.MONGO_SCAN_COLLECTION]
             self.user_collection = self.db[config.MONGO_USER_COLLECTION]
-            self.target_collection = self.db[config.MONGO_TARGET_COLLECTION]  # ADDED Target Collection
+            self.target_collection = self.db[config.MONGO_TARGET_COLLECTION]  # Target Collection
+            self.subdomain_collection = self.db['subdomains']  # Subdomain Collection
             
             # Create indexes
             self._create_indexes()
@@ -283,6 +284,11 @@ class Database:
             self.target_collection.create_index([("_id", ASCENDING)])  # Corrected line: removed unique=True
             self.target_collection.create_index([("domain", ASCENDING)])
             self.target_collection.create_index([("user_id", ASCENDING)])
+            
+            # Subdomain collection indexes
+            self.subdomain_collection.create_index([("domain", ASCENDING)])
+            self.subdomain_collection.create_index([("created_at", DESCENDING)])
+            self.subdomain_collection.create_index([("target_id", ASCENDING)])
         
             logger.info("Database indexes created successfully")
         except Exception as e:
@@ -369,6 +375,7 @@ class Database:
         try:
             results['created_at'] = datetime.utcnow()
             results['updated_at'] = datetime.utcnow()
+            results['target_id'] = target_id
             
             result = await self.async_db[config.MONGO_SCAN_COLLECTION].insert_one(results)
             logger.info(f"Stored scan results with ID: {result.inserted_id}")
@@ -377,6 +384,55 @@ class Database:
         except Exception as e:
             logger.error(f"Error storing scan results: {e}")
             raise OperationError(f"Failed to store scan results: {e}")
+    
+    @backoff.on_exception(
+        backoff.expo,
+        (ConnectionFailure, OperationFailure),
+        max_tries=3
+    )
+    async def store_subdomain_results(self, target_id: str, domain: str, subdomains: List[str], urls: Dict) -> str:
+        """Store subdomain scan results with retry mechanism."""
+        try:
+            now = datetime.utcnow()
+            subdomain_data = {
+                'target_id': target_id,
+                'domain': domain,
+                'subdomains': subdomains,
+                'urls': urls,
+                'created_at': now,
+                'updated_at': now,
+                'scan_timestamp': now.isoformat()
+            }
+            
+            # Check if we already have results for this target
+            existing = await self.async_db['subdomains'].find_one({'target_id': target_id})
+            
+            if existing:
+                # Update existing record
+                result = await self.async_db['subdomains'].update_one(
+                    {'target_id': target_id},
+                    {'$set': subdomain_data}
+                )
+                logger.info(f"Updated subdomain results for target: {target_id}")
+                return str(existing['_id'])
+            else:
+                # Insert new record
+                result = await self.async_db['subdomains'].insert_one(subdomain_data)
+                logger.info(f"Stored subdomain results with ID: {result.inserted_id}")
+                return str(result.inserted_id)
+                
+        except Exception as e:
+            logger.error(f"Error storing subdomain results: {e}")
+            raise OperationError(f"Failed to store subdomain results: {e}")
+    
+    async def get_subdomain_results(self, target_id: str) -> Optional[Dict]:
+        """Get subdomain scan results for a target."""
+        try:
+            results = await self.async_db['subdomains'].find_one({'target_id': target_id})
+            return results
+        except Exception as e:
+            logger.error(f"Error getting subdomain results: {e}")
+            return None
     
     @backoff.on_exception(
         backoff.expo,
