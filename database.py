@@ -516,12 +516,15 @@ class Database:
             update_data = {
                 "$set": {
                     "status": status,
-                    "updated_at": datetime.utcnow()
+                    "updated_at": datetime.now(datetime.timezone.utc)
                 }
             }
             
             if additional_data:
-                update_data["$set"].update(additional_data)
+                if isinstance(additional_data, dict):
+                    update_data["$set"].update(additional_data)
+                else:
+                    update_data["$set"]["request_id"] = additional_data
             
             result = await self.async_db[config.MONGO_SCAN_COLLECTION].update_one(
                 {"_id": scan_id},
