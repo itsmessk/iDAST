@@ -18,10 +18,14 @@ import certifi
 from config import config
 from logger import get_logger
 
-# Custom JSON encoder to handle MongoDB ObjectId
+# Custom JSON encoder to handle MongoDB ObjectId and other non-serializable types
 class MongoJSONEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, ObjectId):
+            return str(obj)
+        elif isinstance(obj, datetime):
+            return obj.isoformat()
+        elif hasattr(obj, '__str__'):
             return str(obj)
         return super().default(obj)
 
