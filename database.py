@@ -516,7 +516,7 @@ class Database:
             update_data = {
                 "$set": {
                     "status": status,
-                    "updated_at": datetime.now(datetime.timezone.utc)
+                    "updated_at": datetime.utcnow()
                 }
             }
             
