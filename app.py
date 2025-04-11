@@ -167,31 +167,31 @@ def require_api_key(f):
 
     return decorated
 
-def validate_request_data(data: Dict) -> Optional[tuple]:
-    """Validate request data."""
-    if not data:
-        return jsonify({"error": "No data provided"}), 400
+# def validate_request_data(data: Dict) -> Optional[tuple]:
+#     """Validate request data."""
+#     if not data:
+#         return jsonify({"error": "No data provided"}), 400
 
-    targetid = data.get('targetid')
-    if not targetid:
-        return jsonify({"error": "Target ID is required"}), 400
+#     targetid = data.get('targetid')
+#     if not targetid:
+#         return jsonify({"error": "Target ID is required"}), 400
 
-    # Validate target ID format
-    try:
-        target_parts = targetid.split('_')
-        if len(target_parts) < 4 or target_parts[0] != 'target':
-            return jsonify({
-                "error": "Invalid target ID format",
-                "message": "Target ID must be in format: target_domain_timestamp_suffix"
-            }), 400
-    except Exception:
-        return jsonify({"error": "Invalid target ID format"}), 400
+#     # Validate target ID format
+#     try:
+#         target_parts = targetid.split('_')
+#         if len(target_parts) < 4 or target_parts[0] != 'target':
+#             return jsonify({
+#                 "error": "Invalid target ID format",
+#                 "message": "Target ID must be in format: target_domain_timestamp_suffix"
+#             }), 400
+#     except Exception:
+#         return jsonify({"error": "Invalid target ID format"}), 400
 
-    scan_type = data.get('scan_type', 'quick')
-    if scan_type not in ['quick', 'full', 'custom']:
-        return jsonify({"error": "Invalid scan type"}), 400
+#     scan_type = data.get('scan_type', 'quick')
+#     if scan_type not in ['quick', 'full', 'custom']:
+#         return jsonify({"error": "Invalid scan type"}), 400
 
-    return None
+#     return None
 
 class VulnerabilityScanner:
     """Class for orchestrating comprehensive vulnerability scanning."""
@@ -401,7 +401,7 @@ async def scan_domain():
 
         # Record scan start time
         start_time = get_current_time()
-        scan_count = await db.get_scan_count(targetid) + 1
+        scan_count = await db.get_scan_count(target_id) + 1
 
         request_id = secrets.token_hex(16)
         
@@ -443,11 +443,11 @@ async def scan_domain():
             })
 
         # Store results
-        if config.ENABLE_DATABASE and targetid:
-            await db.store_scan_results(targetid, scan_results)
+        if config.ENABLE_DATABASE and target_id:
+            await db.store_scan_results(target_id, scan_results)
 
         # Cache results using target ID for better precision
-        cache_key = f"{targetid}:{scan_type}:{request.user['_id']}"
+        cache_key = f"{target_id}:{scan_type}:{request.user['_id']}"
         scan_cache[cache_key] = scan_results
 
         return jsonify(scan_results)
@@ -458,7 +458,7 @@ async def scan_domain():
             "error": "Scan timeout",
             "message": f"Scan timed out after {config.TOTAL_SCAN_TIMEOUT} seconds",
             "request_id": request.request_id,
-            "target_id": targetid,
+            "target_id": target_id,
             "timestamp": format_timestamp()
         }
         logger.error(f"Scan timeout: {str(e)}")
@@ -466,7 +466,7 @@ async def scan_domain():
         # Try to store timeout status
         try:
             if config.ENABLE_DATABASE:
-                await db.store_scan_results(targetid, {**scan_results, **error_data})
+                await db.store_scan_results(target_id, {**scan_results, **error_data})
         except Exception as store_error:
             logger.error(f"Failed to store timeout status: {store_error}")
             
@@ -494,7 +494,7 @@ async def scan_domain():
             "error": error_type,
             "message": error_message if config.DEBUG_MODE else "An unexpected error occurred",
             "request_id": request.request_id,
-            "target_id": targetid,
+            "target_id": target_id,
             "scan_status": "error",
             "timestamp": format_timestamp()
         }
@@ -502,7 +502,7 @@ async def scan_domain():
         # Try to store error status
         try:
             if config.ENABLE_DATABASE and 'scan_results' in locals():
-                await db.store_scan_results(targetid, {**scan_results, **error_data})
+                await db.store_scan_results(target_id, {**scan_results, **error_data})
         except Exception as store_error:
             logger.error(f"Failed to store error status: {store_error}")
 
