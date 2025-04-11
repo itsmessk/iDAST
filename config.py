@@ -9,8 +9,15 @@ load_dotenv()
 class BaseConfig:
     """Base configuration settings for the application."""
     
+    def __init__(self):
+        """Initialize base configuration."""
+        pass
+    
     # Application Version
     VERSION = "1.0.0"
+    
+    # Database Configuration
+    ENABLE_DATABASE = True
     
     # Environment
     FLASK_ENV = os.getenv('FLASK_ENV', 'production')
@@ -67,6 +74,11 @@ class BaseConfig:
     SESSION_COOKIE_SECURE = True
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SAMESITE = 'Lax'
+    
+    # JWT Configuration
+    JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', secrets.token_hex(32))
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=1)
+    JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=30)
     
     # Performance Configuration
     WORKER_PROCESSES = int(os.getenv('WORKER_PROCESSES', 4))

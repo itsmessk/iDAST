@@ -17,8 +17,6 @@ import certifi
 from config import config
 from logger import get_logger
 
-logger = get_logger('database')
-
 def rate_limit(
     max_calls: int,
     time_window: int,
@@ -410,9 +408,6 @@ class Database:
         except Exception as e:
             logger.error(f"Error validating API key: {e}")
             return None, "validation_error", str(e)
-        except Exception as e:
-            logger.error(f"Error validating API key: {e}")
-            return False, "Error validating API key"
 
     async def find_user(self, query: Dict) -> Optional[Dict]:
         """Find user matching the query with caching."""
@@ -439,15 +434,21 @@ class Database:
             logger.error(f"Error finding user: {e}", exc_info=True)
             # Try to reconnect on connection errors
             if "Event loop is closed" in str(e):
+                # Close existing connections first
+                if self.async_client:
+                    await self.async_client.close()
+                
                 try:
-                    self.async_client = AsyncIOMotorClient(config.MONGO_URI, **self.conn_options)
-                    self.async_db = self.async_client[config.MONGO_DB_NAME]
+                    # Reconnect
+                    self.connect()
                     user = await self.async_db[config.MONGO_USER_COLLECTION].find_one(query)
                     if user:
                         await self._set_cache(cache_key, user, 300)
                     return user
                 except Exception as reconnect_error:
                     logger.error(f"Reconnection failed: {reconnect_error}")
+                    self.async_client = None
+                    self.async_db = None
             raise OperationError(f"Failed to find user: {str(e)}")
     
     @backoff.on_exception(
