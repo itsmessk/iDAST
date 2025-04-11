@@ -65,7 +65,7 @@ class WebsiteHealthChecker:
                 self._check_performance(url),
                 self._check_ssl(url),
                 self._check_security_headers(url),
-                self.check_website_accessibility(url)
+                self._check_accessibility(url)
             ]
             
             results = await asyncio.gather(*tasks, return_exceptions=True)
@@ -214,6 +214,153 @@ class WebsiteHealthChecker:
             }
         except Exception as e:
             logger.warning(f"Performance check error for {url}: {e}")
+            return {'error': str(e)}
+    
+    async def _check_ssl(self, url):
+        """Check SSL/TLS certificate and configuration."""
+        try:
+            parsed_url = urlparse(url)
+            if parsed_url.scheme != 'https':
+                return {
+                    'has_ssl': False,
+                    'security_status': 'Not Applicable',
+                    'recommendation': 'Consider implementing HTTPS for better security'
+                }
+            
+            # Use the utility function to check SSL certificate
+            ssl_result = await check_ssl_certificate(parsed_url.netloc)
+            
+            if not ssl_result:
+                return {
+                    'has_ssl': True,
+                    'security_status': 'Unknown',
+                    'error': 'Failed to check SSL certificate'
+                }
+            
+            # Analyze SSL/TLS configuration
+            security_status = 'Secure'
+            recommendations = []
+            
+            # Check certificate validity
+            if ssl_result.get('is_expired', False):
+                security_status = 'Critical'
+                recommendations.append('SSL certificate has expired')
+            
+            # Check certificate issuer
+            if not ssl_result.get('is_trusted', True):
+                security_status = 'Vulnerable'
+                recommendations.append('SSL certificate is not from a trusted issuer')
+            
+            # Check protocol version
+            protocol = ssl_result.get('protocol', '')
+            if protocol in ['SSLv2', 'SSLv3', 'TLSv1.0', 'TLSv1.1']:
+                security_status = 'Vulnerable'
+                recommendations.append(f'Outdated SSL/TLS protocol ({protocol}) in use')
+            
+            # Check certificate expiration
+            days_to_expiry = ssl_result.get('days_to_expiry', 0)
+            if 0 < days_to_expiry < 30:
+                if security_status == 'Secure':
+                    security_status = 'Warning'
+                recommendations.append(f'SSL certificate expires in {days_to_expiry} days')
+            
+            return {
+                'has_ssl': True,
+                'issuer': ssl_result.get('issuer', 'Unknown'),
+                'valid_from': ssl_result.get('valid_from', ''),
+                'valid_to': ssl_result.get('valid_to', ''),
+                'days_to_expiry': days_to_expiry,
+                'protocol': protocol,
+                'cipher': ssl_result.get('cipher', ''),
+                'security_status': security_status,
+                'recommendation': '; '.join(recommendations) if recommendations else 'No issues detected'
+            }
+        except Exception as e:
+            logger.warning(f"SSL check error for {url}: {e}")
+            return {
+                'has_ssl': False,
+                'security_status': 'Error',
+                'error': str(e)
+            }
+    
+    async def _check_accessibility(self, url):
+        """Check basic website accessibility."""
+        try:
+            # Initialize accessibility checks
+            accessibility_results = {
+                'has_alt_text': False,
+                'has_aria_attributes': False,
+                'has_semantic_headings': False,
+                'has_skip_links': False,
+                'accessibility_score': 0,
+                'issues': []
+            }
+            
+            async with aiohttp.ClientSession(headers=self.headers) as session:
+                async with session.get(url, timeout=self.request_timeout) as response:
+                    content = await response.text()
+                    
+                    # Check for alt text on images
+                    img_pattern = r'<img[^>]+>'
+                    alt_pattern = r'<img[^>]+alt=["\'][^"\']*["\'][^>]*>'
+                    
+                    img_tags = re.findall(img_pattern, content, re.IGNORECASE)
+                    total_images = len(img_tags)
+                    
+                    images_with_alt = re.findall(alt_pattern, content, re.IGNORECASE)
+                    images_with_alt_count = len(images_with_alt)
+                    
+                    if total_images > 0:
+                        alt_text_ratio = images_with_alt_count / total_images
+                        accessibility_results['has_alt_text'] = alt_text_ratio > 0.8
+                        if alt_text_ratio < 1.0:
+                            missing = total_images - images_with_alt_count
+                            accessibility_results['issues'].append(f'Missing alt text on {missing} of {total_images} images')
+                    
+                    # Check for ARIA attributes
+                    aria_pattern = r'aria-[a-z]+=["\'][^"\']*["\']'
+                    aria_attributes = re.findall(aria_pattern, content, re.IGNORECASE)
+                    accessibility_results['has_aria_attributes'] = len(aria_attributes) > 0
+                    
+                    # Check for semantic headings
+                    heading_pattern = r'<h[1-6][^>]*>.*?</h[1-6]>'
+                    headings = re.findall(heading_pattern, content, re.IGNORECASE | re.DOTALL)
+                    accessibility_results['has_semantic_headings'] = len(headings) > 0
+                    
+                    # Check for skip links
+                    skip_pattern = r'<a[^>]+href=["\']#[^"\']+["\'][^>]*>.*?skip.*?</a>'
+                    skip_links = re.findall(skip_pattern, content, re.IGNORECASE | re.DOTALL)
+                    accessibility_results['has_skip_links'] = len(skip_links) > 0
+            
+            # Calculate accessibility score
+            true_factors = 0
+            total_factors = 4  # Number of accessibility factors we check
+            
+            if accessibility_results['has_alt_text']:
+                true_factors += 1
+            if accessibility_results['has_aria_attributes']:
+                true_factors += 1
+            if accessibility_results['has_semantic_headings']:
+                true_factors += 1
+            if accessibility_results['has_skip_links']:
+                true_factors += 1
+            
+            accessibility_results['accessibility_score'] = int((true_factors / total_factors) * 100)
+            
+            # Add recommendations
+            if not accessibility_results['has_alt_text']:
+                accessibility_results['issues'].append('Add alt text to all images')
+            if not accessibility_results['has_aria_attributes']:
+                accessibility_results['issues'].append('Add ARIA attributes for better screen reader support')
+            if not accessibility_results['has_semantic_headings']:
+                accessibility_results['issues'].append('Use semantic heading tags (h1-h6) for content structure')
+            if not accessibility_results['has_skip_links']:
+                accessibility_results['issues'].append('Add skip navigation links for keyboard users')
+            
+            return accessibility_results
+            
+        except Exception as e:
+            logger.warning(f"Accessibility check error for {url}: {e}")
             return {'error': str(e)}
     
     async def _check_security_headers(self, url):

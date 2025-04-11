@@ -11,6 +11,14 @@ import backoff
 import redis
 from functools import wraps
 import json
+from bson import ObjectId
+
+# Custom JSON encoder to handle MongoDB ObjectId
+class MongoJSONEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, ObjectId):
+            return str(obj)
+        return super().default(obj)
 import hashlib
 import asyncio
 import certifi

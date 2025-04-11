@@ -215,9 +215,13 @@ class CORSScanner:
         retries = 0
         while retries < self.max_retries:
             try:
-                async with self.semaphore:
+                # Use a semaphore to limit concurrent requests but don't use async with
+                await self.semaphore.acquire()
+                try:
                     result = await self._scan_url(url)
                     return result
+                finally:
+                    self.semaphore.release()
             except Exception as e:
                 retries += 1
                 logger.warning(f"Retry {retries}/{self.max_retries} for {url}: {e}")

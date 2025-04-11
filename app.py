@@ -16,7 +16,13 @@ import signal
 import secrets
 from typing import Dict, List, Optional, Union
 
-from flask import Flask, jsonify, request, Response
+from flask import Flask, request, Response
+from flask.json import jsonify as flask_jsonify
+from database import MongoJSONEncoder
+
+# Custom jsonify function that uses MongoJSONEncoder
+def jsonify(*args, **kwargs):
+    return flask_jsonify(*args, **kwargs, cls=MongoJSONEncoder)
 from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
