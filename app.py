@@ -16,13 +16,23 @@ import signal
 import secrets
 from typing import Dict, List, Optional, Union
 
-from flask import Flask, request, Response
+from flask import Flask, request, Response, current_app
 from flask.json import jsonify as flask_jsonify
 from database import MongoJSONEncoder
 
 # Custom jsonify function that uses MongoJSONEncoder
 def jsonify(*args, **kwargs):
-    return flask_jsonify(*args, **kwargs, cls=MongoJSONEncoder)
+    if args and kwargs:
+        # Flask's jsonify doesn't allow both args and kwargs
+        # Convert args to kwargs if both are present
+        if len(args) == 1 and isinstance(args[0], dict):
+            kwargs.update(args[0])
+            args = ()
+    
+    if args:
+        return current_app.json.response(*args, cls=MongoJSONEncoder)
+    else:
+        return current_app.json.response(**kwargs, cls=MongoJSONEncoder)
 from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
