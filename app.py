@@ -406,6 +406,9 @@ async def scan_domain():
         request_id = secrets.token_hex(16)
         
         # Initialize scan results structure
+        request_id = secrets.token_hex(16)
+        request.request_id = request_id  # Initialize request_id
+        
         scan_results = {
             "domain": domain,
             "scan_type": scan_type,

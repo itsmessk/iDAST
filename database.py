@@ -299,6 +299,15 @@ class Database:
         if self.async_client:
             self.async_client.close()
         logger.info("All database connections closed")
+        
+    async def get_scan_count(self, target_id: str) -> int:
+        """Get the total number of scans for a target."""
+        try:
+            count = await self.async_db[config.MONGO_SCAN_COLLECTION].count_documents({"target_id": target_id})
+            return count
+        except Exception as e:
+            logger.error(f"Error getting scan count: {e}")
+            return 0
     
     async def ping(self) -> bool:
         """Check database connectivity."""
