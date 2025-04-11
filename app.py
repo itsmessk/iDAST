@@ -437,8 +437,9 @@ async def scan_domain():
                     vulnerability_scanner.initialize(),
                     timeout=config.TOTAL_SCAN_TIMEOUT
                 )
-=======
-                
+            except asyncio.TimeoutError:
+                raise TimeoutError("Scanner initialization timed out")
+
             # Update scan status in database
             if config.ENABLE_DATABASE:
                 await db.update_scan_status(target_id, "in_progress", request_id)
@@ -496,7 +497,7 @@ async def scan_domain():
                 tasks.append(vulnerability_scanner.lfi_scanner.scan(url, vulnerability_scanner.session))
             
             if scan_modules.get('ssrf', False):
-                tasks.append(vulnerability_scanner.ssrf_scanner.scan(url, self.session))
+                tasks.append(vulnerability_scanner.ssrf_scanner.scan(url, vulnerability_scanner.session))
             
             if scan_modules.get('sql_injection', False):
                 tasks.append(vulnerability_scanner.sqlmap_scanner.scan(url, vulnerability_scanner.session))
@@ -569,40 +570,46 @@ async def scan_domain():
             scan_results["vulnerability_counts"] = severity_counts
             scan_results["total_vulnerabilities"] = sum(severity_counts.values())
 
-        except asyncio.TimeoutError:
+        except asyncio.TimeoutError as e:
+            # Handle timeout during scanning
             scan_results.update({
                 "scan_status": "timeout",
-                "error": f"Scan timed out after {config.TOTAL_SCAN_TIMEOUT} seconds"
+                "error": "Scan timeout",
+                "message": f"Scan timed out after {config.TOTAL_SCAN_TIMEOUT} seconds",
+                "request_id": request.request_id,
+                "target_id": target_id,
+                "timestamp": format_timestamp()
             })
+            logger.error(f"Scan timeout: {str(e)}")
 
-        # Store results
-        if config.ENABLE_DATABASE and target_id:
-            await db.store_scan_results(target_id, scan_results)
+            # Try to store timeout status
+            try:
+                if config.ENABLE_DATABASE and target_id:
+                    await db.store_scan_results(target_id, scan_results)
+            except Exception as store_error:
+                logger.error(f"Failed to store timeout status: {store_error}")
 
-        # Cache results using target ID for better precision
-        cache_key = f"{target_id}:{scan_type}:{request.user['_id']}"
-        scan_cache[cache_key] = scan_results
-
-        return jsonify(scan_results)
-
-    except asyncio.TimeoutError as e:
-        error_data = {
-            "scan_status": "timeout",
-            "error": "Scan timeout",
-            "message": f"Scan timed out after {config.TOTAL_SCAN_TIMEOUT} seconds",
-            "request_id": request.request_id,
-            "target_id": target_id,
-            "timestamp": format_timestamp()
-        }
-        logger.error(f"Scan timeout: {str(e)}")
+            return jsonify(scan_results), 408
+except asyncio.CancelledError:
+    error_data = {
+        "scan_status": "cancelled",
+        "error": "Scan cancelled",
+        "message": "The scan was cancelled by the system",
+        "request_id": request.request_id,
+        "target_id": target_id,
+        "timestamp": format_timestamp()
+    }
+    logger.warning("Scan cancelled")
+    
+    # Try to store cancelled status and cleanup
+    try:
+        if config.ENABLE_DATABASE:
+            await db.store_scan_results(target_id, {**scan_results, **error_data})
+        await vulnerability_scanner.cleanup()
+    except Exception as cleanup_error:
+        logger.error(f"Error during cleanup: {cleanup_error}")
         
-        # Try to store timeout status
-        try:
-            if config.ENABLE_DATABASE:
-                await db.store_scan_results(target_id, {**scan_results, **error_data})
-        except Exception as store_error:
-            logger.error(f"Failed to store timeout status: {store_error}")
-            
+    return jsonify(error_data), 499
         return jsonify(error_data), 408
 
     except Exception as e:
@@ -622,6 +629,23 @@ async def scan_domain():
         elif "unauthorized" in error_message.lower():
             status_code = 403
             error_type = "Authorization error"
+            
+        error_data = {
+            "error": error_type,
+            "message": error_message if config.DEBUG_MODE else "An unexpected error occurred",
+            "request_id": request.request_id,
+            "target_id": target_id,
+            "scan_status": "error",
+            "timestamp": format_timestamp()
+        }
+        
+        # Try to store error status and cleanup
+        try:
+            if config.ENABLE_DATABASE and 'scan_results' in locals():
+                await db.store_scan_results(target_id, {**scan_results, **error_data})
+            await vulnerability_scanner.cleanup()
+        except Exception as cleanup_error:
+            logger.error(f"Error during cleanup: {cleanup_error}")
         
         error_data = {
             "error": error_type,
