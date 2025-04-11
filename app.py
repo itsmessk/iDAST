@@ -403,11 +403,9 @@ async def scan_domain():
         start_time = get_current_time()
         scan_count = await db.get_scan_count(target_id) + 1
 
+        # Initialize request ID and scan results structure
         request_id = secrets.token_hex(16)
-        
-        # Initialize scan results structure
-        request_id = secrets.token_hex(16)
-        request.request_id = request_id  # Initialize request_id
+        request.request_id = request_id
         
         scan_results = {
             "domain": domain,
@@ -590,16 +588,16 @@ async def scan_domain():
                 logger.error(f"Failed to store timeout status: {store_error}")
 
             return jsonify(scan_results), 408
-except asyncio.CancelledError:
-    error_data = {
-        "scan_status": "cancelled",
-        "error": "Scan cancelled",
-        "message": "The scan was cancelled by the system",
-        "request_id": request.request_id,
-        "target_id": target_id,
-        "timestamp": format_timestamp()
-    }
-    logger.warning("Scan cancelled")
+    except asyncio.CancelledError:
+        error_data = {
+            "scan_status": "cancelled",
+            "error": "Scan cancelled",
+            "message": "The scan was cancelled by the system",
+            "request_id": request.request_id,
+            "target_id": target_id,
+            "timestamp": format_timestamp()
+        }
+        logger.warning("Scan cancelled")
     
     # Try to store cancelled status and cleanup
     try:
@@ -608,9 +606,7 @@ except asyncio.CancelledError:
         await vulnerability_scanner.cleanup()
     except Exception as cleanup_error:
         logger.error(f"Error during cleanup: {cleanup_error}")
-        
-    return jsonify(error_data), 499
-        return jsonify(error_data), 408
+        return jsonify(error_data), 499
 
     except Exception as e:
         error_message = str(e)
