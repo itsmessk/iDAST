@@ -207,6 +207,136 @@ class CORSScanner:
         Scan a URL with retry mechanism.
         
         Args:
+            url (str): URL to scan.
+            
+        Returns:
+            dict: Scan results for the URL.
+        """
+        retries = 0
+        while retries < self.max_retries:
+            try:
+                async with self.semaphore:
+                    result = await self._scan_url(url)
+                    return result
+            except Exception as e:
+                retries += 1
+                logger.warning(f"Retry {retries}/{self.max_retries} for {url}: {e}")
+                if retries >= self.max_retries:
+                    logger.error(f"Max retries reached for {url}: {e}")
+                    return None
+                await asyncio.sleep(1)  # Wait before retrying
+
+    async def _scan_url(self, url):
+        """
+        Scan a URL for CORS misconfigurations.
+        
+        Args:
+            url (str): URL to scan.
+            
+        Returns:
+            dict: Scan results for the URL.
+        """
+        try:
+            parsed_url = urlparse(url)
+            target_domain = parsed_url.netloc
+            
+            # Skip URLs without a valid domain
+            if not target_domain:
+                return None
+            
+            # Prepare test origins with target domain
+            test_origins = []
+            for origin in self.test_origins:
+                if '{target_domain}' in origin:
+                    test_origins.append(origin.replace('{target_domain}', target_domain))
+                else:
+                    test_origins.append(origin)
+            
+            vulnerabilities = []
+            
+            # Test each origin
+            for origin in test_origins:
+                try:
+                    headers = {
+                        'Origin': origin,
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+                    }
+                    
+                    async with self.session.get(url, headers=headers, timeout=self.timeout) as response:
+                        # Check CORS headers
+                        acao = response.headers.get('Access-Control-Allow-Origin')
+                        acac = response.headers.get('Access-Control-Allow-Credentials')
+                        
+                        if acao:
+                            # Check for vulnerabilities
+                            vuln = self._check_vulnerability(origin, acao, acac)
+                            if vuln:
+                                vulnerabilities.append(vuln)
+                
+                except Exception as e:
+                    logger.debug(f"Error testing origin {origin} for {url}: {e}")
+                    continue
+            
+            # If vulnerabilities found, return results
+            if vulnerabilities:
+                risk_level = self._calculate_risk_level(vulnerabilities)
+                recommendations = self._get_recommendations(vulnerabilities)
+                
+                result = {
+                    'is_vulnerable': True,
+                    'vulnerabilities': vulnerabilities,
+                    'risk_level': risk_level,
+                    'recommendations': recommendations
+                }
+                
+                # Save detailed results to file
+                self._save_results(url, result)
+                
+                return result
+            
+            return None
+            
+        except Exception as e:
+            logger.error(f"Error scanning {url}: {e}")
+            return None
+
+    def _check_vulnerability(self, origin, acao, acac):
+        """
+        Check if CORS headers indicate a vulnerability.
+        
+        Args:
+            origin (str): Origin header value.
+            acao (str): Access-Control-Allow-Origin header value.
+            acac (str): Access-Control-Allow-Credentials header value.
+            
+        Returns:
+            dict: Vulnerability details if found, None otherwise.
+        """
+        if acao == '*' and acac == 'true':
+            return {
+                'type': 'Wildcard with Credentials',
+                'origin': origin,
+                'acao': acao,
+                'acac': acac,
+                'severity': 'High',
+                'description': 'Wildcard origin with credentials allowed, violating CORS specification'
+            }
+        elif acao == 'null':
+            return {
+                'type': 'Null Origin Allowed',
+                'origin': origin,
+                'acao': acao,
+                'acac': acac,
+                'severity': 'Medium',
+                'description': 'Null origin allowed, potential for attacks from sandboxed iframes'
+            }
+        elif acao and acao != '*' and acao != origin and 'attacker.com' in acao:
+            return {
+                'type': 'Dangerous Origin Allowed',
+                'origin': origin,
+                'acao': acao,
+                'acac': acac,
+                'severity': 'High',
                 'description': 'Potentially dangerous origin allowed due to misconfiguration'
             }
         elif origin == acao and acac == 'true':
