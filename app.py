@@ -324,6 +324,8 @@ async def health_check():
 async def scan_domain():
     """API endpoint to scan a domain for security vulnerabilities."""
     try:
+        if not asyncio.get_event_loop().is_running():
+            raise RuntimeError("Event loop is not running. Cannot process the request.")
         # Validate request data
         data = request.json
         if not data:
@@ -588,6 +590,11 @@ async def scan_domain():
                 logger.error(f"Failed to store timeout status: {store_error}")
 
             return jsonify(scan_results), 408
+        
+    except RuntimeError as e:
+        logger.error(f"Runtime error: {e}")
+        return jsonify({"error": "Server error", "message": str(e)}), 500
+    
     except asyncio.CancelledError:
         error_data = {
             "scan_status": "cancelled",
@@ -666,10 +673,15 @@ async def scan_domain():
 async def shutdown_event():
     """Cleanup on shutdown."""
     logger.info("Shutting down application...")
-    await vulnerability_scanner.cleanup()
-    # Close other connections (Redis, MongoDB, etc.)
-    await db.close()
-
+    try:
+        # Close the vulnerability scanner session
+        await vulnerability_scanner.cleanup()
+        
+        # Close the database connection
+        await db.close()
+        logger.info("Database connection closed successfully.")
+    except Exception as e:
+        logger.error(f"Error during shutdown cleanup: {e}")
 
 # Register shutdown handler
 signal.signal(signal.SIGTERM, lambda s, f: asyncio.create_task(shutdown_event()))
