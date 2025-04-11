@@ -193,6 +193,60 @@ def require_api_key(f):
 
 #     return None
 
+async def run_http_security_checks(url, http_security_checker):
+    """
+    Run all HTTP security checks and aggregate results.
+
+    Args:
+        url (str): The target URL.
+        http_security_checker (HttpSecurityChecker): Instance of HttpSecurityChecker.
+
+    Returns:
+        dict: Aggregated results from all HTTP security checks.
+    """
+    results = {}
+
+    try:
+        # Run all checks concurrently
+        tasks = [
+            http_security_checker.check_http_headers(url),
+            http_security_checker.check_client_access_policies(url),
+            http_security_checker.check_security_txt(url),
+            http_security_checker.check_robots_txt(url),
+            http_security_checker.check_and_store_csp(url),
+            http_security_checker.check_clickjacking_vulnerability(url),
+            http_security_checker.get_cookie_details(url)
+        ]
+
+        # Gather results
+        checks = await asyncio.gather(*tasks, return_exceptions=True)
+
+        # Process results
+        for i, check_result in enumerate(checks):
+            method_name = [
+                "check_http_headers",
+                "check_client_access_policies",
+                "check_security_txt",
+                "check_robots_txt",
+                "check_and_store_csp",
+                "check_clickjacking_vulnerability",
+                "get_cookie_details"
+            ][i]
+
+            if isinstance(check_result, Exception):
+                # Log the error and add it to the results
+                logger.error(f"Error in {method_name}: {check_result}")
+                results[method_name] = {"error": str(check_result)}
+            else:
+                # Add the successful result
+                results[method_name] = check_result
+
+    except Exception as e:
+        logger.error(f"Error running HTTP security checks: {e}")
+        results["error"] = str(e)
+
+    return results
+
 class VulnerabilityScanner:
     """Class for orchestrating comprehensive vulnerability scanning."""
     
@@ -485,7 +539,7 @@ async def scan_domain():
             tasks = []
             
             if scan_modules.get('http_security', False):
-                tasks.append(http_security(url, vulnerability_scanner.session))
+                tasks.append(run_http_security_checks(url, http_security))
             
             if scan_modules.get('website_health', False):
                 tasks.append(website_health(url, vulnerability_scanner.session))
