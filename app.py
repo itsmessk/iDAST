@@ -22,26 +22,33 @@ from database import MongoJSONEncoder
 
 # Custom jsonify function that uses MongoJSONEncoder
 def jsonify(*args, **kwargs):
-    # Flask's jsonify doesn't allow both args and kwargs
-    # If we have both, convert args to kwargs
+    """
+    Custom jsonify function that ensures MongoJSONEncoder is used.
+    This handles ObjectId serialization properly.
+    """
+    # Always use MongoJSONEncoder
+    kwargs['cls'] = MongoJSONEncoder
+    
+    # Handle the case where both args and kwargs are provided
     if args and kwargs:
         if len(args) == 1 and isinstance(args[0], dict):
-            # Merge the dictionary from args into kwargs
-            for key, value in args[0].items():
-                kwargs[key] = value
-            return current_app.json.response(**kwargs, cls=MongoJSONEncoder)
-        else:
-            # If args is not a single dict, we can't merge
-            # So we'll just use args and ignore kwargs
-            return flask_jsonify(*args)
+            # If args is a single dict, convert it to kwargs
+            data = args[0].copy()
+            # Remove 'cls' from kwargs to avoid conflicts
+            cls = kwargs.pop('cls')
+            # Add any additional kwargs
+            data.update(kwargs)
+            # Use json.dumps directly with our encoder
+            return current_app.response_class(
+                json.dumps(data, cls=cls),
+                mimetype='application/json'
+            )
     
-    # If we only have args
+    # For simple cases, use flask's jsonify but ensure our encoder is used
     if args:
-        # Use the original flask_jsonify for simplicity
-        return flask_jsonify(*args)
-    
-    # If we only have kwargs
-    return flask_jsonify(**kwargs)
+        return flask_jsonify(*args, cls=MongoJSONEncoder)
+    else:
+        return flask_jsonify(**kwargs)
 from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
