@@ -334,25 +334,35 @@ async def scan_domain():
         if not target_id:
             return jsonify({"error": "Target ID is required"}), 400
 
-        # Get user's targets from their profile
-        user_targets = request.user.get('targets', [])
-        if not user_targets:
+        # +++ CORRECTED SECTION START +++
+        # Get user's target IDs
+        user_target_ids = request.user.get('target_ids', [])
+        if not user_target_ids:
             return jsonify({
                 "error": "No targets found",
                 "message": "User has no registered targets",
                 "code": "no_targets"
             }), 404
 
-        # Find target in user's targets array
-        target = next((t for t in user_targets if t['id'] == target_id), None)
-        if not target:
+        # Check if the requested target_id is in the user's list
+        if target_id not in user_target_ids:
             return jsonify({
                 "error": "Invalid target",
-                "message": "Target ID not found in user's targets",
+                "message": "Target ID not found in user's registered targets",
                 "code": "invalid_target"
             }), 403
 
-        # Verify target has required fields
+        # Retrieve target from the database
+        target = await db.get_target_by_id(target_id)
+        if not target:
+            return jsonify({
+                "error": "Target not found",
+                "message": f"Target with ID '{target_id}' not found in database",
+                "code": "target_not_found"
+            }), 404
+        # +++ CORRECTED SECTION END +++
+
+        # Verify target has required fields (Moved after database retrieval)
         required_fields = ['domain', 'scan_config']
         missing_fields = [field for field in required_fields if not target.get(field)]
         if missing_fields:
