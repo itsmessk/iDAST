@@ -12,6 +12,11 @@ import redis
 from functools import wraps
 import json
 from bson import ObjectId
+import secrets
+import hashlib
+import certifi
+from config import config
+from logger import get_logger
 
 # Custom JSON encoder to handle MongoDB ObjectId
 class MongoJSONEncoder(json.JSONEncoder):
@@ -19,11 +24,6 @@ class MongoJSONEncoder(json.JSONEncoder):
         if isinstance(obj, ObjectId):
             return str(obj)
         return super().default(obj)
-import hashlib
-import asyncio
-import certifi
-from config import config
-from logger import get_logger
 
 def rate_limit(
     max_calls: int,
@@ -381,14 +381,33 @@ class Database:
     async def store_scan_results(self, target_id: str, results: Dict) -> str:
         """Store scan results with retry mechanism."""
         try:
-            results['created_at'] = datetime.utcnow()
-            results['updated_at'] = datetime.utcnow()
+            now = datetime.utcnow()
+            results['created_at'] = now
+            results['updated_at'] = now
             results['target_id'] = target_id
             
-            result = await self.async_db[config.MONGO_SCAN_COLLECTION].insert_one(results)
-            logger.info(f"Stored scan results with ID: {result.inserted_id}")
+            # Generate a unique ID for this scan
+            scan_id = results.get('request_id', secrets.token_hex(16))
             
-            return str(result.inserted_id)
+            # Check if a scan with this ID already exists
+            existing = await self.async_db[config.MONGO_SCAN_COLLECTION].find_one(
+                {"request_id": scan_id}
+            )
+            
+            if existing:
+                # Update existing record instead of inserting a new one
+                update_result = await self.async_db[config.MONGO_SCAN_COLLECTION].update_one(
+                    {"_id": existing["_id"]},
+                    {"$set": results}
+                )
+                logger.info(f"Updated scan results with ID: {existing['_id']}")
+                return str(existing['_id'])
+            else:
+                # Insert new record
+                result = await self.async_db[config.MONGO_SCAN_COLLECTION].insert_one(results)
+                logger.info(f"Stored scan results with ID: {result.inserted_id}")
+                return str(result.inserted_id)
+                
         except Exception as e:
             logger.error(f"Error storing scan results: {e}")
             raise OperationError(f"Failed to store scan results: {e}")

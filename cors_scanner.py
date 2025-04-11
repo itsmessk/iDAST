@@ -212,6 +212,10 @@ class CORSScanner:
         Returns:
             dict: Scan results for the URL.
         """
+        # Ensure semaphore is initialized
+        if self.semaphore is None:
+            self.semaphore = asyncio.Semaphore(self.concurrent_limit)
+            
         retries = 0
         while retries < self.max_retries:
             try:

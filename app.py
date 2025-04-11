@@ -22,17 +22,26 @@ from database import MongoJSONEncoder
 
 # Custom jsonify function that uses MongoJSONEncoder
 def jsonify(*args, **kwargs):
+    # Flask's jsonify doesn't allow both args and kwargs
+    # If we have both, convert args to kwargs
     if args and kwargs:
-        # Flask's jsonify doesn't allow both args and kwargs
-        # Convert args to kwargs if both are present
         if len(args) == 1 and isinstance(args[0], dict):
-            kwargs.update(args[0])
-            args = ()
+            # Merge the dictionary from args into kwargs
+            for key, value in args[0].items():
+                kwargs[key] = value
+            return current_app.json.response(**kwargs, cls=MongoJSONEncoder)
+        else:
+            # If args is not a single dict, we can't merge
+            # So we'll just use args and ignore kwargs
+            return flask_jsonify(*args)
     
+    # If we only have args
     if args:
-        return current_app.json.response(*args, cls=MongoJSONEncoder)
-    else:
-        return current_app.json.response(**kwargs, cls=MongoJSONEncoder)
+        # Use the original flask_jsonify for simplicity
+        return flask_jsonify(*args)
+    
+    # If we only have kwargs
+    return flask_jsonify(**kwargs)
 from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
