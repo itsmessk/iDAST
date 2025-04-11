@@ -537,10 +537,10 @@ async def scan_domain():
             tasks = []
             
             if scan_modules.get('http_security', False):
-                tasks.append(run_http_security_checks(url, http_security))
+                tasks.append(await run_http_security_checks(url, http_security))
             
             if scan_modules.get('website_health', False):
-                tasks.append(website_health(url, vulnerability_scanner.session))
+                tasks.append(website_health.check_website_health(url))
             
             if scan_modules.get('cors', False):
                 tasks.append(vulnerability_scanner.cors_scanner.scan(url, vulnerability_scanner.session))
