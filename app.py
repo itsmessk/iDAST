@@ -431,15 +431,13 @@ async def scan_domain():
         request.request_id = request_id
 
         try:
-            # Run all scans with timeout
-            task = asyncio.create_task(vulnerability_scanner.initialize())
+            # Initialize scanner with timeout
             try:
-                await asyncio.wait_for(task, timeout=config.TOTAL_SCAN_TIMEOUT)
-            except asyncio.TimeoutError:
-                task.cancel()
-                raise
-            
-            await vulnerability_scanner.initialize()
+                await asyncio.wait_for(
+                    vulnerability_scanner.initialize(),
+                    timeout=config.TOTAL_SCAN_TIMEOUT
+                )
+=======
                 
             # Update scan status in database
             if config.ENABLE_DATABASE:
@@ -486,40 +484,40 @@ async def scan_domain():
             tasks = []
             
             if scan_modules.get('http_security', False):
-                tasks.append(http_security(url, self.session))
+                tasks.append(http_security(url, vulnerability_scanner.session))
             
             if scan_modules.get('website_health', False):
-                tasks.append(website_health(url, self.session))
+                tasks.append(website_health(url, vulnerability_scanner.session))
             
             if scan_modules.get('cors', False):
-                tasks.append(vulnerability_scanner.cors_scanner.scan(url, self.session))
+                tasks.append(vulnerability_scanner.cors_scanner.scan(url, vulnerability_scanner.session))
             
             if scan_modules.get('lfi', False):
-                tasks.append(vulnerability_scanner.lfi_scanner.scan(url, self.session))
+                tasks.append(vulnerability_scanner.lfi_scanner.scan(url, vulnerability_scanner.session))
             
             if scan_modules.get('ssrf', False):
                 tasks.append(vulnerability_scanner.ssrf_scanner.scan(url, self.session))
             
             if scan_modules.get('sql_injection', False):
-                tasks.append(vulnerability_scanner.sqlmap_scanner.scan(url, self.session))
+                tasks.append(vulnerability_scanner.sqlmap_scanner.scan(url, vulnerability_scanner.session))
             
             if scan_modules.get('xss', False):
-                tasks.append(vulnerability_scanner.dalfox_scanner.scan(url, self.session))
+                tasks.append(vulnerability_scanner.dalfox_scanner.scan(url, vulnerability_scanner.session))
             
             if scan_modules.get('template_injection', False):
-                tasks.append(vulnerability_scanner.template_scanner.scan(url, self.session))
+                tasks.append(vulnerability_scanner.template_scanner.scan(url, vulnerability_scanner.session))
             
             if scan_modules.get('crlf', False):
-                tasks.append(vulnerability_scanner.crlf_scanner.scan(url, self.session))
+                tasks.append(vulnerability_scanner.crlf_scanner.scan(url, vulnerability_scanner.session))
             
             if scan_modules.get('xxe', False):
-                tasks.append(vulnerability_scanner.xxe_scanner.scan(url, self.session))
+                tasks.append(vulnerability_scanner.xxe_scanner.scan(url, vulnerability_scanner.session))
             
             if scan_modules.get('subdomain', False):
-                tasks.append(subdomain_scanner(parsed_url.netloc, self.session))
+                tasks.append(subdomain_scanner(parsed_url.netloc, vulnerability_scanner.session))
             
             if scan_modules.get('dns_email', False):
-                tasks.append(dns_email_security(parsed_url.netloc, self.session))
+                tasks.append(dns_email_security(parsed_url.netloc, vulnerability_scanner.session))
             
             # Execute all scans concurrently
             scan_results_list = await asyncio.gather(*tasks, return_exceptions=True)
