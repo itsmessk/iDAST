@@ -126,6 +126,7 @@ class ProductionConfig(BaseConfig):
     DEBUG_MODE = False
     ENABLE_AUTH = True
     
+    ENABLE_DATABASE = True
     # More conservative resource usage
     MAX_CONCURRENT_SCANS = int(os.getenv('MAX_CONCURRENT_SCANS', 5))
     MAX_CONCURRENT_CONNECTIONS = int(os.getenv('MAX_CONCURRENT_CONNECTIONS', 50))
