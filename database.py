@@ -398,9 +398,9 @@ class Database:
             logger.error(f"Error validating API key: {e}")
             return False, "Error validating API key"
 
-    async def find_user(self, query: Dict) -> Optional[Dict]:
+    async def find_user(self, query: Dict, include_targets: bool = False) -> Optional[Dict]:
         """Find user matching the query with caching."""
-        cache_key = self._cache_key('user', json.dumps(query, sort_keys=True))
+        cache_key = self._cache_key('user', json.dumps(query, sort_keys=True), str(include_targets))
         
         # Try to get from cache first
         if cached_user := await self._get_cache(cache_key):
@@ -415,6 +415,15 @@ class Database:
                 self.async_db = self.async_client[config.MONGO_DB_NAME]
 
             user = await self.async_db[config.MONGO_USER_COLLECTION].find_one(query)
+            if user and include_targets and user.get('target_ids'):
+                # Fetch target details if requested
+                targets = []
+                async for target in self.async_db[config.MONGO_TARGET_COLLECTION].find(
+                    {"_id": {"$in": user['target_ids']}}
+                ):
+                    targets.append(target)
+                user['targets'] = targets
+
             if user:
                 # Cache user data for 5 minutes
                 await self._set_cache(cache_key, user, 300)
