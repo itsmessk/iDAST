@@ -126,7 +126,7 @@ class Database:
     def _cache_key(self, prefix: str, *args) -> str:
         """Generate cache key from prefix and arguments."""
         key_parts = [str(arg) for arg in args]
-        key_string = f"{prefix}:{':'.join(key_parts)}"
+        key_string = f"{prefix}:{{':'.join(key_parts)}}"
         return f"{config.REDIS_PREFIX}:{hashlib.sha256(key_string.encode()).hexdigest()}"
         
     async def _get_cache(self, key: str) -> Optional[Dict]:
@@ -254,6 +254,7 @@ class Database:
             self.async_db = self.async_client[config.MONGO_DB_NAME]
             self.scan_collection = self.db[config.MONGO_SCAN_COLLECTION]
             self.user_collection = self.db[config.MONGO_USER_COLLECTION]
+            self.target_collection = self.db[config.MONGO_TARGET_COLLECTION]  # ADDED Target Collection
             
             # Create indexes
             self._create_indexes()
@@ -279,6 +280,11 @@ class Database:
             self.user_collection.create_index([("username", ASCENDING)], unique=True)
             self.user_collection.create_index([("email", ASCENDING)], unique=True)
             self.user_collection.create_index([("api_key", ASCENDING)], unique=True, sparse=True)
+            
+            # Target collection indexes
+            self.target_collection.create_index([("_id", ASCENDING)], unique=True) # ADDED Index
+            self.target_collection.create_index([("domain", ASCENDING)])       # ADDED Index
+            self.target_collection.create_index([("user_id", ASCENDING)])      # ADDED Index
             
             logger.info("Database indexes created successfully")
         except Exception as e:
@@ -398,9 +404,9 @@ class Database:
             logger.error(f"Error validating API key: {e}")
             return False, "Error validating API key"
 
-    async def find_user(self, query: Dict, include_targets: bool = False) -> Optional[Dict]:
+    async def find_user(self, query: Dict) -> Optional[Dict]:
         """Find user matching the query with caching."""
-        cache_key = self._cache_key('user', json.dumps(query, sort_keys=True), str(include_targets))
+        cache_key = self._cache_key('user', json.dumps(query, sort_keys=True))
         
         # Try to get from cache first
         if cached_user := await self._get_cache(cache_key):
@@ -415,15 +421,6 @@ class Database:
                 self.async_db = self.async_client[config.MONGO_DB_NAME]
 
             user = await self.async_db[config.MONGO_USER_COLLECTION].find_one(query)
-            if user and include_targets and user.get('target_ids'):
-                # Fetch target details if requested
-                targets = []
-                async for target in self.async_db[config.MONGO_TARGET_COLLECTION].find(
-                    {"_id": {"$in": user['target_ids']}}
-                ):
-                    targets.append(target)
-                user['targets'] = targets
-
             if user:
                 # Cache user data for 5 minutes
                 await self._set_cache(cache_key, user, 300)
@@ -574,6 +571,15 @@ class Database:
         except Exception as e:
             logger.error(f"Error cleaning up old scans: {e}")
             raise OperationError(f"Failed to clean up old scans: {e}")
+
+    async def get_target_by_id(self, target_id: str) -> Optional[Dict]:
+        """Retrieve a target by its ID."""
+        try:
+            target = await self.async_db[config.MONGO_TARGET_COLLECTION].find_one({"_id": target_id})
+            return target
+        except Exception as e:
+            logger.error(f"Error retrieving target: {e}")
+            return None
 
 # Create a global database instance
 db = Database()
