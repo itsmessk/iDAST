@@ -432,7 +432,9 @@ async def scan_domain():
 
         try:
             # Run all scans with timeout
-            async with asyncio.wait_for(config.TOTAL_SCAN_TIMEOUT):
+            async with asyncio.TaskGroup() as tg:
+                task = tg.create_task(vulnerability_scanner.initialize())
+                await asyncio.wait_for(task, timeout=config.TOTAL_SCAN_TIMEOUT)
             # Initialize scanner
                 await vulnerability_scanner.initialize()
                 
