@@ -432,141 +432,144 @@ async def scan_domain():
 
         try:
             # Run all scans with timeout
-            async with asyncio.TaskGroup() as tg:
-                task = tg.create_task(vulnerability_scanner.initialize())
+            task = asyncio.create_task(vulnerability_scanner.initialize())
+            try:
                 await asyncio.wait_for(task, timeout=config.TOTAL_SCAN_TIMEOUT)
-            # Initialize scanner
-                await vulnerability_scanner.initialize()
+            except asyncio.TimeoutError:
+                task.cancel()
+                raise
+            
+            await vulnerability_scanner.initialize()
                 
-                # Update scan status in database
-                if config.ENABLE_DATABASE:
-                    await db.update_scan_status(target_id, "in_progress", request_id)
-                
-                # Parse URL and validate domain
-                url = ensure_url_has_protocol(domain)
-                parsed_url = urlparse(url)
-                if not parsed_url.netloc:
-                    raise ValueError(f"Invalid domain: {domain}")
-                
-                # Select scan modules based on scan type
-                scan_modules = {}
-                if scan_type == 'quick':
-                    scan_modules = {
-                    'http_security': True,
-                    'website_health': True,
-                    'cors': True,
-                    'lfi': False,
-                    'ssrf': False,
-                    'sql_injection': False,
-                    'xss': True
-                    }
-                elif scan_type == 'full':
-                    scan_modules = {
-                    'http_security': True,
-                    'website_health': True,
-                    'cors': True,
-                    'lfi': True,
-                    'ssrf': True,
-                    'sql_injection': True,
-                    'xss': True,
-                    'template_injection': True,
-                    'crlf': True,
-                    'xxe': True,
-                    'subdomain': True,
-                    'dns_email': True
-                    }
-                elif scan_type == 'custom':
-                    # Use custom scan configuration from target
-                    scan_modules = scan_config.get('modules', {})
-                
-                # Run selected scan modules concurrently
-                tasks = []
-                
-                if scan_modules.get('http_security', False):
-                    tasks.append(http_security(url, self.session))
-                
-                if scan_modules.get('website_health', False):
-                    tasks.append(website_health(url, self.session))
-                
-                if scan_modules.get('cors', False):
-                    tasks.append(vulnerability_scanner.cors_scanner.scan(url, self.session))
-                
-                if scan_modules.get('lfi', False):
-                    tasks.append(vulnerability_scanner.lfi_scanner.scan(url, self.session))
-                
-                if scan_modules.get('ssrf', False):
-                    tasks.append(vulnerability_scanner.ssrf_scanner.scan(url, self.session))
-                
-                if scan_modules.get('sql_injection', False):
-                    tasks.append(vulnerability_scanner.sqlmap_scanner.scan(url, self.session))
-                
-                if scan_modules.get('xss', False):
-                    tasks.append(vulnerability_scanner.dalfox_scanner.scan(url, self.session))
-                
-                if scan_modules.get('template_injection', False):
-                    tasks.append(vulnerability_scanner.template_scanner.scan(url, self.session))
-                
-                if scan_modules.get('crlf', False):
-                    tasks.append(vulnerability_scanner.crlf_scanner.scan(url, self.session))
-                
-                if scan_modules.get('xxe', False):
-                    tasks.append(vulnerability_scanner.xxe_scanner.scan(url, self.session))
-                
-                if scan_modules.get('subdomain', False):
-                    tasks.append(subdomain_scanner(parsed_url.netloc, self.session))
-                
-                if scan_modules.get('dns_email', False):
-                    tasks.append(dns_email_security(parsed_url.netloc, self.session))
-                
-                # Execute all scans concurrently
-                scan_results_list = await asyncio.gather(*tasks, return_exceptions=True)
-                
-                # Process scan results
-                for i, result in enumerate(scan_results_list):
-                    if isinstance(result, Exception):
-                        logger.error(f"Error in scan module {i}: {str(result)}")
-                        continue
-                    
-                    # Merge scan results into the main results dictionary
-                    scan_results.update(result)
-                
-                # Mark scan as completed
-                scan_results["scan_status"] = "completed"
-                scan_results["scan_end_time"] = format_timestamp()
-                scan_results["scan_duration_seconds"] = (get_current_time() - start_time).total_seconds()
-                
-                # Calculate risk score based on findings
-                vulnerabilities = []
-                for module, module_results in scan_results.items():
-                    if isinstance(module_results, dict) and 'vulnerabilities' in module_results:
-                        vulnerabilities.extend(module_results['vulnerabilities'])
-                
-                # Calculate severity counts
-                severity_counts = {
-                    'critical': 0,
-                    'high': 0,
-                    'medium': 0,
-                    'low': 0,
-                    'info': 0
+            # Update scan status in database
+            if config.ENABLE_DATABASE:
+                await db.update_scan_status(target_id, "in_progress", request_id)
+            
+            # Parse URL and validate domain
+            url = ensure_url_has_protocol(domain)
+            parsed_url = urlparse(url)
+            if not parsed_url.netloc:
+                raise ValueError(f"Invalid domain: {domain}")
+            
+            # Select scan modules based on scan type
+            scan_modules = {}
+            if scan_type == 'quick':
+                scan_modules = {
+                'http_security': True,
+                'website_health': True,
+                'cors': True,
+                'lfi': False,
+                'ssrf': False,
+                'sql_injection': False,
+                'xss': True
                 }
+            elif scan_type == 'full':
+                scan_modules = {
+                'http_security': True,
+                'website_health': True,
+                'cors': True,
+                'lfi': True,
+                'ssrf': True,
+                'sql_injection': True,
+                'xss': True,
+                'template_injection': True,
+                'crlf': True,
+                'xxe': True,
+                'subdomain': True,
+                'dns_email': True
+                }
+            elif scan_type == 'custom':
+                # Use custom scan configuration from target
+                scan_modules = scan_config.get('modules', {})
+            
+            # Run selected scan modules concurrently
+            tasks = []
+            
+            if scan_modules.get('http_security', False):
+                tasks.append(http_security(url, self.session))
+            
+            if scan_modules.get('website_health', False):
+                tasks.append(website_health(url, self.session))
+            
+            if scan_modules.get('cors', False):
+                tasks.append(vulnerability_scanner.cors_scanner.scan(url, self.session))
+            
+            if scan_modules.get('lfi', False):
+                tasks.append(vulnerability_scanner.lfi_scanner.scan(url, self.session))
+            
+            if scan_modules.get('ssrf', False):
+                tasks.append(vulnerability_scanner.ssrf_scanner.scan(url, self.session))
+            
+            if scan_modules.get('sql_injection', False):
+                tasks.append(vulnerability_scanner.sqlmap_scanner.scan(url, self.session))
+            
+            if scan_modules.get('xss', False):
+                tasks.append(vulnerability_scanner.dalfox_scanner.scan(url, self.session))
+            
+            if scan_modules.get('template_injection', False):
+                tasks.append(vulnerability_scanner.template_scanner.scan(url, self.session))
+            
+            if scan_modules.get('crlf', False):
+                tasks.append(vulnerability_scanner.crlf_scanner.scan(url, self.session))
+            
+            if scan_modules.get('xxe', False):
+                tasks.append(vulnerability_scanner.xxe_scanner.scan(url, self.session))
+            
+            if scan_modules.get('subdomain', False):
+                tasks.append(subdomain_scanner(parsed_url.netloc, self.session))
+            
+            if scan_modules.get('dns_email', False):
+                tasks.append(dns_email_security(parsed_url.netloc, self.session))
+            
+            # Execute all scans concurrently
+            scan_results_list = await asyncio.gather(*tasks, return_exceptions=True)
+            
+            # Process scan results
+            for i, result in enumerate(scan_results_list):
+                if isinstance(result, Exception):
+                    logger.error(f"Error in scan module {i}: {str(result)}")
+                    continue
                 
-                for vuln in vulnerabilities:
-                    severity = vuln.get('severity', 'info').lower()
-                    if severity in severity_counts:
-                        severity_counts[severity] += 1
-                
-                # Calculate risk score (0-100)
-                risk_score = min(100, (
-                    severity_counts['critical'] * 20 +
-                    severity_counts['high'] * 10 +
-                    severity_counts['medium'] * 5 +
-                    severity_counts['low'] * 2 +
-                    severity_counts['info'] * 0.5
-                ))
-                
-                scan_results["risk_score"] = round(risk_score, 1)
-                scan_results["vulnerability_counts"] = severity_counts
-                scan_results["total_vulnerabilities"] = sum(severity_counts.values())
+                # Merge scan results into the main results dictionary
+                scan_results.update(result)
+            
+            # Mark scan as completed
+            scan_results["scan_status"] = "completed"
+            scan_results["scan_end_time"] = format_timestamp()
+            scan_results["scan_duration_seconds"] = (get_current_time() - start_time).total_seconds()
+            
+            # Calculate risk score based on findings
+            vulnerabilities = []
+            for module, module_results in scan_results.items():
+                if isinstance(module_results, dict) and 'vulnerabilities' in module_results:
+                    vulnerabilities.extend(module_results['vulnerabilities'])
+            
+            # Calculate severity counts
+            severity_counts = {
+                'critical': 0,
+                'high': 0,
+                'medium': 0,
+                'low': 0,
+                'info': 0
+            }
+            
+            for vuln in vulnerabilities:
+                severity = vuln.get('severity', 'info').lower()
+                if severity in severity_counts:
+                    severity_counts[severity] += 1
+            
+            # Calculate risk score (0-100)
+            risk_score = min(100, (
+                severity_counts['critical'] * 20 +
+                severity_counts['high'] * 10 +
+                severity_counts['medium'] * 5 +
+                severity_counts['low'] * 2 +
+                severity_counts['info'] * 0.5
+            ))
+            
+            scan_results["risk_score"] = round(risk_score, 1)
+            scan_results["vulnerability_counts"] = severity_counts
+            scan_results["total_vulnerabilities"] = sum(severity_counts.values())
 
         except asyncio.TimeoutError:
             scan_results.update({
