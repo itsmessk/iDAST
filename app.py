@@ -149,14 +149,13 @@ def require_api_key(f):
             # Add user to request context
             request.user = user
             
-            # Add warning header if API key is expiring soon
-            if warning := user.get('warning'):
-                request.headers['X-API-Key-Warning'] = warning
-
-            # Add API key to request context for later verification
-            request.api_key = api_key
-            
             return await f(*args, **kwargs)
+        except RuntimeError as e:
+            logger.error(f"Runtime error: {e}")
+            return jsonify({
+                "error": "Server error",
+                "message": str(e)
+            }), 500
         except Exception as e:
             logger.error(f"Authentication error: {e}")
             return jsonify({
@@ -166,7 +165,6 @@ def require_api_key(f):
             }), 500
 
     return decorated
-
 # def validate_request_data(data: Dict) -> Optional[tuple]:
 #     """Validate request data."""
 #     if not data:
@@ -736,7 +734,9 @@ async def shutdown_event():
         logger.info("Database connection closed successfully.")
     except Exception as e:
         logger.error(f"Error during shutdown cleanup: {e}")
-
+        
+        
+# Register shutdown handler
 # Register shutdown handler
 signal.signal(signal.SIGTERM, lambda s, f: asyncio.create_task(shutdown_event()))
 signal.signal(signal.SIGINT, lambda s, f: asyncio.create_task(shutdown_event()))

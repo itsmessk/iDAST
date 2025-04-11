@@ -389,12 +389,15 @@ class Database:
         Returns: (user_data, error_code, error_message)
         """
         try:
+            if not asyncio.get_event_loop().is_running():
+                raise RuntimeError("Event loop is not running. Cannot validate API key.")
+            
             if not api_key:
                 return None, "invalid_key", "No API key provided"
 
-            user = await self.find_user({"api_key": api_key})
-            if user is None:
-                return None, "invalid_key", "Invalid API key"
+            user = await self.async_db[config.MONGO_USER_COLLECTION].find_one({"api_key": api_key})
+            if not user:
+                return None, "invalid_key", "API key is invalid"
 
             # Check if API key is active
             if user.get('api_key_status', 'active') != 'active':
@@ -405,6 +408,7 @@ class Database:
                 return None, "invalid_key", "API key mismatch"
 
             return user, None, None
+        
         except Exception as e:
             logger.error(f"Error validating API key: {e}")
             return None, "validation_error", str(e)
