@@ -20,6 +20,7 @@ class BaseConfig:
     MONGO_DB_NAME = os.getenv('MONGO_DB_NAME', 'secpro')
     MONGO_SCAN_COLLECTION = os.getenv('MONGO_SCAN_COLLECTION', 'scan')
     MONGO_USER_COLLECTION = os.getenv('MONGO_USER_COLLECTION', 'users')
+    MONGO_TARGET_COLLECTION = os.getenv('MONGO_TARGET_COLLECTION', 'targets')
     MONGO_POOL_SIZE = int(os.getenv('MONGO_POOL_SIZE', 50))  # Reduced pool size
     MONGO_CONNECT_TIMEOUT = int(os.getenv('MONGO_CONNECT_TIMEOUT', 3000))  # Reduced timeout
     MONGO_MAX_IDLE_TIME = int(os.getenv('MONGO_MAX_IDLE_TIME', 15000))  # 15 seconds idle time
