@@ -36,6 +36,113 @@ class CORSScanner:
         self.session = None
         self.semaphore = None
 
+    async def scan(self, url, session):
+        """
+        Main entry point for CORS scanning. This method is called from app.py.
+        
+        Args:
+            url (str): The main URL/domain to scan
+            session (aiohttp.ClientSession): The session to use for HTTP requests
+            
+        Returns:
+            dict: Results of the CORS scan
+        """
+        try:
+            logger.info(f"Starting CORS scan for {url}")
+            
+            # Check if subdomain scan results are available
+            from subdomain_scanner import subdomain_scan_results
+            
+            urls_to_scan = []
+            
+            if subdomain_scan_results:
+                # First, add all discovered subdomains as URLs to scan
+                if subdomain_scan_results.get("subdomains"):
+                    urls_to_scan.extend(subdomain_scan_results.get("subdomains", []))
+                
+                # Next, add URLs from wayback data
+                if subdomain_scan_results.get("wayback_urls"):
+                    for subdomain, wayback_urls in subdomain_scan_results.get("wayback_urls", {}).items():
+                        urls_to_scan.extend(wayback_urls)
+                
+                # Finally, add URLs with parameters from paramspider data
+                if subdomain_scan_results.get("paramspider_urls"):
+                    for subdomain, param_urls in subdomain_scan_results.get("paramspider_urls", {}).items():
+                        urls_to_scan.extend(param_urls)
+                
+                # Add all URLs from the combined list
+                if subdomain_scan_results.get("all_urls"):
+                    urls_to_scan.extend(subdomain_scan_results.get("all_urls", []))
+                
+                logger.info(f"Using {len(urls_to_scan)} URLs from subdomain scan for CORS testing")
+            
+            # If no URLs from subdomain scan, use the provided URL
+            if not urls_to_scan:
+                logger.warning("No subdomain scan results available, using only the provided URL")
+                urls_to_scan = [url]
+            
+            # Remove duplicates
+            urls_to_scan = list(set(urls_to_scan))
+            
+            # Limit the number of URLs to scan for performance
+            max_urls = 100
+            if len(urls_to_scan) > max_urls:
+                logger.info(f"Limiting CORS scan to {max_urls} URLs")
+                urls_to_scan = urls_to_scan[:max_urls]
+            
+            # Use the provided session if available, otherwise initialize our own
+            if session:
+                self.session = session
+            else:
+                await self.initialize()
+            
+            # Scan the URLs
+            scan_results = await self.scan_urls(urls_to_scan)
+            
+            # Format the results
+            vulnerabilities = []
+            for url, result in scan_results.items():
+                if result and result.get('is_vulnerable'):
+                    for vuln in result.get('vulnerabilities', []):
+                        vulnerabilities.append({
+                            'url': url,
+                            'type': vuln.get('type', 'CORS Misconfiguration'),
+                            'origin': vuln.get('origin', ''),
+                            'acao': vuln.get('acao', ''),
+                            'acac': vuln.get('acac', ''),
+                            'severity': vuln.get('severity', 'Medium'),
+                            'description': vuln.get('description', '')
+                        })
+            
+            # Get unique recommendations
+            recommendations = set()
+            for _, result in scan_results.items():
+                if result and result.get('is_vulnerable'):
+                    recommendations.update(result.get('recommendations', []))
+            
+            return {
+                "cors_scan": {
+                    "status": "completed",
+                    "urls_scanned": len(urls_to_scan),
+                    "vulnerabilities_found": len(vulnerabilities),
+                    "vulnerabilities": vulnerabilities,
+                    "recommendations": list(recommendations) if vulnerabilities else []
+                }
+            }
+            
+        except Exception as e:
+            logger.error(f"Error in CORS scan: {e}")
+            return {
+                "cors_scan": {
+                    "status": "error",
+                    "error": str(e)
+                }
+            }
+        finally:
+            # Only close the session if we created it
+            if session is None and self.session:
+                await self.cleanup()
+
     async def initialize(self):
         """Initialize scanner resources."""
         if not self.session:
@@ -65,7 +172,6 @@ class CORSScanner:
         """
         try:
             logger.info(f"Starting CORS scan for {len(urls)} URLs")
-            await self.initialize()
             
             results = {}
             tasks = []
@@ -76,9 +182,10 @@ class CORSScanner:
                 tasks.append(task)
             
             # Execute tasks in batches to prevent overwhelming the target
-            for batch in self._batch_tasks(tasks, batch_size=10):
+            for i, batch in enumerate(self._batch_tasks(tasks, batch_size=10)):
+                logger.info(f"Processing CORS scan batch {i+1}/{(len(tasks) + 9) // 10}")
                 batch_results = await asyncio.gather(*batch, return_exceptions=True)
-                for url, result in zip(urls, batch_results):
+                for url, result in zip(urls[i*10:i*10+len(batch)], batch_results):
                     if isinstance(result, Exception):
                         logger.error(f"Error scanning {url}: {result}")
                     elif result:
@@ -89,8 +196,6 @@ class CORSScanner:
         except Exception as e:
             logger.error(f"Error in CORS scan: {e}")
             return {}
-        finally:
-            await self.cleanup()
 
     def _batch_tasks(self, tasks, batch_size):
         """Split tasks into batches."""
@@ -102,111 +207,6 @@ class CORSScanner:
         Scan a URL with retry mechanism.
         
         Args:
-            url (str): URL to scan.
-            
-        Returns:
-            dict: Scan results for the URL.
-        """
-        for attempt in range(self.max_retries):
-            try:
-                async with self.semaphore:
-                    return await self._scan_url(url)
-            except aiohttp.ClientError as e:
-                if attempt == self.max_retries - 1:
-                    logger.error(f"Max retries reached for {url}: {e}")
-                    raise
-                await asyncio.sleep(2 ** attempt)  # Exponential backoff
-            except Exception as e:
-                logger.error(f"Unexpected error scanning {url}: {e}")
-                raise
-
-    async def _scan_url(self, url):
-        """
-        Test a single URL for CORS misconfigurations.
-        
-        Args:
-            url (str): URL to test.
-            
-        Returns:
-            dict: Vulnerability details if found, None otherwise.
-        """
-        try:
-            parsed_url = urlparse(url)
-            target_domain = parsed_url.netloc
-            vulnerabilities = []
-            
-            for test_origin in self.test_origins:
-                # Replace placeholder with actual domain
-                origin = test_origin.replace('{target_domain}', target_domain)
-                
-                try:
-                    # Test CORS configuration
-                    async with self.session.get(
-                        url,
-                        headers={'Origin': origin},
-                        allow_redirects=False
-                    ) as response:
-                        acao = response.headers.get('Access-Control-Allow-Origin')
-                        acac = response.headers.get('Access-Control-Allow-Credentials')
-                        
-                        if acao:
-                            vuln = self._analyze_cors_headers(origin, acao, acac)
-                            if vuln:
-                                vulnerabilities.append(vuln)
-                
-                except asyncio.TimeoutError:
-                    logger.warning(f"Timeout testing origin {origin} for {url}")
-                    continue
-                except Exception as e:
-                    logger.error(f"Error testing origin {origin} for {url}: {e}")
-                    continue
-
-            if vulnerabilities:
-                result = {
-                    'is_vulnerable': True,
-                    'vulnerabilities': vulnerabilities,
-                    'recommendations': self._get_recommendations(vulnerabilities),
-                    'risk_level': self._calculate_risk_level(vulnerabilities),
-                    'timestamp': datetime.utcnow().isoformat()
-                }
-                
-                # Save detailed results
-                self._save_results(url, result)
-                return result
-
-            return None
-
-        except Exception as e:
-            logger.error(f"Error scanning URL {url}: {e}")
-            return None
-
-    def _analyze_cors_headers(self, origin, acao, acac):
-        """Analyze CORS headers for vulnerabilities."""
-        if acao == '*' and acac == 'true':
-            return {
-                'type': 'Wildcard with Credentials',
-                'origin': origin,
-                'acao': acao,
-                'acac': acac,
-                'severity': 'High',
-                'description': 'Wildcard origin with credentials allowed, enabling any domain to access sensitive data'
-            }
-        elif acao == 'null':
-            return {
-                'type': 'Null Origin Allowed',
-                'origin': origin,
-                'acao': acao,
-                'acac': acac,
-                'severity': 'High',
-                'description': 'Null origin allowed, potentially enabling sandbox bypass attacks'
-            }
-        elif origin in acao and '.attacker.com' in origin:
-            return {
-                'type': 'Dangerous Origin Allowed',
-                'origin': origin,
-                'acao': acao,
-                'acac': acac,
-                'severity': 'High',
                 'description': 'Potentially dangerous origin allowed due to misconfiguration'
             }
         elif origin == acao and acac == 'true':
