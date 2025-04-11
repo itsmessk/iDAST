@@ -476,13 +476,40 @@ class Database:
         Returns: (user_data, error_code, error_message)
         """
         try:
-            if not asyncio.get_event_loop().is_running():
-                raise RuntimeError("Event loop is not running. Cannot validate API key.")
-            
+            # Check if API key is provided
             if not api_key:
                 return None, "invalid_key", "No API key provided"
-
-            user = await self.async_db[config.MONGO_USER_COLLECTION].find_one({"api_key": api_key})
+            
+            # Check if event loop is running
+            try:
+                loop = asyncio.get_event_loop()
+                if not loop.is_running():
+                    # Try to create a new event loop if the current one is closed
+                    asyncio.set_event_loop(asyncio.new_event_loop())
+                    logger.warning("Created new event loop for API key validation")
+            except RuntimeError:
+                # If we can't get the event loop, create a new one
+                asyncio.set_event_loop(asyncio.new_event_loop())
+                logger.warning("Created new event loop for API key validation")
+            
+            # Check if database connection is active, reconnect if needed
+            if self.async_client is None or self.async_db is None:
+                logger.info("Reconnecting to MongoDB for API key validation")
+                self.connect()
+            
+            # Find user by API key
+            try:
+                user = await self.async_db[config.MONGO_USER_COLLECTION].find_one({"api_key": api_key})
+            except Exception as db_error:
+                # If database operation fails, try to reconnect and retry once
+                if "Event loop is closed" in str(db_error):
+                    logger.warning("Event loop closed during database operation, reconnecting")
+                    self.connect()
+                    user = await self.async_db[config.MONGO_USER_COLLECTION].find_one({"api_key": api_key})
+                else:
+                    raise
+            
+            # Validate the user and API key
             if not user:
                 return None, "invalid_key", "API key is invalid"
 
@@ -498,6 +525,9 @@ class Database:
         
         except Exception as e:
             logger.error(f"Error validating API key: {e}")
+            # Provide a more user-friendly error message for event loop issues
+            if "Event loop is closed" in str(e):
+                return None, "validation_error", "Server connection error. Please try again."
             return None, "validation_error", str(e)
 
     async def find_user(self, query: Dict) -> Optional[Dict]:
