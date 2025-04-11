@@ -282,15 +282,16 @@ class Database:
             self.user_collection.create_index([("api_key", ASCENDING)], unique=True, sparse=True)
             
             # Target collection indexes
-            self.target_collection.create_index([("_id", ASCENDING)], unique=True) # ADDED Index
-            self.target_collection.create_index([("domain", ASCENDING)])       # ADDED Index
-            self.target_collection.create_index([("user_id", ASCENDING)])      # ADDED Index
-            
+            self.target_collection.create_index([("_id", ASCENDING)])  # Corrected line: removed unique=True
+            self.target_collection.create_index([("domain", ASCENDING)])
+            self.target_collection.create_index([("user_id", ASCENDING)])
+        
             logger.info("Database indexes created successfully")
         except Exception as e:
             logger.error(f"Error creating indexes: {e}")
             raise OperationError(f"Failed to create indexes: {e}")
-    
+
+
     async def close(self):
         """Close all database connections."""
         if self.client:
